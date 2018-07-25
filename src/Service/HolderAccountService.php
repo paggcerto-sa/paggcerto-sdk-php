@@ -5,13 +5,18 @@
  * Time: 15:51
  */
 
-namespace Paggcerto\Resource;
+namespace Paggcerto\Service;
 
 use stdClass;
 
-class HolderAccountResource extends PaggcertoResource
+class HolderAccountService extends PaggcertoService
 {
+    const SIGNUP_SELLER = "%s/signup/seller";
 
+    public function getHolderFullName()
+    {
+        return $this->data->holder->fullName;
+    }
     public function setHolderFullName($fullname)
     {
         $this->data->holder->fullName = $fullname;
@@ -21,7 +26,7 @@ class HolderAccountResource extends PaggcertoResource
 
     public function setBirthDate($birthDate)
     {
-        $this->data->hoder->birthDate = $birthDate;
+        $this->data->holder->birthDate = $birthDate;
 
         return $this;
     }
@@ -61,6 +66,12 @@ class HolderAccountResource extends PaggcertoResource
         return $this;
     }
 
+    public function setCompanyTradeName($tradeName)
+    {
+        $this->data->holder->company->tradeName = $tradeName;
+
+        return $this;
+    }
     public function setCompanyFullName($companyFullName)
     {
         $this->data->holder->company->fullName = $companyFullName;
@@ -138,9 +149,60 @@ class HolderAccountResource extends PaggcertoResource
         return $this;
     }
 
+    public function setBankBranchNumber($bankBranchNumber)
+    {
+        $this->data->bankAccount->bankBranchNumber = $bankBranchNumber;
+
+        return $this;
+    }
+
+    public function setBankAccountVariation($bankVariation)
+    {
+        $this->data->bankAccount->variation = $bankVariation;
+
+        return $this;
+    }
+
+    public function setBankAccountType($bankType)
+    {
+        $this->data->bankAccount->type = $bankType;
+
+        return $this;
+    }
+
+    public function setUserEmail($userEmail)
+    {
+        $this->data->user->email = $userEmail;
+
+        return $this;
+    }
+
+    public function setUserPassword($userPassword)
+    {
+        $this->data->user->password = $userPassword;
+
+        return $this;
+    }
+
+    public function setBusinessActivityId($businessActivityId)
+    {
+        $this->data->businessActivityId = $businessActivityId;
+
+        return $this;
+    }
+
+    public function setTransferDays($transferDays)
+    {
+        $this->data->transferDays = $transferDays;
+
+        return $this;
+    }
+
     public function createHolderAccount()
     {
-
+        $urlPath = sprintf("%s/%s/%s", self::ACCOUNT_VERSION, $this->paggcerto->getApplicationNumber(),
+            self::SIGNUP_SELLER);
+        return $this->createRequest($urlPath);
     }
 
     protected function initialize()
@@ -157,5 +219,9 @@ class HolderAccountResource extends PaggcertoResource
     {
         $holderAccount = clone $this;
         $holderAccount->data->holder = new stdClass();
+
+        print($response);
+        $holder = $this->getIfSet("holder", $response);
+
     }
 }

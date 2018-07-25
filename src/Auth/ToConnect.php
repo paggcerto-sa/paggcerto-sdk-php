@@ -20,15 +20,16 @@ class ToConnect implements JsonSerializable
     private $endpoint;
     private $session;
 
-    public function __construct(Authentication $paggcertoAuthentication, $endpoint = Paggcerto::ACCOUNT_ENDPOINT_SANDBOX,
-                                $applicationNumber)
+    public function __construct(Authentication $paggcertoAuthentication, $applicationNumber,
+                                $endpoint = Paggcerto::ACCOUNT_ENDPOINT_SANDBOX)
     {
         $this->paggcertoAuthentication = $paggcertoAuthentication;
         $this->applicationNumber = $applicationNumber;
         $this->endpoint = sprintf($this->oauth_token, $this->applicationNumber);
     }
 
-    public function createNewSession($timeout = 30.0, $connect_timeout = 30.0)
+    public
+    function createNewSession($timeout = 30.0, $connect_timeout = 30.0)
     {
         $user_agent = sprintf('%s/%s (+https://github.com/paggcerto-sa/paggcerto-sdk-php/)', Paggcerto::CLIENT,
             Paggcerto::CLIENT_VERSION);
@@ -42,7 +43,19 @@ class ToConnect implements JsonSerializable
         return $sess;
     }
 
-    public function getAuthUrl($endpoint = null)
+    /**
+     * Returns the http session created.
+     *
+     * @return Requests_Session
+     */
+    public
+    function getSession()
+    {
+        return $this->session;
+    }
+
+    public
+    function getAuthUrl($endpoint = null)
     {
         if ($endpoint !== null) {
             $this->endpoint = $endpoint;
@@ -50,13 +63,20 @@ class ToConnect implements JsonSerializable
         return $endpoint;
     }
 
-    public function authorize()
+    public
+    function authorize()
     {
         $urlPath = $this->endpoint . $this->oauth_token;
         $headers = ["Content-Type" => "application/json"];
         $body = [
 
         ];
+    }
+
+    public
+    function getApplicationNumber()
+    {
+        return $this->applicationNumber;
     }
 
     function jsonSerialize()
