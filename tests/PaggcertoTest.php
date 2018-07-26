@@ -25,7 +25,8 @@ class PaggcertoTest extends TestCase
             ->setPhone("7930303030")
             ->setMobile("79999999999")
             ->setTradeName("Empresa fantasia " . rand(0, 99999999))
-            ->setCompanyFullName("Empresa fantasia compania limitada");
+            ->setCompanyFullName("Empresa fantasia compania limitada")
+            ->createHolderAccount();
 
         $this->assertTrue(true);
     }
