@@ -47,8 +47,7 @@ class ToConnect implements JsonSerializable
      *
      * @return Requests_Session
      */
-    public
-    function getSession()
+    public function getSession()
     {
         return $this->session;
     }
