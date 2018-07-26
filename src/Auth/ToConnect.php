@@ -20,8 +20,8 @@ class ToConnect implements JsonSerializable
     private $endpoint;
     private $session;
 
-    public function __construct(Authentication $paggcertoAuthentication, $endpoint = Paggcerto::ACCOUNT_ENDPOINT_SANDBOX,
-                                $applicationNumber)
+    public function __construct(Authentication $paggcertoAuthentication, $applicationNumber,
+                                $endpoint = Paggcerto::ACCOUNT_ENDPOINT_SANDBOX)
     {
         $this->paggcertoAuthentication = $paggcertoAuthentication;
         $this->applicationNumber = $applicationNumber;
@@ -42,7 +42,18 @@ class ToConnect implements JsonSerializable
         return $sess;
     }
 
-    public function getAuthUrl($endpoint = null)
+    /**
+     * Returns the http session created.
+     *
+     * @return Requests_Session
+     */
+    public function getSession()
+    {
+        return $this->session;
+    }
+
+    public
+    function getAuthUrl($endpoint = null)
     {
         if ($endpoint !== null) {
             $this->endpoint = $endpoint;
@@ -57,6 +68,11 @@ class ToConnect implements JsonSerializable
         $body = [
 
         ];
+    }
+
+    public function getApplicationNumber()
+    {
+        return $this->applicationNumber;
     }
 
     function jsonSerialize()
