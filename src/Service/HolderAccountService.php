@@ -17,6 +17,7 @@ class HolderAccountService extends PaggcertoService
     {
         return $this->data->holder->fullName;
     }
+
     public function setHolderFullName($fullname)
     {
         $this->data->holder->fullName = $fullname;
@@ -72,6 +73,7 @@ class HolderAccountService extends PaggcertoService
 
         return $this;
     }
+
     public function setCompanyFullName($companyFullName)
     {
         $this->data->holder->company->fullName = $companyFullName;
@@ -221,6 +223,7 @@ class HolderAccountService extends PaggcertoService
         $holderAccount->data->holder = new stdClass();
 
         print($response);
+
         $holder = $this->getIfSet("holder", $response);
 
     }

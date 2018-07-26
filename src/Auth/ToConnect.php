@@ -61,8 +61,7 @@ class ToConnect implements JsonSerializable
         return $endpoint;
     }
 
-    public
-    function authorize()
+    public function authorize()
     {
         $urlPath = $this->endpoint . $this->oauth_token;
         $headers = ["Content-Type" => "application/json"];
@@ -71,8 +70,7 @@ class ToConnect implements JsonSerializable
         ];
     }
 
-    public
-    function getApplicationNumber()
+    public function getApplicationNumber()
     {
         return $this->applicationNumber;
     }
