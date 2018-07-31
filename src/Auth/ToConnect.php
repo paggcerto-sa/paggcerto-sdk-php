@@ -25,7 +25,7 @@ class ToConnect implements JsonSerializable
     {
         $this->paggcertoAuthentication = $paggcertoAuthentication;
         $this->applicationNumber = $applicationNumber;
-        $this->endpoint = sprintf($this->oauth_token, $this->applicationNumber);
+        $this->endpoint = $endpoint;
     }
 
     public function createNewSession($timeout = 30.0, $connect_timeout = 30.0)
