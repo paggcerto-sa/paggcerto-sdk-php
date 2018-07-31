@@ -36,7 +36,7 @@
   </component>
   <component name="PhpUnit">
     <phpunit_settings>
-      <PhpUnitSettings load_method="CUSTOM_LOADER" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" />
+      <PhpUnitSettings load_method="PHPUNIT_PHAR" configuration_file_path="$PROJECT_DIR$/vendor/autoload.php" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" phpunit_phar_path="D:/Temp/phpunit-5.6.8.phar" />
     </phpunit_settings>
   </component>
 </project>

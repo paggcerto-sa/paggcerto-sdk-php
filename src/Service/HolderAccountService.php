@@ -222,8 +222,6 @@ class HolderAccountService extends PaggcertoService
         $holderAccount = clone $this;
         $holderAccount->data->holder = new stdClass();
 
-        print($response);
-
         $holder = $this->getIfSet("holder", $response);
 
     }
