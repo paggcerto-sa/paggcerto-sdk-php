@@ -123,4 +123,4 @@ fabric.properties
 
 /vendor/
 
-index.php
+src/index.php

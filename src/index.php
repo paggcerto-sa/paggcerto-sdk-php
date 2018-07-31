@@ -4,19 +4,19 @@
  * Date: 30/07/2018
  * Time: 17:04
  */
-require "vendor/autoload.php";
+require "../vendor/autoload.php";
 
 use Paggcerto\Auth\Auth;
 use Paggcerto\Paggcerto;
 use Paggcerto\Service\CityService;
 
 
-public function test()
+function test()
 {
     $paggSandbox = new Paggcerto(new Auth(), "vL");
     $paggSandbox->createNewSession();
     $cities = $paggSandbox->city()->getRequest(sprintf(CityService::SEARCH_CITIES, "SE"));
-    echo $cities;
+    echo (json_encode($cities));
 }
 ?>
 <html>
