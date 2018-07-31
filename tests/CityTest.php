@@ -8,7 +8,18 @@
 namespace Paggcerto\Tests;
 
 
-class CityTest
-{
+use Paggcerto\Auth\Auth;
+use Paggcerto\Paggcerto;
+use Paggcerto\Service\CityService;
 
+class CityTest extends TestCase
+{
+    public function testMustGetCities()
+    {
+        $paggcerto = new Paggcerto(new Auth(), "vL");
+        $paggcerto->createNewSession();
+        $cities = $paggcerto->city()->getRequest(sprintf(CityService::SEARCH_CITIES, "SE"));
+
+        $this->assertNotEmpty($cities);
+    }
 }

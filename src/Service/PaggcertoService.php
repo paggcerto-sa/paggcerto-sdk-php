@@ -24,7 +24,7 @@ abstract class PaggcertoService implements JsonSerializable
     protected $paggcerto;
     protected $data;
 
-    public function  __construct(Paggcerto $paggcerto)
+    public function __construct(Paggcerto $paggcerto)
     {
         $this->paggcerto = $paggcerto;
         $this->data = new stdClass();
@@ -33,7 +33,16 @@ abstract class PaggcertoService implements JsonSerializable
 
     abstract protected function initialize();
 
-    abstract protected function populate(stdClass $response);
+    public function getRequest($path)
+    {
+        $response = $this->httpRequest($path, Requests::GET);
+
+        if (is_array($response)) {
+            $response = (object)$response;
+        }
+
+        return $this->populate($response);
+    }
 
     protected function httpRequest($path, $method, $payload = null, $headers = [])
     {
@@ -69,16 +78,8 @@ abstract class PaggcertoService implements JsonSerializable
         throw new UnexpectedException();
     }
 
-    public function getRequest($path)
-    {
-        $response = $this->httpRequest($path, Requests::GET);
+    abstract protected function populate(stdClass $response);
 
-        if (is_array($response)) {
-            $response = (object) $response;
-        }
-
-        return $this->populate($response);
-    }
     public function createRequest($path)
     {
         $response = $this->httpRequest($path, Requests::POST, $this);
@@ -98,16 +99,6 @@ abstract class PaggcertoService implements JsonSerializable
         return $response = $this->httpRequest($path, Requests::DELETE);
     }
 
-    protected function getIfSet($key, stdClass $data = null)
-    {
-        if (empty($data)) {
-            $data = $this->data;
-        }
-
-        if (isset($data->$key)) {
-            return $data->$key;
-        }
-    }
     /**
      * Specify data which should be serialized to JSON
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
@@ -118,5 +109,16 @@ abstract class PaggcertoService implements JsonSerializable
     public function jsonSerialize()
     {
         // TODO: Implement jsonSerialize() method.
+    }
+
+    protected function getIfSet($key, stdClass $data = null)
+    {
+        if (empty($data)) {
+            $data = $this->data;
+        }
+
+        if (isset($data->$key)) {
+            return $data->$key;
+        }
     }
 }

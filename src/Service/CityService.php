@@ -18,14 +18,21 @@ class CityService extends PaggcertoService
     protected function initialize()
     {
         $this->data = new stdClass();
-        $this->data->cities = new stdClass();
+        $this->data->cities = [];
     }
 
     protected function populate(stdClass $response)
     {
         $city = clone $this;
-        $this->data->cities = new stdClass();
-        $city = $this->getIfSet("cities", $response);
-        return $city;
+        $this->data->cities = [];
+        foreach ($response as $city) {
+            $temp = new stdClass();
+            $temp->code = $this->getIfSet("code", $city);
+            $temp->name = $this->getIfSet("name", $city);
+            $temp->state = $this->getIfSet("state", $city);
+            array_push($this->data->cities, $temp);
+        }
+
+        return $this->data->cities;
     }
 }
