@@ -25,7 +25,7 @@ class CityService extends PaggcertoService
     {
         $city = clone $this;
         $this->data->cities = [];
-        foreach ($response as $city) {
+        foreach ($response->cities as $city) {
             $temp = new stdClass();
             $temp->code = $this->getIfSet("code", $city);
             $temp->name = $this->getIfSet("name", $city);

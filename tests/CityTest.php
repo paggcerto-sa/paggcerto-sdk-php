@@ -19,6 +19,7 @@ class CityTest extends TestCase
         $paggcerto = new Paggcerto(new Auth(), "vL");
         $paggcerto->createNewSession();
         $cities = $paggcerto->city()->getRequest(sprintf(CityService::SEARCH_CITIES, "SE"));
+        $paggcerto->city()->
 
         $this->assertNotEmpty($cities);
     }
