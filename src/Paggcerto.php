@@ -3,6 +3,8 @@
 namespace Paggcerto;
 
 use Paggcerto\Auth\ToConnect;
+use Paggcerto\Service\BankService;
+use Paggcerto\Service\BusinessTypeService;
 use Paggcerto\Service\CityService;
 use Paggcerto\Service\HolderAccountService;
 
@@ -23,5 +25,15 @@ class Paggcerto extends ToConnect
     public function city()
     {
         return new CityService($this);
+    }
+
+    public function businessType()
+    {
+        return new BusinessTypeService($this);
+    }
+
+    public function banks()
+    {
+        return new BankService($this);
     }
 }
