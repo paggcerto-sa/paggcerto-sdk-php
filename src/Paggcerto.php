@@ -4,6 +4,7 @@ namespace Paggcerto;
 
 use Paggcerto\Auth\ToConnect;
 use Paggcerto\Service\BankService;
+use Paggcerto\Service\BusinessActivityService;
 use Paggcerto\Service\BusinessTypeService;
 use Paggcerto\Service\CityService;
 use Paggcerto\Service\HolderAccountService;
@@ -17,7 +18,7 @@ class Paggcerto extends ToConnect
     const CLIENT = "PaggcertoPhpSdk";
     const CLIENT_VERSION = "0.0.1-beta";
 
-    public function accounts()
+    public function account()
     {
         return new HolderAccountService($this);
     }
@@ -32,8 +33,13 @@ class Paggcerto extends ToConnect
         return new BusinessTypeService($this);
     }
 
-    public function banks()
+    public function bank()
     {
         return new BankService($this);
+    }
+
+    public function businessActivity()
+    {
+        return new BusinessActivityService($this);
     }
 }

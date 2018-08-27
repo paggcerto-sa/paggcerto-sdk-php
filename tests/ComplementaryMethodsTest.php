@@ -10,9 +10,6 @@ namespace Paggcerto\Tests;
 
 use Paggcerto\Auth\Auth;
 use Paggcerto\Paggcerto;
-use Paggcerto\Service\BankService;
-use Paggcerto\Service\BusinessTypeService;
-use Paggcerto\Service\CityService;
 
 class ComplementaryMethodsTest extends TestCase
 {
@@ -20,7 +17,7 @@ class ComplementaryMethodsTest extends TestCase
     {
         $paggcerto = new Paggcerto(new Auth(), "vL");
         $paggcerto->createNewSession();
-        $cities = $paggcerto->city()->getRequest(sprintf(CityService::SEARCH_CITIES, "SE"));
+        $cities = $paggcerto->city()->getRequest(["SE"]);
 
         $this->assertNotEmpty($cities);
         $this->assertTrue(count($cities) > 0);
@@ -30,7 +27,7 @@ class ComplementaryMethodsTest extends TestCase
     {
         $paggcerto = new Paggcerto(new Auth(), "vL");
         $paggcerto->createNewSession();
-        $businessTypes = $paggcerto->businessType()->getRequest(BusinessTypeService::SEARCH_BUSINESS_TYPES);
+        $businessTypes = $paggcerto->businessType()->getRequest();
 
         $this->assertNotEmpty($businessTypes);
         $this->assertTrue(count($businessTypes) > 0);
@@ -40,9 +37,19 @@ class ComplementaryMethodsTest extends TestCase
     {
         $paggcerto = new Paggcerto(new Auth(), "vL");
         $paggcerto->createNewSession();
-        $banks = $paggcerto->banks()->getRequest(BankService::SEARCH_BANKS);
+        $banks = $paggcerto->bank()->getRequest();
 
         $this->assertNotEmpty($banks);
         $this->assertTrue(count($banks) > 0);
+    }
+
+    public function testMustGetBusinessActivities()
+    {
+        $paggcerto = new Paggcerto(new Auth(), "vL");
+        $paggcerto->createNewSession();
+        $businessActivities = $paggcerto->businessActivity()->getRequest();
+
+        $this->assertNotEmpty($businessActivities);
+        $this->assertTrue(count($businessActivities) > 0);
     }
 }

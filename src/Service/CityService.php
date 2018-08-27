@@ -13,14 +13,32 @@ use stdClass;
 class CityService extends PaggcertoService
 {
 
-    const SEARCH_CITIES = "v2/cities/%s";
+    const SEARCH_CITIES = "v2/cities";
 
+    /**
+     * @param array $routeParams
+     * @param array $queryString
+     * @param string $path
+     * @return mixed
+     */
+    public function getRequest($routeParams = [], $queryString = [], $path = CityService::SEARCH_CITIES)
+    {
+        return parent::getRequest($routeParams, $queryString, $path);
+    }
+
+    /**
+     * @return mixed|void
+     */
     protected function initialize()
     {
         $this->data = new stdClass();
         $this->data->cities = [];
     }
 
+    /**
+     * @param stdClass $response
+     * @return mixed
+     */
     protected function populate(stdClass $response)
     {
         $city = clone $this;

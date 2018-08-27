@@ -52,8 +52,7 @@ class ToConnect implements JsonSerializable
         return $this->session;
     }
 
-    public
-    function getAuthUrl($endpoint = null)
+    public function getAuthUrl($endpoint = null)
     {
         if ($endpoint !== null) {
             $this->endpoint = $endpoint;
