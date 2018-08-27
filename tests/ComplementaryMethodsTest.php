@@ -11,6 +11,10 @@ namespace Paggcerto\Tests;
 use Paggcerto\Auth\Auth;
 use Paggcerto\Paggcerto;
 
+/**
+ * Class ComplementaryMethodsTest
+ * @package Paggcerto\Tests
+ */
 class ComplementaryMethodsTest extends TestCase
 {
     public function testMustGetCities()
@@ -51,5 +55,15 @@ class ComplementaryMethodsTest extends TestCase
 
         $this->assertNotEmpty($businessActivities);
         $this->assertTrue(count($businessActivities) > 0);
+    }
+
+    public function testMustGetMarketingMedias()
+    {
+        $paggcerto = new Paggcerto(new Auth(), "vL");
+        $paggcerto->createNewSession();
+        $marketingMedias = $paggcerto->marketingMedia()->getRequest();
+
+        $this->assertNotEmpty($marketingMedias);
+        $this->assertTrue(count($marketingMedias) > 0);
     }
 }
