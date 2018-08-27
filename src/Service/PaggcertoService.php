@@ -133,8 +133,6 @@ abstract class PaggcertoService implements JsonSerializable
             $body = json_encode($payload, JSON_UNESCAPED_SLASHES);
             if ($body) {    // if it's json serializable
                 $headers['Content-Type'] = 'application/json';
-            } else {
-                $body = null;
             }
         }
 

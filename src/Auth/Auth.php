@@ -20,13 +20,6 @@ class Auth implements Authentication
      */
     private $token;
 
-    /**
-     * Access key.
-     *
-     * @var string
-     */
-    private $key;
-
     public function __construct($token = null)
     {
         $this->token = $token;
