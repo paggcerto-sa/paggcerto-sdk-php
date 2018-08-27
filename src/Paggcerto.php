@@ -18,6 +18,7 @@ class Paggcerto extends ToConnect
     const PAYMENTS_ENDPOINT_PRODUCTION = "https://payments.paggcerto.com.br/api/";
     const CLIENT = "PaggcertoPhpSdk";
     const CLIENT_VERSION = "0.0.1-beta";
+    const SIGNUP_SELLER_MOCK = "http://www.mocky.io/v2/5b844175310000c3350d22e7/";
 
     /**
      * @return HolderAccountService

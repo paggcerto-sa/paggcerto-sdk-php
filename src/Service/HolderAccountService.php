@@ -14,14 +14,6 @@ class HolderAccountService extends PaggcertoService
     const SIGNUP_SELLER = "%s/signup/seller";
 
     /**
-     * @return mixed
-     */
-    public function getHolderFullName()
-    {
-        return $this->data->holder->fullName;
-    }
-
-    /**
      * @param $fullname
      * @return $this
      */
@@ -36,7 +28,7 @@ class HolderAccountService extends PaggcertoService
      * @param $birthDate
      * @return $this
      */
-    public function setBirthDate($birthDate)
+    public function setHolderBirthDate($birthDate)
     {
         $this->data->holder->birthDate = $birthDate;
 
@@ -47,7 +39,7 @@ class HolderAccountService extends PaggcertoService
      * @param $gender
      * @return $this
      */
-    public function setGender($gender)
+    public function setHolderGender($gender)
     {
         $this->data->holder->gender = $gender;
 
@@ -58,7 +50,7 @@ class HolderAccountService extends PaggcertoService
      * @param $taxDocument
      * @return $this
      */
-    public function setTaxDocument($taxDocument)
+    public function setHolderTaxDocument($taxDocument)
     {
         $this->data->holder->taxDocument = $taxDocument;
 
@@ -69,7 +61,7 @@ class HolderAccountService extends PaggcertoService
      * @param $phone
      * @return $this
      */
-    public function setPhone($phone)
+    public function setHolderPhone($phone)
     {
         $this->data->holder->phone = $phone;
 
@@ -80,7 +72,7 @@ class HolderAccountService extends PaggcertoService
      * @param $mobileNumber
      * @return $this
      */
-    public function setMobile($mobileNumber)
+    public function setHolderMobile($mobileNumber)
     {
         $this->data->holder->mobile = $mobileNumber;
 
@@ -91,7 +83,7 @@ class HolderAccountService extends PaggcertoService
      * @param $tradeName
      * @return $this
      */
-    public function setTradeName($tradeName)
+    public function setHolderTradeName($tradeName)
     {
         $this->data->holder->company->tradeName = $tradeName;
 
@@ -190,7 +182,7 @@ class HolderAccountService extends PaggcertoService
      * @param $addStreetNumber
      * @return $this
      */
-    public function setStreetNumber($addStreetNumber)
+    public function setAddressStreetNumber($addStreetNumber)
     {
         $this->data->address->streetNumber = $addStreetNumber;
 
@@ -201,7 +193,7 @@ class HolderAccountService extends PaggcertoService
      * @param $addZipCode
      * @return $this
      */
-    public function setZipCode($addZipCode)
+    public function setAddressZipCode($addZipCode)
     {
         $this->data->address->zipCode = $addZipCode;
 
@@ -212,7 +204,7 @@ class HolderAccountService extends PaggcertoService
      * @param $bankNumber
      * @return $this
      */
-    public function setBankNumber($bankNumber)
+    public function setBankAccountBankNumber($bankNumber)
     {
         $this->data->bankAccount->bankNumber = $bankNumber;
 
@@ -234,7 +226,7 @@ class HolderAccountService extends PaggcertoService
      * @param $bankBranchNumber
      * @return $this
      */
-    public function setBankBranchNumber($bankBranchNumber)
+    public function setBankAccountBranchNumber($bankBranchNumber)
     {
         $this->data->bankAccount->bankBranchNumber = $bankBranchNumber;
 
@@ -259,6 +251,17 @@ class HolderAccountService extends PaggcertoService
     public function setBankAccountType($bankType)
     {
         $this->data->bankAccount->type = $bankType;
+
+        return $this;
+    }
+
+    /**
+     * @param $isJuridic
+     * @return $this
+     */
+    public function setBankAccountIsJuridic($isJuridic)
+    {
+        $this->data->bankAccount->isJuridic = $isJuridic;
 
         return $this;
     }
@@ -297,12 +300,23 @@ class HolderAccountService extends PaggcertoService
     }
 
     /**
-     * @param $transferDays
+     * @param $days
      * @return $this
      */
-    public function setTransferDays($transferDays)
+    public function setTransferPlanDays($days)
     {
-        $this->data->transferDays = $transferDays;
+        $this->data->transferPlan->days = $days;
+
+        return $this;
+    }
+
+    /**
+     * @param $anticipated
+     * @return $this
+     */
+    public function setTransferPlanAnticipated($anticipated)
+    {
+        $this->data->transferPlan->anticipated = $anticipated;
 
         return $this;
     }
@@ -328,6 +342,7 @@ class HolderAccountService extends PaggcertoService
         $this->data->bankAccount = new stdClass();
         $this->data->user = new stdClass();
         $this->data->holder->company = new stdClass();
+        $this->data->transferPlan = new stdClass();
     }
 
     /**
@@ -338,8 +353,26 @@ class HolderAccountService extends PaggcertoService
     {
         $holderAccount = clone $this;
         $holderAccount->data->holder = new stdClass();
+        $holderAccount->data->address = new stdClass();
+        $holderAccount->data->bankAccount = new stdClass();
+        $holderAccount->data->account = new stdClass();
+        $holderAccount->data->registrationOrigin = new stdClass();
+        $holderAccount->data->businessActivity = new stdClass();
 
         $holder = $this->getIfSet("holder", $response);
+        $address = $this->getIfSet("address", $response);
+        $bankAccount = $this->getIfSet("bankAccount", $response);
+        $account = $this->getIfSet("account", $response);
+        $registrationOrigin = $this->getIfSet("registrationOrigin", $response);
+        $businessActivity = $this->getIfSet("businessActivity", $response);
 
+        $holderAccount->data->holder = $holder;
+        $holderAccount->data->address = $address;
+        $holderAccount->data->bankAccount = $bankAccount;
+        $holderAccount->data->account = $account;
+        $holderAccount->data->registrationOrigin = $registrationOrigin;
+        $holderAccount->data->businessActivity = $businessActivity;
+
+        return $holderAccount->data;
     }
 }

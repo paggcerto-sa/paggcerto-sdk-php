@@ -7,8 +7,9 @@
          processIsolation="false"
          stopOnFailure="false">
     <filter>
-        <whitelist>
+        <whitelist name="Testes">
             <directory suffix=".php">tests/</directory>
+            <directory suffix=".php">src/**/</directory>
         </whitelist>
     </filter>
 </phpunit>
