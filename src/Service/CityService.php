@@ -41,7 +41,6 @@ class CityService extends PaggcertoService
      */
     protected function populate(stdClass $response)
     {
-        $city = clone $this;
         $this->data->cities = [];
         foreach ($response->cities as $city) {
             $temp = new stdClass();

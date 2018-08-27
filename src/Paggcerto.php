@@ -8,6 +8,7 @@ use Paggcerto\Service\BusinessActivityService;
 use Paggcerto\Service\BusinessTypeService;
 use Paggcerto\Service\CityService;
 use Paggcerto\Service\HolderAccountService;
+use Paggcerto\Service\MarketingMediaService;
 
 class Paggcerto extends ToConnect
 {
@@ -18,28 +19,51 @@ class Paggcerto extends ToConnect
     const CLIENT = "PaggcertoPhpSdk";
     const CLIENT_VERSION = "0.0.1-beta";
 
+    /**
+     * @return HolderAccountService
+     */
     public function account()
     {
         return new HolderAccountService($this);
     }
 
+    /**
+     * @return CityService
+     */
     public function city()
     {
         return new CityService($this);
     }
 
+    /**
+     * @return BusinessTypeService
+     */
     public function businessType()
     {
         return new BusinessTypeService($this);
     }
 
+    /**
+     * @return BankService
+     */
     public function bank()
     {
         return new BankService($this);
     }
 
+    /**
+     * @return BusinessActivityService
+     */
     public function businessActivity()
     {
         return new BusinessActivityService($this);
+    }
+
+    /**
+     * @return MarketingMediaService
+     */
+    public function marketingMedia()
+    {
+        return new MarketingMediaService($this);
     }
 }
