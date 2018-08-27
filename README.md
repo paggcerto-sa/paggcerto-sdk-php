@@ -5,4 +5,4 @@
 
 > Estado do SDK
 
-[![Build Status](http://jenkins.heaphost.com/buildStatus/icon?job=Paggcerto%20SDK-PHP&build=2)](http://jenkins.heaphost.com/job/Paggcerto%20SDK-PHP/2/)
+[![Build Status](http://jenkins.heaphost.com/buildStatus/icon?job=Paggcerto%20SDK-PHP)](http://jenkins.heaphost.com/job/Paggcerto%20SDK-PHP/2/)
