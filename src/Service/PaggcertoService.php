@@ -185,6 +185,7 @@ abstract class PaggcertoService implements JsonSerializable
 
         if (count($this->queryString) > 0) {
             $count = 0;
+
             foreach ($this->queryString as $key => $value) {
                 if ($count == 0) {
                     $this->path .= "?{$key}={$value}";
