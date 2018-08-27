@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    const sandbox = "sandbox";
+    const SANDBOX = "sandbox";
 
     protected $paggcerto;
     protected $date_format = "Y-m-d";
