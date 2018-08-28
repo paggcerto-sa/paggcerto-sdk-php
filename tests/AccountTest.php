@@ -10,12 +10,13 @@ namespace Paggcerto\Tests;
 
 use Paggcerto\Auth\Auth;
 use Paggcerto\Paggcerto;
+use Paggcerto\Tests\Mocks\PaggcertoMock;
 
 class AccountTest extends TestCase
 {
     public function testShouldCreateAccount()
     {
-        $paggcerto = new Paggcerto(new Auth(), "vL", Paggcerto::SIGNUP_SELLER_MOCK);
+        $paggcerto = new Paggcerto(new Auth(), "vL", PaggcertoMock::SIGNUP_SELLER_MOCK);
         $paggcerto->createNewSession();
 
         $account = $paggcerto
