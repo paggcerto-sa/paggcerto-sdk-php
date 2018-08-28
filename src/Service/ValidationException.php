@@ -27,7 +27,7 @@ class ValidationException extends RuntimeException
      * Exception thrown when the moip API returns a 4xx http code.
      * Indicates that an invalid value was passed.
      *
-     * @param int     $statusCode
+     * @param int $statusCode
      * @param Error[] $errors
      */
     public function __construct($statusCode, $errors)
@@ -36,6 +36,28 @@ class ValidationException extends RuntimeException
         $this->statusCode = $statusCode;
 
         parent::__construct($this->__toString(), $this->statusCode);
+    }
+
+    /**
+     * Convert error variables in string.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        $template = "[$this->code] The following errors ocurred:\n%s";
+        $temp_list = '';
+        foreach ($this->errors as $error) {
+
+            if ($error->getDescription() != null) {
+                $temp_list .= $error->getDescription() . "\n";
+            } else {
+                $temp_list .= "${error}\n";
+            }
+
+        }
+
+        return sprintf($template, $temp_list);
     }
 
     /**
@@ -58,22 +80,5 @@ class ValidationException extends RuntimeException
     public function getErrors()
     {
         return $this->errors;
-    }
-
-    /**
-     * Convert error variables in string.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        $template = "[$this->code] The following errors ocurred:\n%s";
-        $temp_list = '';
-        foreach ($this->errors as $error) {
-
-            $temp_list .= "${error}\n";
-        }
-
-        return sprintf($template, $temp_list);
     }
 }

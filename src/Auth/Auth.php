@@ -21,14 +21,14 @@ class Auth implements Authentication
      */
     private $token;
 
-    public function __construct($useremail = null, $password = null)
+    public function __construct($email = null, $password = null)
     {
         $paggcerto = new Paggcerto($this);
         $paggcerto->createNewSession();
 
-        if($useremail != null && $password != null)
+        if($email != null && $password != null)
         {
-            $this->token = $paggcerto->authentication()->authCredentials($useremail, $password)->token;
+            $this->token = $paggcerto->authentication()->authCredentials($email, $password)->token;
         }
     }
 
