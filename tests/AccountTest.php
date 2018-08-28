@@ -107,4 +107,84 @@ class AccountTest extends TestCase
         $this->assertEquals("N9", $account->registrationOrigin->marketingMedia->id);
         $this->assertEquals("Instagram", $account->registrationOrigin->marketingMedia->name);
     }
+
+    public function testShouldGetSetupHolderAccountMock()
+    {
+        $paggcerto = new Paggcerto(new Auth(), PaggcertoMock::GET_PRESTES);
+        $paggcerto->createNewSession();
+
+        $presets = $paggcerto->account()->getSetupHolderAccount();
+
+        $this->assertNotEmpty($presets);
+        $this->assertEquals("Valentina Santos", $presets->holder->fullName);
+        $this->assertEquals("F", $presets->holder->gender);
+        $this->assertEquals("927.228.895-95", $presets->holder->taxDocument);
+        $this->assertEquals("(79) 2946-7954", $presets->holder->phone);
+        $this->assertEquals("(79) 98827-7241", $presets->holder->mobile);
+        $this->assertEquals("Esportes ME", $presets->holder->company->tradeName);
+        $this->assertEquals("Mariana e Emanuelly Esportes ME", $presets->holder->company->fullName);
+        $this->assertEquals("94.467.995/0001-49", $presets->holder->company->taxDocument);
+        $this->assertEquals("Inacio Barbosa", $presets->address->district);
+        $this->assertEquals("R Manoel De Oliveira Martins", $presets->address->line1);
+        $this->assertEquals("Ap 001, Cleveland House", $presets->address->line2);
+        $this->assertEquals("229", $presets->address->streetNumber);
+        $this->assertEquals("49040-830", $presets->address->zipCode);
+        $this->assertEquals("2800308", $presets->address->city->code);
+        $this->assertEquals("Aracaju", $presets->address->city->name);
+        $this->assertEquals("SE", $presets->address->city->state);
+        $this->assertEquals("104", $presets->bankAccount->bankNumber);
+        $this->assertEquals("Caixa Econômica Federal.", $presets->bankAccount->bankName);
+        $this->assertEquals("02857254642-5", $presets->bankAccount->accountNumber);
+        $this->assertEquals("1500-1", $presets->bankAccount->bankBranchNumber);
+        $this->assertEquals(null, $presets->bankAccount->variation);
+        $this->assertEquals("corrente", $presets->bankAccount->type);
+        $this->assertEquals(false, $presets->bankAccount->isJuristic);
+        $this->assertEquals(true, $presets->account->active);
+        $this->assertEquals(true, $presets->account->approved);
+        $this->assertEquals(false, $presets->account->freeTrial);
+        $this->assertEquals(false, $presets->account->balanceBlocked);
+        $this->assertEquals(true, $presets->account->oldAnticipationPlan);
+        $this->assertEquals(0, $presets->account->vanBanese);
+        $this->assertEquals("Esportes ME", $presets->account->softdescriptor);
+    }
+
+    public function testShouldGetSetupHolderAccountSandbox()
+    {
+        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto->createNewSession();
+
+        $presets = $paggcerto->account()->getSetupHolderAccount();
+
+        $this->assertNotEmpty($presets);
+        $this->assertEquals("Erick Antunes", $presets->holder->fullName);
+        $this->assertEquals("M", $presets->holder->gender);
+        $this->assertEquals("555.746.290-20", $presets->holder->taxDocument);
+        $this->assertNull($presets->holder->phone);
+        $this->assertEquals("(79) 99999-9999", $presets->holder->mobile);
+        $this->assertEquals("Universidade Life", $presets->holder->company->tradeName);
+        $this->assertEquals("Nanitec operações limitadas", $presets->holder->company->fullName);
+        $this->assertEquals("15.150.963/0001-49", $presets->holder->company->taxDocument);
+        $this->assertEquals("Farolândia", $presets->address->district);
+        $this->assertEquals("Rua Silvio do Espírito Santos Seixas", $presets->address->line1);
+        $this->assertNull($presets->address->line2);
+        $this->assertEquals("92", $presets->address->streetNumber);
+        $this->assertEquals("49030-423", $presets->address->zipCode);
+        $this->assertEquals("2800308", $presets->address->city->code);
+        $this->assertEquals("Aracaju", $presets->address->city->name);
+        $this->assertEquals("SE", $presets->address->city->state);
+        $this->assertEquals("001", $presets->bankAccount->bankNumber);
+        $this->assertEquals("Banco do Brasil S.A.", $presets->bankAccount->bankName);
+        $this->assertEquals("31232156132-12", $presets->bankAccount->accountNumber);
+        $this->assertEquals("0031", $presets->bankAccount->bankBranchNumber);
+        $this->assertEquals(null, $presets->bankAccount->variation);
+        $this->assertEquals("corrente", strtolower($presets->bankAccount->type));
+        $this->assertEquals(true, $presets->bankAccount->isJuristic);
+        $this->assertEquals(true, $presets->account->active);
+        $this->assertEquals(true, $presets->account->approved);
+        $this->assertEquals(true, $presets->account->freeTrial);
+        $this->assertEquals(false, $presets->account->balanceBlocked);
+        $this->assertEquals(false, $presets->account->oldAnticipationPlan);
+        $this->assertEquals(0, $presets->account->vanBanese);
+        $this->assertNull($presets->account->softDescriptor);
+    }
 }

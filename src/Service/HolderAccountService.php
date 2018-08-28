@@ -351,7 +351,12 @@ class HolderAccountService extends PaggcertoService
 
     public function setupHolderAccount()
     {
-        $response = $this->httpRequest(self::SETUP_HOLDER_ACCOUNT, Requests::POST, $this->data);
+        return $this->httpRequest(self::SETUP_HOLDER_ACCOUNT, Requests::POST, $this->data);
+    }
+
+    public function getSetupHolderAccount()
+    {
+        return $this->httpRequest(self::SETUP_HOLDER_ACCOUNT, Requests::GET);
     }
 
     /**
