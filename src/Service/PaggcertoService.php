@@ -40,19 +40,19 @@ abstract class PaggcertoService implements JsonSerializable
     {
         $this->paggcerto = $paggcerto;
         $this->data = new stdClass();
-        $this->initialize();
+        $this->init();
     }
 
     /**
      * @return mixed
      */
-    abstract protected function initialize();
+    abstract protected function init();
 
     /**
      * @param stdClass $response
      * @return mixed
      */
-    abstract protected function populate(stdClass $response);
+    abstract protected function fillEntity(stdClass $response);
 
     /**
      * @param array $routeParams
@@ -72,7 +72,7 @@ abstract class PaggcertoService implements JsonSerializable
             $response = (object)$response;
         }
 
-        return $this->populate($response);
+        return $this->fillEntity($response);
     }
 
     /**
@@ -83,7 +83,7 @@ abstract class PaggcertoService implements JsonSerializable
     {
         $response = $this->httpRequest($path, Requests::POST, $this);
 
-        return $this->populate($response);
+        return $this->fillEntity($response);
     }
 
     /**

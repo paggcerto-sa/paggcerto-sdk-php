@@ -28,7 +28,7 @@ class BankService extends PaggcertoService
     /**
      * @return mixed|void
      */
-    protected function initialize()
+    protected function init()
     {
         $this->data = new stdClass();
         $this->data->banks = [];
@@ -38,7 +38,7 @@ class BankService extends PaggcertoService
      * @param stdClass $response
      * @return mixed
      */
-    protected function populate(stdClass $response)
+    protected function fillEntity(stdClass $response)
     {
         $this->data->banks = [];
         foreach ($response->banks as $bank) {

@@ -16,15 +16,13 @@ class ToConnect implements JsonSerializable
 {
     private $oauth_token = "api/v2/%s/signin";
     private $paggcertoAuthentication;
-    private $applicationNumber;
     private $endpoint;
     private $session;
 
-    public function __construct(Authentication $paggcertoAuth, $applicationNumber,
+    public function __construct(Authentication $paggcertoAuth = null,
                                 $endpoint = Paggcerto::ACCOUNT_ENDPOINT_SANDBOX)
     {
         $this->paggcertoAuthentication = $paggcertoAuth;
-        $this->applicationNumber = $applicationNumber;
         $this->endpoint = $endpoint;
     }
 
@@ -33,10 +31,10 @@ class ToConnect implements JsonSerializable
         $user_agent = sprintf('%s/%s (+https://github.com/paggcerto-sa/paggcerto-sdk-php/)', Paggcerto::CLIENT,
             Paggcerto::CLIENT_VERSION);
         $sess = new Requests_Session($this->endpoint);
-        $sess->options['auth'] = $this->paggcertoAuthentication;
         $sess->options['timeout'] = $timeout;
         $sess->options['connect_timeout'] = $connect_timeout;
         $sess->options['useragent'] = $user_agent;
+        $sess->options['auth'] = $this->paggcertoAuthentication;
         $this->session = $sess;
 
         return $sess;

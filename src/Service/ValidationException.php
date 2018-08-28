@@ -34,6 +34,8 @@ class ValidationException extends RuntimeException
     {
         $this->errors = $errors;
         $this->statusCode = $statusCode;
+
+        parent::__construct($this->__toString(), $this->statusCode);
     }
 
     /**
@@ -68,10 +70,8 @@ class ValidationException extends RuntimeException
         $template = "[$this->code] The following errors ocurred:\n%s";
         $temp_list = '';
         foreach ($this->errors as $error) {
-            $path = $error->getPath();
-            $desc = $error->getDescription();
 
-            $temp_list .= "$path: $desc\n";
+            $temp_list .= "${error}\n";
         }
 
         return sprintf($template, $temp_list);

@@ -29,7 +29,7 @@ class BusinessActivityService extends PaggcertoService
     /**
      * @return mixed|void
      */
-    protected function initialize()
+    protected function init()
     {
         $this->data = new stdClass();
         $this->data->businessActivities = [];
@@ -39,7 +39,7 @@ class BusinessActivityService extends PaggcertoService
      * @param stdClass $response
      * @return mixed
      */
-    protected function populate(stdClass $response)
+    protected function fillEntity(stdClass $response)
     {
         $this->data->businessActivities = [];
         foreach ($response->businessActivities as $businessActivity) {

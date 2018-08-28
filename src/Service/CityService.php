@@ -29,7 +29,7 @@ class CityService extends PaggcertoService
     /**
      * @return mixed|void
      */
-    protected function initialize()
+    protected function init()
     {
         $this->data = new stdClass();
         $this->data->cities = [];
@@ -39,7 +39,7 @@ class CityService extends PaggcertoService
      * @param stdClass $response
      * @return mixed
      */
-    protected function populate(stdClass $response)
+    protected function fillEntity(stdClass $response)
     {
         $this->data->cities = [];
         foreach ($response->cities as $city) {
