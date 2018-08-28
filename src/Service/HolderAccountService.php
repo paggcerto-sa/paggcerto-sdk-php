@@ -7,11 +7,14 @@
 
 namespace Paggcerto\Service;
 
+use Paggcerto\Paggcerto;
+use Requests;
 use stdClass;
 
 class HolderAccountService extends PaggcertoService
 {
-    const SIGNUP_SELLER = "%s/signup/seller";
+    const SIGNUP_SELLER = self::ACCOUNT_VERSION . "/" . Paggcerto::APPLICATION_ID . "/signup/seller";
+    const SETUP_HOLDER_ACCOUNT = self::ACCOUNT_VERSION . "/presets";
 
     /**
      * @param $fullname
@@ -64,6 +67,21 @@ class HolderAccountService extends PaggcertoService
     public function setHolderPhone($phone)
     {
         $this->data->holder->phone = $phone;
+        $this->data->phone = $phone;
+
+        return $this;
+    }
+
+    public function setHolderComercialName($comercialName)
+    {
+        $this->data->comercialName = $comercialName;
+
+        return $this;
+    }
+
+    public function setSoftDescriptor($softDescriptor)
+    {
+        $this->data->softDescriptor = $softDescriptor;
 
         return $this;
     }
@@ -75,6 +93,7 @@ class HolderAccountService extends PaggcertoService
     public function setHolderMobile($mobileNumber)
     {
         $this->data->holder->mobile = $mobileNumber;
+        $this->data->mobile = $mobileNumber;
 
         return $this;
     }
@@ -261,7 +280,7 @@ class HolderAccountService extends PaggcertoService
      */
     public function setBankAccountIsJuridic($isJuridic)
     {
-        $this->data->bankAccount->isJuridic = $isJuridic;
+        $this->data->bankAccount->isJuristic = $isJuridic;
 
         return $this;
     }
@@ -284,6 +303,7 @@ class HolderAccountService extends PaggcertoService
     public function setUserPassword($userPassword)
     {
         $this->data->user->password = $userPassword;
+        $this->data->password = $userPassword;
 
         return $this;
     }
@@ -326,15 +346,36 @@ class HolderAccountService extends PaggcertoService
      */
     public function createHolderAccount()
     {
-        $urlPath = sprintf("%s/%s/%s", self::ACCOUNT_VERSION, $this->paggcerto->getApplicationNumber(),
-            self::SIGNUP_SELLER);
-        return $this->createRequest($urlPath);
+        return $this->createRequest(self::SIGNUP_SELLER);
+    }
+
+    public function setupHolderAccount()
+    {
+        $response = $this->httpRequest(self::SETUP_HOLDER_ACCOUNT, Requests::POST, $this->data);
+    }
+
+    /**
+     * @param stdClass $response
+     * @return mixed|void
+     */
+    protected function fillEntity(stdClass $response)
+    {
+        $holderAccount = clone $this;
+        $holderAccount->data = new stdClass();
+        $holderAccount->data->holder = $this->getIfSet("holder", $response);
+        $holderAccount->data->address = $this->getIfSet("address", $response);
+        $holderAccount->data->bankAccount = $this->getIfSet("bankAccount", $response);
+        $holderAccount->data->account = $this->getIfSet("account", $response);
+        $holderAccount->data->registrationOrigin = $this->getIfSet("registrationOrigin", $response);
+        $holderAccount->data->businessActivity = $this->getIfSet("businessActivity", $response);
+
+        return $holderAccount->data;
     }
 
     /**
      * @return mixed|void
      */
-    protected function initialize()
+    protected function init()
     {
         $this->data = new stdClass();
         $this->data->holder = new stdClass();
@@ -343,36 +384,5 @@ class HolderAccountService extends PaggcertoService
         $this->data->user = new stdClass();
         $this->data->holder->company = new stdClass();
         $this->data->transferPlan = new stdClass();
-    }
-
-    /**
-     * @param stdClass $response
-     * @return mixed|void
-     */
-    protected function populate(stdClass $response)
-    {
-        $holderAccount = clone $this;
-        $holderAccount->data->holder = new stdClass();
-        $holderAccount->data->address = new stdClass();
-        $holderAccount->data->bankAccount = new stdClass();
-        $holderAccount->data->account = new stdClass();
-        $holderAccount->data->registrationOrigin = new stdClass();
-        $holderAccount->data->businessActivity = new stdClass();
-
-        $holder = $this->getIfSet("holder", $response);
-        $address = $this->getIfSet("address", $response);
-        $bankAccount = $this->getIfSet("bankAccount", $response);
-        $account = $this->getIfSet("account", $response);
-        $registrationOrigin = $this->getIfSet("registrationOrigin", $response);
-        $businessActivity = $this->getIfSet("businessActivity", $response);
-
-        $holderAccount->data->holder = $holder;
-        $holderAccount->data->address = $address;
-        $holderAccount->data->bankAccount = $bankAccount;
-        $holderAccount->data->account = $account;
-        $holderAccount->data->registrationOrigin = $registrationOrigin;
-        $holderAccount->data->businessActivity = $businessActivity;
-
-        return $holderAccount->data;
     }
 }

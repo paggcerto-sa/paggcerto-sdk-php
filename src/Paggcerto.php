@@ -3,6 +3,7 @@
 namespace Paggcerto;
 
 use Paggcerto\Auth\ToConnect;
+use Paggcerto\Service\AuthService;
 use Paggcerto\Service\BankService;
 use Paggcerto\Service\BusinessActivityService;
 use Paggcerto\Service\BusinessTypeService;
@@ -18,6 +19,7 @@ class Paggcerto extends ToConnect
     const PAYMENTS_ENDPOINT_PRODUCTION = "https://payments.paggcerto.com.br/api/";
     const CLIENT = "PaggcertoPhpSdk";
     const CLIENT_VERSION = "0.0.1-beta";
+    const APPLICATION_ID = "Lk";
 
     /**
      * @return HolderAccountService
@@ -25,6 +27,11 @@ class Paggcerto extends ToConnect
     public function account()
     {
         return new HolderAccountService($this);
+    }
+
+    public function authentication()
+    {
+        return new AuthService($this);
     }
 
     /**

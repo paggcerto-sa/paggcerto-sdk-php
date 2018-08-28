@@ -90,7 +90,7 @@ class Error
         $errors = [];
         if (!empty($error_obj->errors)) {
             foreach ($error_obj->errors as $error) {
-                $errors[] = new self($error->code, $error->path, $error->description);
+                $errors[] = $error;
             }
         } elseif (!empty($error_obj->error)) {
             $errors[] = new self('', '', $error_obj->error);

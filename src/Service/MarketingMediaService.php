@@ -29,7 +29,7 @@ class MarketingMediaService extends PaggcertoService
     /**
      * @return mixed
      */
-    protected function initialize()
+    protected function init()
     {
         $this->data = new stdClass();
         $this->data->marketingMedias = [];
@@ -39,7 +39,7 @@ class MarketingMediaService extends PaggcertoService
      * @param stdClass $response
      * @return mixed
      */
-    protected function populate(stdClass $response)
+    protected function fillEntity(stdClass $response)
     {
         $this->data->marketingMedias = [];
         foreach ($response->marketingMedias as $marketingMedia) {

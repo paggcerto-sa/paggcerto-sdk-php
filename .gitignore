@@ -78,6 +78,7 @@ typings/
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+.idea/**/*.xml
 
 # Gradle
 .idea/**/gradle.xml

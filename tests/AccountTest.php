@@ -14,9 +14,47 @@ use Paggcerto\Tests\Mocks\PaggcertoMock;
 
 class AccountTest extends TestCase
 {
+    public function testShouldGetWhoAmI()
+    {
+        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto->createNewSession();
+
+        $whoAmI = $paggcerto->authentication()->whoAmI();
+
+        $this->assertEquals("Erick Antunes", $whoAmI->holder->fullName);
+        $this->assertEquals("Gestão de Mensalidades", $whoAmI->application->name);
+        $this->assertEquals(true, $whoAmI->account->approved);
+        $this->assertEquals("555.746.290-20", $whoAmI->user->taxDocument);
+    }
+
+    public function testShouldSetupHolderAcc()
+    {
+        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto->createNewSession();
+
+        $paggcerto->account()
+            ->setUserPassword("95625845")
+            ->setHolderMobile("(79) 99999-9999")
+            ->setTransferPlanDays(32)
+            ->setTransferPlanAnticipated(true)
+            ->setBankAccountBankNumber("001")
+            ->setBankAccountNumber("31232156132-12")
+            ->setBankAccountBranchNumber("0031")
+            ->setBankAccountType("corrente")
+            ->setBankAccountIsJuridic(true)
+            ->setAddressCityCode("2800308")
+            ->setAddressDistrict("Farolândia")
+            ->setAddressLine1("Rua Silvio do Espírito Santos Seixas")
+            ->setAddressStreetNumber("92")
+            ->setAddressZipCode("49030-423")
+            ->setupHolderAccount();
+
+        $this->assertTrue(true);
+    }
+
     public function testShouldCreateAccount()
     {
-        $paggcerto = new Paggcerto(new Auth(), "vL", PaggcertoMock::SIGNUP_SELLER_MOCK);
+        $paggcerto = new Paggcerto(new Auth(), PaggcertoMock::SIGNUP_SELLER_MOCK);
         $paggcerto->createNewSession();
 
         $account = $paggcerto

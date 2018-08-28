@@ -8,6 +8,7 @@
 namespace Paggcerto\Auth;
 
 use Paggcerto\Contracts\Authentication;
+use Paggcerto\Paggcerto;
 use Requests_Hooks;
 
 class Auth implements Authentication
@@ -20,9 +21,15 @@ class Auth implements Authentication
      */
     private $token;
 
-    public function __construct($token = null)
+    public function __construct($email = null, $password = null)
     {
-        $this->token = $token;
+        $paggcerto = new Paggcerto($this);
+        $paggcerto->createNewSession();
+
+        if($email != null && $password != null)
+        {
+            $this->token = $paggcerto->authentication()->authCredentials($email, $password)->token;
+        }
     }
 
     /**
@@ -52,6 +59,6 @@ class Auth implements Authentication
      */
     public function before_request(&$url, &$headers, &$data, &$type, &$options)
     {
-        $headers['Authorization'] = 'Bearer ' . $this->token;
+        $headers['Authorization'] = "Bearer {$this->token}";
     }
 }
