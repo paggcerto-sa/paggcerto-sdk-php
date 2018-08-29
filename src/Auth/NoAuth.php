@@ -22,6 +22,7 @@ class NoAuth implements Authentication
      *
      * @see Requests_Hooks::register
      * @param Requests_Hooks $hooks Hook system
+     * @codeCoverageIgnore
      */
     public function register(Requests_Hooks &$hooks)
     {
