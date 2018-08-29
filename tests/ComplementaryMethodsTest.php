@@ -9,6 +9,7 @@ namespace Paggcerto\Tests;
 
 
 use Paggcerto\Auth\Auth;
+use Paggcerto\Auth\NoAuth;
 use Paggcerto\Paggcerto;
 
 /**
@@ -19,7 +20,7 @@ class ComplementaryMethodsTest extends TestCase
 {
     public function testMustGetCities()
     {
-        $paggcerto = new Paggcerto(new Auth());
+        $paggcerto = new Paggcerto(new NoAuth());
         $paggcerto->createNewSession();
         $cities = $paggcerto->city()->getRequest(["SE"]);
 
@@ -29,7 +30,7 @@ class ComplementaryMethodsTest extends TestCase
 
     public function testMustGetBussinesType()
     {
-        $paggcerto = new Paggcerto(new Auth());
+        $paggcerto = new Paggcerto(new NoAuth());
         $paggcerto->createNewSession();
         $businessTypes = $paggcerto->businessType()->getRequest();
 
@@ -39,7 +40,7 @@ class ComplementaryMethodsTest extends TestCase
 
     public function testMustGetBanks()
     {
-        $paggcerto = new Paggcerto(new Auth());
+        $paggcerto = new Paggcerto(new NoAuth());
         $paggcerto->createNewSession();
         $banks = $paggcerto->bank()->getRequest();
 
@@ -49,7 +50,7 @@ class ComplementaryMethodsTest extends TestCase
 
     public function testMustGetBusinessActivities()
     {
-        $paggcerto = new Paggcerto(new Auth());
+        $paggcerto = new Paggcerto(new NoAuth());
         $paggcerto->createNewSession();
         $businessActivities = $paggcerto->businessActivity()->getRequest();
 
@@ -59,7 +60,7 @@ class ComplementaryMethodsTest extends TestCase
 
     public function testMustGetMarketingMedias()
     {
-        $paggcerto = new Paggcerto(new Auth());
+        $paggcerto = new Paggcerto(new NoAuth());
         $paggcerto->createNewSession();
         $marketingMedias = $paggcerto->marketingMedia()->getRequest();
 

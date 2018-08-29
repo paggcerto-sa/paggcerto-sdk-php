@@ -2,7 +2,9 @@
 
 namespace Paggcerto;
 
+use Paggcerto\Auth\Auth;
 use Paggcerto\Auth\ToConnect;
+use Paggcerto\Contracts\Authentication;
 use Paggcerto\Service\AuthService;
 use Paggcerto\Service\BankService;
 use Paggcerto\Service\BusinessActivityService;
@@ -21,17 +23,32 @@ class Paggcerto extends ToConnect
     const CLIENT_VERSION = "0.0.1-beta";
     const APPLICATION_ID = "Lk";
 
+    public function __construct(Authentication $paggcertoAuth, $endpoint = Paggcerto::ACCOUNT_ENDPOINT_SANDBOX)
+    {
+        parent::__construct($paggcertoAuth, $endpoint);
+
+            if ($paggcertoAuth instanceof Auth) {
+                $this->createNewSession();
+                $token = $this->authentication()->authCredentials($paggcertoAuth->getEmail(), $paggcertoAuth->getPassword())->token;
+
+                $paggcertoAuth->setToken($token);
+                parent::__construct($paggcertoAuth, $endpoint);
+            }
+
+
+    }
+
+    public function authentication()
+    {
+        return new AuthService($this);
+    }
+
     /**
      * @return HolderAccountService
      */
     public function account()
     {
         return new HolderAccountService($this);
-    }
-
-    public function authentication()
-    {
-        return new AuthService($this);
     }
 
     /**
