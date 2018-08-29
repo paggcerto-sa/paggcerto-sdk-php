@@ -9,6 +9,8 @@
 namespace Paggcerto\Tests;
 
 use Paggcerto\Auth\Auth;
+use Paggcerto\Auth\AuthHash;
+use Paggcerto\Exceptions\AuthException;
 use Paggcerto\Paggcerto;
 use Paggcerto\Tests\Mocks\PaggcertoMock;
 
@@ -18,7 +20,6 @@ class AccountTest extends TestCase
     {
         $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
         $paggcerto->createNewSession();
-
         $whoAmI = $paggcerto->authentication()->whoAmI();
 
         $this->assertEquals("Erick Antunes", $whoAmI->holder->fullName);
@@ -54,7 +55,7 @@ class AccountTest extends TestCase
 
     public function testShouldCreateAccount()
     {
-        $paggcerto = new Paggcerto(new Auth(), PaggcertoMock::SIGNUP_SELLER_MOCK);
+        $paggcerto = new Paggcerto(new Auth(), PaggcertoMock::SIGNUP_SELLER);
         $paggcerto->createNewSession();
 
         $account = $paggcerto
@@ -186,5 +187,35 @@ class AccountTest extends TestCase
         $this->assertEquals(false, $presets->account->oldAnticipationPlan);
         $this->assertEquals(0, $presets->account->vanBanese);
         $this->assertNull($presets->account->softDescriptor);
+    }
+
+    public function testShouldOAuthExceptionWithHash()
+    {
+        try {
+            $paggcerto = new Paggcerto(new AuthHash("128ecf542a35ac5270a87dc740918404"), PaggcertoMock::SIGNIN_HASH);
+            $paggcerto->createNewSession();
+            $this->assertEquals("Ehjikkja585569779efwrf.ihuheyvvc872622791ndbdehv", $paggcerto->getSession()->options["auth"]->getToken());
+        } catch (AuthException $e) {
+        }
+    }
+
+    /**
+     * @expectedExceptionCode 400
+     * @expectedException  \Exception
+     * @expectedExceptionMessage Necessário passar um hash para se autenticar.
+     */
+    public function testShouldOAuthExceptionWithNullable()
+    {
+        new AuthHash(null);
+    }
+
+    /**
+     * @expectedExceptionCode 400
+     * @expectedException  \Exception
+     * @expectedExceptionMessage Necessário passar um hash para se autenticar.
+     */
+    public function testShouldOAuthExceptionWithNotString()
+    {
+        new AuthHash([]);
     }
 }

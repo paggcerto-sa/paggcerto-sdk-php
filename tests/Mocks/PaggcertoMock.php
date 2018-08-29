@@ -11,6 +11,7 @@ namespace Paggcerto\Tests\Mocks;
 
 class PaggcertoMock
 {
-    const SIGNUP_SELLER_MOCK = "http://www.mocky.io/v2/5b844175310000c3350d22e7/";
+    const SIGNUP_SELLER = "http://www.mocky.io/v2/5b844175310000c3350d22e7/";
     const GET_PRESTES = "http://www.mocky.io/v2/5b85b5183000004c2a729431/";
+    const SIGNIN_HASH = "http://www.mocky.io/v2/5b86a9ae34000052018b5724/";
 }

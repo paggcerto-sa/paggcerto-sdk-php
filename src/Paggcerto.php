@@ -3,6 +3,7 @@
 namespace Paggcerto;
 
 use Paggcerto\Auth\Auth;
+use Paggcerto\Auth\AuthHash;
 use Paggcerto\Auth\ToConnect;
 use Paggcerto\Contracts\Authentication;
 use Paggcerto\Service\AuthService;
@@ -26,14 +27,18 @@ class Paggcerto extends ToConnect
     public function __construct(Authentication $paggcertoAuth, $endpoint = Paggcerto::ACCOUNT_ENDPOINT_SANDBOX)
     {
         parent::__construct($paggcertoAuth, $endpoint);
+        $this->createNewSession();
 
-            if ($paggcertoAuth instanceof Auth) {
-                $this->createNewSession();
-                $token = $this->authentication()->authCredentials($paggcertoAuth->getEmail(), $paggcertoAuth->getPassword())->token;
+        if ($paggcertoAuth instanceof Auth) {
+            $token = $this->authentication()->authCredentials($paggcertoAuth->getEmail(), $paggcertoAuth->getPassword())->token;
+            $paggcertoAuth->setToken($token);
+        }
 
-                $paggcertoAuth->setToken($token);
-                parent::__construct($paggcertoAuth, $endpoint);
-            }
+        if ($paggcertoAuth instanceof AuthHash) {
+            $token = $this->authentication()->authHash($paggcertoAuth->getHash())->token;
+            $paggcertoAuth->setToken($token);
+        }
+
     }
 
     public function authentication()

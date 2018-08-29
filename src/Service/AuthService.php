@@ -14,7 +14,7 @@ use stdClass;
 
 class AuthService extends PaggcertoService
 {
-    const AUTH_CREDENTIALS = self::ACCOUNT_VERSION . "/%s/signin";
+    const AUTH_CREDENTIALS = self::ACCOUNT_VERSION . "/%s/signin/";
     const WHOAMI = self::ACCOUNT_VERSION . "/whoami";
 
 
@@ -52,6 +52,15 @@ class AuthService extends PaggcertoService
         $credentials->login = $email;
         $credentials->password = $password;
         $response = $this->httpRequest($path, Requests::POST, $credentials);
+
+        return $this->fillEntity($response);
+    }
+
+    public function authHash($hash)
+    {
+        $path = sprintf(self::AUTH_CREDENTIALS, Paggcerto::APPLICATION_ID);
+        $path .= $hash;
+        $response = $this->httpRequest($path, Requests::POST);
 
         return $this->fillEntity($response);
     }
