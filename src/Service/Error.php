@@ -40,7 +40,7 @@ class Error
      * @param string $path        represents the field where the error ocurred.
      * @param string $description error description.
      */
-    public function __construct($code, $path, $description)
+    public function __construct($code = null, $path = null, $description = null)
     {
         $this->code = $code;
         $this->path = $path;
@@ -84,7 +84,7 @@ class Error
      *
      * @return array
      */
-    public static function parseErrors($json_string)
+    public function parseErrors($json_string)
     {
         $error_obj = json_decode($json_string);
         $errors = [];

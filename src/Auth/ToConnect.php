@@ -14,7 +14,6 @@ use Requests_Session;
 
 class ToConnect implements JsonSerializable
 {
-    private $oauth_token = "api/v2/%s/signin";
     private $paggcertoAuthentication;
     private $endpoint;
     private $session;
@@ -56,18 +55,6 @@ class ToConnect implements JsonSerializable
             $this->endpoint = $endpoint;
         }
         return $endpoint;
-    }
-
-    public function authorize()
-    {
-        $urlPath = $this->endpoint . $this->oauth_token;
-        $headers = ["Content-Type" => "application/json"];
-        $body = [];
-    }
-
-    public function getApplicationNumber()
-    {
-        return $this->applicationNumber;
     }
 
     function jsonSerialize()

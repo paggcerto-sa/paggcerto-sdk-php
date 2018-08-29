@@ -10,6 +10,7 @@ namespace Paggcerto\Service;
 use JsonSerializable;
 use Paggcerto\Exceptions\UnautorizedException;
 use Paggcerto\Exceptions\UnexpectedException;
+use Paggcerto\Exceptions\ValidationException;
 use Paggcerto\Paggcerto;
 use Requests;
 use Requests_Exception;
@@ -131,7 +132,7 @@ abstract class PaggcertoService implements JsonSerializable
         $body = null;
         if ($payload !== null) {
             $body = json_encode($payload, JSON_UNESCAPED_SLASHES);
-            if ($body) {    // if it's json serializable
+            if ($body) {
                 $headers['Content-Type'] = 'application/json';
             }
         }
@@ -149,7 +150,7 @@ abstract class PaggcertoService implements JsonSerializable
         } elseif ($code == 401) {
             throw new UnautorizedException();
         } elseif ($code >= 400 && $code <= 499) {
-            $errors = Error::parseErrors($response_body);
+            $errors = (new Error())->parseErrors($response_body);
 
             throw new ValidationException($code, $errors);
         }
