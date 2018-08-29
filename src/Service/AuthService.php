@@ -17,6 +17,7 @@ class AuthService extends PaggcertoService
     const AUTH_CREDENTIALS = self::ACCOUNT_VERSION . "/%s/signin";
     const WHOAMI = self::ACCOUNT_VERSION . "/whoami";
 
+
     public function whoAmI()
     {
         $response = $this->httpRequest(self::WHOAMI, Requests::GET);
