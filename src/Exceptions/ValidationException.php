@@ -5,7 +5,7 @@
  * Time: 14:21
  */
 
-namespace Paggcerto\Service;
+namespace Paggcerto\Exceptions;
 
 use RuntimeException;
 
@@ -49,12 +49,12 @@ class ValidationException extends RuntimeException
         $temp_list = '';
         foreach ($this->errors as $error) {
 
-            if ($error->getDescription() != null) {
+            if (!is_string($error)) {
                 $temp_list .= $error->getDescription() . "\n";
-            } else {
-                $temp_list .= "${error}\n";
+                continue;
             }
 
+            $temp_list .= "${error}\n";
         }
 
         return sprintf($template, $temp_list);
