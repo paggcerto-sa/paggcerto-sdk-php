@@ -9,6 +9,9 @@ namespace Paggcerto\Exceptions;
 
 use RuntimeException;
 
+/**
+ * @codeCoverageIgnore
+ */
 class UnexpectedException extends RuntimeException
 {
     public function __construct($previous = null)

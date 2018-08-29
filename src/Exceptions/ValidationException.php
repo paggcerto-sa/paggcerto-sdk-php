@@ -9,6 +9,9 @@ namespace Paggcerto\Exceptions;
 
 use RuntimeException;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ValidationException extends RuntimeException
 {
     /**
