@@ -60,6 +60,7 @@ class Auth implements Authentication
      * @param array|string $data
      * @param string $type
      * @param array $options
+     * @codeCoverageIgnore
      */
     public function before_request(&$url, &$headers, &$data, &$type, &$options)
     {
