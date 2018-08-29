@@ -34,8 +34,6 @@ class Paggcerto extends ToConnect
                 $paggcertoAuth->setToken($token);
                 parent::__construct($paggcertoAuth, $endpoint);
             }
-
-
     }
 
     public function authentication()

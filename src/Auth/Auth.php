@@ -19,7 +19,15 @@ class Auth implements Authentication
      * @var string
      */
     private $email;
+
+    /**
+     * @var string
+     */
     private $password;
+
+    /**
+     * @var string
+     */
     private $token;
 
     public function __construct($email = null, $password = null)
@@ -67,7 +75,7 @@ class Auth implements Authentication
     }
 
     /**
-     * @return null
+     * @return string
      */
     public function getPassword()
     {
@@ -75,7 +83,7 @@ class Auth implements Authentication
     }
 
     /**
-     * @param mixed $token
+     * @param string
      */
     public function setToken($token)
     {
