@@ -13,6 +13,7 @@ use Paggcerto\Service\BusinessTypeService;
 use Paggcerto\Service\CityService;
 use Paggcerto\Service\HolderAccountService;
 use Paggcerto\Service\MarketingMediaService;
+use Paggcerto\Service\RoleService;
 
 class Paggcerto extends ToConnect
 {
@@ -41,6 +42,9 @@ class Paggcerto extends ToConnect
 
     }
 
+    /**
+     * @return AuthService
+     */
     public function authentication()
     {
         return new AuthService($this);
@@ -92,5 +96,13 @@ class Paggcerto extends ToConnect
     public function marketingMedia()
     {
         return new MarketingMediaService($this);
+    }
+
+    /**
+     * @return RoleService
+     */
+    public function role()
+    {
+        return new RoleService($this);
     }
 }

@@ -1,0 +1,82 @@
+<?php
+/**
+ * User: erick.antunes
+ * Date: 29/08/2018
+ * Time: 16:52
+ */
+
+namespace Paggcerto\Tests;
+
+
+use Paggcerto\Auth\Auth;
+use Paggcerto\Paggcerto;
+
+class RoleTest extends TestCase
+{
+    public function testShouldCreateRole()
+    {
+        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto->createNewSession();
+
+        $createdRole = $paggcerto->role()
+            ->setName("Administrador")
+            ->createRole();
+
+        $this->assertNotEmpty($createdRole->id);
+        $this->assertEquals("Administrador", $createdRole->name);
+        $this->assertEquals(true, $createdRole->active);
+        $this->assertGreaterThanOrEqual(0, $createdRole->totalUsers);
+        $this->assertEquals(0, count($createdRole->scopes));
+    }
+
+    public function testShouldUpdateRole()
+    {
+        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto->createNewSession();
+
+        $updatedRole = $paggcerto->role()
+            ->setName("Admin Update Test")
+            ->setActive(true)
+            ->setRoleId("pL")
+            ->updateRole();
+
+        $this->assertEquals(true, $updatedRole->active);
+        $this->assertEquals("Admin Update Test", $updatedRole->name);
+    }
+
+    public function testShouldRoles()
+    {
+        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto->createNewSession();
+
+        $return = $paggcerto->role()
+            ->rolesList();
+
+        $this->assertGreaterThanOrEqual(0, count($return->roles));
+    }
+
+    public function testShouldSearchRole()
+    {
+        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto->createNewSession();
+
+        $return = $paggcerto->role()
+            ->setRoleId("pL")
+            ->searchRole();
+
+        $this->assertEquals(true, $return->active);
+        $this->assertEquals("Admin Update Test", $return->name);
+    }
+
+    public function testShouldDeactivateRole()
+    {
+        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto->createNewSession();
+
+        $return = $paggcerto->role()
+            ->setRoleId("pL")
+            ->deactivateRole();
+
+        $this->assertEquals(false, $return->active);
+    }
+}
