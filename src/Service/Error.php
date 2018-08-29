@@ -7,7 +7,9 @@
 
 namespace Paggcerto\Service;
 
-
+/**
+ * @codeCoverageIgnore
+ */
 class Error
 {
     /**

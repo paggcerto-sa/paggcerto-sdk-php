@@ -9,6 +9,9 @@ namespace Paggcerto\Exceptions;
 
 use RuntimeException;
 
+/**
+ * @codeCoverageIgnore
+ */
 class UnautorizedException extends RuntimeException
 {
     public function __construct($previous = null)
