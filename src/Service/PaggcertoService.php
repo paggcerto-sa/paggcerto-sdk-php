@@ -29,9 +29,9 @@ abstract class PaggcertoService implements JsonSerializable
     protected $paggcerto;
     protected $data;
 
-    private $routeParams = [];
-    private $queryString = [];
-    private $path;
+    protected $routeParams = [];
+    protected $queryString = [];
+    protected $path;
 
     /**
      * PaggcertoService constructor.
@@ -113,7 +113,7 @@ abstract class PaggcertoService implements JsonSerializable
         // @codeCoverageIgnoreEnd
     }
 
-    private function mountUrl()
+    protected function mountUrl()
     {
         if (count($this->routeParams) > 0) {
             foreach ($this->routeParams as $param) {
