@@ -11,6 +11,7 @@ use JsonSerializable;
 use Paggcerto\Exceptions\UnautorizedException;
 use Paggcerto\Exceptions\UnexpectedException;
 use Paggcerto\Exceptions\ValidationException;
+use Paggcerto\Helper\Error;
 use Paggcerto\Paggcerto;
 use Requests;
 use Requests_Exception;

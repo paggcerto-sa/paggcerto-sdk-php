@@ -5,7 +5,7 @@
  * Time: 14:20
  */
 
-namespace Paggcerto\Service;
+namespace Paggcerto\Helper;
 
 /**
  * @codeCoverageIgnore

@@ -10,6 +10,7 @@ namespace Paggcerto\Tests;
 
 use Paggcerto\Auth\Auth;
 use Paggcerto\Auth\AuthHash;
+use Paggcerto\Auth\NoAuth;
 use Paggcerto\Exceptions\AuthException;
 use Paggcerto\Paggcerto;
 use Paggcerto\Tests\Mocks\PaggcertoMock;
@@ -55,7 +56,7 @@ class AccountTest extends TestCase
 
     public function testShouldCreateAccount()
     {
-        $paggcerto = new Paggcerto(new Auth(), PaggcertoMock::SIGNUP_SELLER);
+        $paggcerto = new Paggcerto(new NoAuth(), PaggcertoMock::SIGNUP_SELLER);
         $paggcerto->createNewSession();
 
         $account = $paggcerto
@@ -111,7 +112,7 @@ class AccountTest extends TestCase
 
     public function testShouldGetSetupHolderAccountMock()
     {
-        $paggcerto = new Paggcerto(new Auth(), PaggcertoMock::GET_PRESTES);
+        $paggcerto = new Paggcerto(new NoAuth(), PaggcertoMock::GET_PRESTES);
         $paggcerto->createNewSession();
 
         $presets = $paggcerto->account()->getSetupHolderAccount();
