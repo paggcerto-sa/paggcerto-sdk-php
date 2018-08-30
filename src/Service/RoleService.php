@@ -106,9 +106,7 @@ class RoleService extends PaggcertoService
         if($this->getLength())
             $this->queryString["length"] = $this->getLength();
 
-        $this->path = self::ROLE_URI;
-
-        $response = $this->httpRequest($this->mountUrl(), Requests::GET);
+        $response = $this->getRequest([],$this->queryString, self::ROLE_URI);
 
         return $this->fillEntity($response);
     }
