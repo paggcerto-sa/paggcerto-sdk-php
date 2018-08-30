@@ -29,9 +29,9 @@ abstract class PaggcertoService implements JsonSerializable
     protected $paggcerto;
     protected $data;
 
-    private $routeParams = [];
-    private $queryString = [];
-    private $path;
+    protected $routeParams = [];
+    protected $queryString = [];
+    protected $path;
 
     /**
      * PaggcertoService constructor.
@@ -45,9 +45,16 @@ abstract class PaggcertoService implements JsonSerializable
     }
 
     /**
-     * @return mixed
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
      */
-    abstract protected function init();
+    public function jsonSerialize()
+    {
+        // TODO: Implement jsonSerialize() method.
+    }
 
     /**
      * @param array $routeParams
@@ -70,6 +77,35 @@ abstract class PaggcertoService implements JsonSerializable
         }
 
         return $this->fillEntity($response);
+    }
+
+    /**
+     * @return mixed
+     */
+    abstract protected function init();
+
+    /**
+     * @param stdClass $response
+     * @return mixed
+     */
+    abstract protected function fillEntity(stdClass $response);
+
+    /**
+     * @param $key
+     * @param stdClass|null $data
+     * @return mixed
+     */
+    protected function getIfSet($key, stdClass $data = null)
+    {
+        if (empty($data)) {
+            // @codeCoverageIgnoreStart
+            $data = $this->data;
+            // @codeCoverageIgnoreEnd
+        }
+
+        if (isset($data->$key)) {
+            return $data->$key;
+        }
     }
 
     /**
@@ -113,7 +149,7 @@ abstract class PaggcertoService implements JsonSerializable
         // @codeCoverageIgnoreEnd
     }
 
-    private function mountUrl()
+    protected function mountUrl()
     {
         if (count($this->routeParams) > 0) {
             foreach ($this->routeParams as $param) {
@@ -136,72 +172,5 @@ abstract class PaggcertoService implements JsonSerializable
         }
 
         return $this->path;
-    }
-
-    /**
-     * @param stdClass $response
-     * @return mixed
-     */
-    abstract protected function fillEntity(stdClass $response);
-
-    /**
-     * @param $path
-     * @return mixed
-     */
-    public function createRequest($path)
-    {
-        $response = $this->httpRequest($path, Requests::POST, $this);
-
-        return $this->fillEntity($response);
-    }
-
-    /**
-     * @param $path
-     * @return mixed
-     */
-    public function updateRequest($path)
-    {
-        $response = $this->httpRequest($path, Requests::PUT, $this);
-
-        return $this->populate($response);
-    }
-
-    /**
-     * @param $path
-     * @return mixed
-     */
-    public function deleteRequest($path)
-    {
-        return $response = $this->httpRequest($path, Requests::DELETE);
-    }
-
-    /**
-     * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
-     * @since 5.4.0
-     */
-    public function jsonSerialize()
-    {
-        // TODO: Implement jsonSerialize() method.
-    }
-
-    /**
-     * @param $key
-     * @param stdClass|null $data
-     * @return mixed
-     */
-    protected function getIfSet($key, stdClass $data = null)
-    {
-        if (empty($data)) {
-            // @codeCoverageIgnoreStart
-            $data = $this->data;
-            // @codeCoverageIgnoreEnd
-        }
-
-        if (isset($data->$key)) {
-            return $data->$key;
-        }
     }
 }

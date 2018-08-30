@@ -59,7 +59,13 @@ class RoleTest extends TestCase
         $return = $paggcerto->role()
             ->rolesList();
 
+        $returnWithFilters = $paggcerto->role()
+            ->setLength(2)
+            ->setIndex(2)
+            ->rolesList();
+
         $this->assertGreaterThanOrEqual(0, count($return->roles));
+        $this->assertEquals(2, count($returnWithFilters->roles));
     }
 
     /**

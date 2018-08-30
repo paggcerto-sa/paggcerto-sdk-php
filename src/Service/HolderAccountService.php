@@ -346,7 +346,7 @@ class HolderAccountService extends PaggcertoService
      */
     public function createHolderAccount()
     {
-        return $this->createRequest(self::SIGNUP_SELLER);
+        return $this->httpRequest(self::SIGNUP_SELLER, Requests::GET);
     }
 
     public function setupHolderAccount()
