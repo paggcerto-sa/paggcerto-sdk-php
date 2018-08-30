@@ -202,7 +202,7 @@ class AccountTest extends TestCase
     /**
      * @expectedExceptionCode 400
      * @expectedException  \Exception
-     * @expectedExceptionMessage Necessário passar um hash para se autenticar.
+     * @expectedExceptionMessage Necessary pass a hash to authenticate.
      */
     public function testShouldOAuthExceptionWithNullable()
     {
@@ -212,7 +212,7 @@ class AccountTest extends TestCase
     /**
      * @expectedExceptionCode 400
      * @expectedException  \Exception
-     * @expectedExceptionMessage Necessário passar um hash para se autenticar.
+     * @expectedExceptionMessage Necessary pass a hash to authenticate.
      */
     public function testShouldOAuthExceptionWithNotString()
     {
