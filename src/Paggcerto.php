@@ -13,6 +13,7 @@ use Paggcerto\Service\BusinessTypeService;
 use Paggcerto\Service\CityService;
 use Paggcerto\Service\HolderAccountService;
 use Paggcerto\Service\MarketingMediaService;
+use Paggcerto\Service\RoleConceptService;
 use Paggcerto\Service\RoleService;
 
 class Paggcerto extends ToConnect
@@ -25,6 +26,11 @@ class Paggcerto extends ToConnect
     const CLIENT_VERSION = "0.0.1-beta";
     const APPLICATION_ID = "Lk";
 
+    /**
+     * Paggcerto constructor.
+     * @param Authentication $paggcertoAuth
+     * @param string $endpoint
+     */
     public function __construct(Authentication $paggcertoAuth, $endpoint = Paggcerto::ACCOUNT_ENDPOINT_SANDBOX)
     {
         parent::__construct($paggcertoAuth, $endpoint);
@@ -39,7 +45,6 @@ class Paggcerto extends ToConnect
             $token = $this->authentication()->authHash($paggcertoAuth->getHash())->token;
             $paggcertoAuth->setToken($token);
         }
-
     }
 
     /**
@@ -104,5 +109,13 @@ class Paggcerto extends ToConnect
     public function role()
     {
         return new RoleService($this);
+    }
+
+    /**
+     * @return RoleConceptService
+     */
+    public function roleConcept()
+    {
+        return new RoleConceptService($this);
     }
 }
