@@ -16,7 +16,7 @@ class UnautorizedException extends RuntimeException
 {
     public function __construct($previous = null)
     {
-        parent::__construct("Erro de credenciais, confirme se sua autenticação pode realizar a ação desejada,
-         lembre-se dos ambientes distintos", 401, $previous);
+        parent::__construct("Credentials error, confirm your authentication to can make actions ,
+         remember, look the environment", 401, $previous);
     }
 }

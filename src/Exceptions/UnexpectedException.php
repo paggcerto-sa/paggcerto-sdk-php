@@ -16,6 +16,6 @@ class UnexpectedException extends RuntimeException
 {
     public function __construct($previous = null)
     {
-        parent::__construct("Um erro inesperado aconteceu, por favor, contate a Paggcerto", 500, $previous);
+        parent::__construct("An unexpected error happened, please contact a Paggcerto", 500, $previous);
     }
 }
