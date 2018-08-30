@@ -10,11 +10,13 @@ use Paggcerto\Service\AuthService;
 use Paggcerto\Service\BankService;
 use Paggcerto\Service\BusinessActivityService;
 use Paggcerto\Service\BusinessTypeService;
+use Paggcerto\Service\CardPaymentService;
 use Paggcerto\Service\CityService;
 use Paggcerto\Service\HolderAccountService;
 use Paggcerto\Service\MarketingMediaService;
 use Paggcerto\Service\RoleConceptService;
 use Paggcerto\Service\RoleService;
+use Paggcerto\Tests\Mocks\PaggcertoMock;
 
 class Paggcerto extends ToConnect
 {
@@ -33,18 +35,23 @@ class Paggcerto extends ToConnect
      */
     public function __construct(Authentication $paggcertoAuth, $endpoint = Paggcerto::ACCOUNT_ENDPOINT_SANDBOX)
     {
-        parent::__construct($paggcertoAuth, $endpoint);
-        $this->createNewSession();
-
         if ($paggcertoAuth instanceof Auth) {
-            $token = $this->authentication()->authCredentials($paggcertoAuth->getEmail(), $paggcertoAuth->getPassword())->token;
+            $token = $this->setUpAuthEndpoints($endpoint)
+                ->authentication()
+                ->authCredentials($paggcertoAuth->getEmail(), $paggcertoAuth->getPassword())
+                ->token;
             $paggcertoAuth->setToken($token);
         }
 
         if ($paggcertoAuth instanceof AuthHash) {
-            $token = $this->authentication()->authHash($paggcertoAuth->getHash())->token;
+            $token = $this->setUpAuthEndpoints($endpoint)
+                ->authentication()
+                ->authHash($paggcertoAuth->getHash())
+                ->token;
             $paggcertoAuth->setToken($token);
         }
+
+        parent::__construct($paggcertoAuth, $endpoint);
     }
 
     /**
@@ -117,5 +124,27 @@ class Paggcerto extends ToConnect
     public function roleConcept()
     {
         return new RoleConceptService($this);
+    }
+
+    /**
+     * @return CardPaymentService
+     */
+    public function cardPayment()
+    {
+        return new CardPaymentService($this);
+    }
+
+    private function setUpAuthEndpoints($endpoint)
+    {
+        $this->endpoint = $endpoint;
+
+        if($endpoint != self::ACCOUNT_ENDPOINT_PRODUCTION &&
+            $endpoint != PaggcertoMock::SIGNIN_HASH){
+            $this->endpoint = Paggcerto::ACCOUNT_ENDPOINT_SANDBOX;
+        }
+
+        $this->createNewSession();
+
+        return $this;
     }
 }

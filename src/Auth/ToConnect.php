@@ -15,7 +15,7 @@ use Requests_Session;
 class ToConnect implements JsonSerializable
 {
     private $paggcertoAuthentication;
-    private $endpoint;
+    protected $endpoint;
     private $session;
 
     public function __construct(Authentication $paggcertoAuth = null,
@@ -33,7 +33,10 @@ class ToConnect implements JsonSerializable
         $sess->options['timeout'] = $timeout;
         $sess->options['connect_timeout'] = $connect_timeout;
         $sess->options['useragent'] = $user_agent;
-        $sess->options['auth'] = $this->paggcertoAuthentication;
+
+        if($this->paggcertoAuthentication != null)
+            $sess->options['auth'] = $this->paggcertoAuthentication;
+
         $this->session = $sess;
 
         return $sess;
