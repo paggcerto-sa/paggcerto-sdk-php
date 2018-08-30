@@ -29,7 +29,7 @@ class AuthHash implements Authentication
     public function __construct($hash)
     {
         if ($hash == null || gettype($hash) != "string") {
-            throw new AuthException("Necessário passar um hash para se autenticar.", 400);
+            throw new AuthException("Necessary pass a hash to authenticate.", 400);
         }
 
         $this->hash = $hash;

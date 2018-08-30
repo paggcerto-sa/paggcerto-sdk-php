@@ -13,6 +13,7 @@ use Paggcerto\Paggcerto;
 
 class RoleTest extends TestCase
 {
+
     public function testShouldCreateRole()
     {
         $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
@@ -27,17 +28,23 @@ class RoleTest extends TestCase
         $this->assertEquals(true, $createdRole->active);
         $this->assertGreaterThanOrEqual(0, $createdRole->totalUsers);
         $this->assertEquals(0, count($createdRole->scopes));
+
+        return $createdRole->id;
     }
 
-    public function testShouldUpdateRole()
+    /**
+     * @depends testShouldCreateRole
+     */
+    public function testShouldUpdateRole($roleId)
     {
+
         $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
         $paggcerto->createNewSession();
 
         $updatedRole = $paggcerto->role()
             ->setName("Admin Update Test")
             ->setActive(true)
-            ->setRoleId("pL")
+            ->setRoleId($roleId)
             ->updateRole();
 
         $this->assertEquals(true, $updatedRole->active);
@@ -55,28 +62,90 @@ class RoleTest extends TestCase
         $this->assertGreaterThanOrEqual(0, count($return->roles));
     }
 
-    public function testShouldSearchRole()
+    /**
+     * @depends testShouldCreateRole
+     */
+    public function testShouldSearchRole($roleId)
     {
         $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
         $paggcerto->createNewSession();
 
         $return = $paggcerto->role()
-            ->setRoleId("pL")
+            ->setRoleId($roleId)
             ->searchRole();
 
         $this->assertEquals(true, $return->active);
         $this->assertEquals("Admin Update Test", $return->name);
     }
 
-    public function testShouldDeactivateRole()
+    /**
+     * @depends testShouldCreateRole
+     */
+    public function testShouldDeactivateRole($roleId)
     {
         $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
         $paggcerto->createNewSession();
 
         $return = $paggcerto->role()
-            ->setRoleId("pL")
+            ->setRoleId($roleId)
             ->deactivateRole();
 
         $this->assertEquals(false, $return->active);
+    }
+
+    /**
+     * @depends testShouldCreateRole
+     */
+    public function testShouldActivateRole($roleId)
+    {
+        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto->createNewSession();
+
+        $roleReturn = $paggcerto->role()
+            ->setRoleId($roleId)
+            ->activateRole();
+
+        $this->assertEquals(true, $roleReturn->active);
+    }
+
+    /**
+     * @depends testShouldCreateRole
+     */
+    public function testShouldDeleteRole($roleId)
+    {
+        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto->createNewSession();
+
+        $roleReturn = $paggcerto->role()
+            ->setRoleId($roleId)
+            ->deleteRole();
+
+        $this->assertEquals($roleId, $roleReturn->id);
+    }
+
+    public function testShouldRoleGrantPerm()
+    {
+        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto->createNewSession();
+
+        $paggcerto->roleConcept()
+            ->setRoleId("pL")
+            ->setScopes(["account.users.edit", "account.users.readonly"])
+            ->roleGrantPermission();
+
+        $this->assertTrue(true);
+    }
+
+    public function testShouldRoleRevokePerm()
+    {
+        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto->createNewSession();
+
+        $paggcerto->roleConcept()
+            ->setRoleId("pL")
+            ->setScopes(["account.users.edit", "account.users.readonly"])
+            ->roleRevokePermission();
+
+        $this->assertTrue(true);
     }
 }
