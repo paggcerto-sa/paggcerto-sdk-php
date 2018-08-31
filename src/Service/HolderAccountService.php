@@ -11,10 +11,15 @@ use Paggcerto\Paggcerto;
 use Requests;
 use stdClass;
 
-class HolderAccountService extends PaggcertoService
+class HolderAccountService extends PaggcertoAccountApiService
 {
     const SIGNUP_SELLER = self::ACCOUNT_VERSION . "/" . Paggcerto::APPLICATION_ID . "/signup/seller";
     const SETUP_HOLDER_ACCOUNT = self::ACCOUNT_VERSION . "/presets";
+
+    public function __construct(Paggcerto $paggcerto)
+    {
+        parent::__construct($paggcerto);
+    }
 
     /**
      * @param $fullname
@@ -67,11 +72,21 @@ class HolderAccountService extends PaggcertoService
     public function setHolderPhone($phone)
     {
         $this->data->holder->phone = $phone;
-        $this->data->phone = $phone;
 
         return $this;
     }
 
+    public function setMarketingMediaId($marketingId)
+    {
+        $this->data->marketingMediaId = $marketingId;
+
+        return $this;
+    }
+
+    /**
+     * @param $comercialName
+     * @return $this
+     */
     public function setHolderComercialName($comercialName)
     {
         $this->data->comercialName = $comercialName;
@@ -79,6 +94,10 @@ class HolderAccountService extends PaggcertoService
         return $this;
     }
 
+    /**
+     * @param $softDescriptor
+     * @return $this
+     */
     public function setSoftDescriptor($softDescriptor)
     {
         $this->data->softDescriptor = $softDescriptor;
@@ -342,18 +361,58 @@ class HolderAccountService extends PaggcertoService
     }
 
     /**
+     * @param $phone
+     * @return $this
+     */
+    public function setPhone($phone)
+    {
+        $this->data->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * @param $mobilePhone
+     * @return $this
+     */
+    public function setMobile($mobilePhone)
+    {
+        $this->data->mobile = $mobilePhone;
+
+        return $this;
+    }
+
+    /**
+     * @param $comercialName
+     * @return $this
+     */
+    public function setComercialName($comercialName)
+    {
+        $this->data->comercialName = $comercialName;
+
+        return $this;
+    }
+
+
+    /**
      * @return mixed
      */
     public function createHolderAccount()
     {
-        return $this->httpRequest(self::SIGNUP_SELLER, Requests::GET);
+        return $this->httpRequest(self::SIGNUP_SELLER, Requests::POST, $this->data);
     }
 
+    /**
+     *
+     */
     public function setupHolderAccount()
     {
         $this->httpRequest(self::SETUP_HOLDER_ACCOUNT, Requests::POST, $this->data);
     }
 
+    /**
+     * @return mixed
+     */
     public function getSetupHolderAccount()
     {
         return $this->httpRequest(self::SETUP_HOLDER_ACCOUNT, Requests::GET);

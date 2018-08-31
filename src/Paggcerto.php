@@ -16,42 +16,44 @@ use Paggcerto\Service\HolderAccountService;
 use Paggcerto\Service\MarketingMediaService;
 use Paggcerto\Service\RoleConceptService;
 use Paggcerto\Service\RoleService;
-use Paggcerto\Tests\Mocks\PaggcertoMock;
 
 class Paggcerto extends ToConnect
 {
     const ACCOUNT_ENDPOINT_SANDBOX = "http://account.sandbox.paggcerto.com.br/api/";
-    const ACCOUNT_ENDPOINT_PRODUCTION = "https://account.paggcerto.com.br/api/";
+    const ACCOUNT_ENDPOINT_PROD = "https://account.paggcerto.com.br/api/";
     const PAYMENTS_ENDPOINT_SANDBOX = "http://payments.sandbox.paggcerto.com.br/api/";
-    const PAYMENTS_ENDPOINT_PRODUCTION = "https://payments.paggcerto.com.br/api/";
+    const PAYMENTS_ENDPOINT_PROD = "https://payments.paggcerto.com.br/api/";
     const CLIENT = "PaggcertoPhpSdk";
     const CLIENT_VERSION = "0.0.1-beta";
     const APPLICATION_ID = "Lk";
+    const ENDPOINT_SANDBOX = "sandbox";
+    const ENDPOINT_PROD = "prod";
+    const ENDPOINT_MOCK = "mock";
 
     /**
      * Paggcerto constructor.
      * @param Authentication $paggcertoAuth
      * @param string $endpoint
      */
-    public function __construct(Authentication $paggcertoAuth, $endpoint = Paggcerto::ACCOUNT_ENDPOINT_SANDBOX)
+    public function __construct(Authentication $paggcertoAuth, $endpointEnvironment = self::ENDPOINT_SANDBOX)
     {
+        parent::__construct($paggcertoAuth, $endpointEnvironment);
+
         if ($paggcertoAuth instanceof Auth) {
-            $token = $this->setUpAuthEndpoints($endpoint)
-                ->authentication()
+            $token = $this->authentication()
                 ->authCredentials($paggcertoAuth->getEmail(), $paggcertoAuth->getPassword())
                 ->token;
             $paggcertoAuth->setToken($token);
         }
 
         if ($paggcertoAuth instanceof AuthHash) {
-            $token = $this->setUpAuthEndpoints($endpoint)
-                ->authentication()
+            $token = $this->authentication()
                 ->authHash($paggcertoAuth->getHash())
                 ->token;
             $paggcertoAuth->setToken($token);
         }
 
-        parent::__construct($paggcertoAuth, $endpoint);
+        parent::__construct($paggcertoAuth, $endpointEnvironment);
     }
 
     /**
@@ -132,19 +134,5 @@ class Paggcerto extends ToConnect
     public function cardPayment()
     {
         return new CardPaymentService($this);
-    }
-
-    private function setUpAuthEndpoints($endpoint)
-    {
-        $this->endpoint = $endpoint;
-
-        if($endpoint != self::ACCOUNT_ENDPOINT_PRODUCTION &&
-            $endpoint != PaggcertoMock::SIGNIN_HASH){
-            $this->endpoint = Paggcerto::ACCOUNT_ENDPOINT_SANDBOX;
-        }
-
-        $this->createNewSession();
-
-        return $this;
     }
 }
