@@ -132,7 +132,7 @@ class AccountTest extends TestCase
         $this->assertEquals(false, $account->account->balanceBlocked);
         $this->assertEquals(false, $account->account->oldAnticipationPlan);
         $this->assertEquals(0, $account->account->vanBanese);
-        $this->assertEquals("Esportes ME", $account->account->softdescriptor);
+        $this->assertEquals("Esportes ME", $account->holder->company->tradeName);
         $this->assertEquals("MARIANAEEMANU", $account->account->softDescriptor);
         $this->assertEquals(null, $account->registrationOrigin->timeOnScreen);
         $this->assertEquals("Desktop", $account->registrationOrigin->device);
