@@ -99,7 +99,6 @@ class AccountTest extends TestCase
         $this->assertEquals(true, $account->account->oldAnticipationPlan);
         $this->assertEquals(0, $account->account->vanBanese);
         $this->assertEquals("Esportes ME", $account->account->softdescriptor);
-        $this->assertEquals("123.123.123.154", $account->registrationOrigin->ip);
         $this->assertEquals(null, $account->registrationOrigin->timeOnScreen);
         $this->assertEquals("insomnia/5.15.0", $account->registrationOrigin->userAgent);
         $this->assertEquals("Desktop", $account->registrationOrigin->device);
