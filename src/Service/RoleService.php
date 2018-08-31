@@ -12,7 +12,7 @@ use Exception;
 use Requests;
 use stdClass;
 
-class RoleService extends PaggcertoService
+class RoleService extends PaggcertoAccountApiService
 {
     const ROLE_URI = self::ACCOUNT_VERSION . "/roles";
 
