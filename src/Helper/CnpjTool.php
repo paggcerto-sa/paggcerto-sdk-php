@@ -45,9 +45,9 @@ class CnpjTool
         return $return;
     }
 
-    private function mod($diviv1, $diviv2)
+    private function mod($div1, $div2)
     {
-        return round($diviv1 - (floor($diviv1 / $diviv2) * $diviv2));
+        return round($div1 - (floor($div1 / $div2) * $div2));
     }
 }
 
