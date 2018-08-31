@@ -154,7 +154,7 @@ $presetsHolder = $paggcerto->account()
 $this->assertTrue(true);
 ```
 
-###Obter conta
+### Obter conta
 Neste método são exibidas todas as informações do titular da conta.
 
 ```php
