@@ -15,13 +15,24 @@ use Requests_Session;
 class ToConnect implements JsonSerializable
 {
     private $paggcertoAuthentication;
-    protected $endpoint;
+    private $endpointEnvironment;
+    private $endpoint;
     private $session;
 
     public function __construct(Authentication $paggcertoAuth = null,
-                                $endpoint = Paggcerto::ACCOUNT_ENDPOINT_SANDBOX)
+                                $endpointEnvironment = Paggcerto::ENDPOINT_SANDBOX)
     {
         $this->paggcertoAuthentication = $paggcertoAuth;
+        $this->endpointEnvironment = $endpointEnvironment;
+    }
+
+    public function getEndpointEnvironment()
+    {
+        return $this->endpointEnvironment;
+    }
+
+    public function setEndpoint($endpoint)
+    {
         $this->endpoint = $endpoint;
     }
 

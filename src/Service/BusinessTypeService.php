@@ -10,7 +10,7 @@ namespace Paggcerto\Service;
 
 use stdClass;
 
-class BusinessTypeService extends PaggcertoService
+class BusinessTypeService extends PaggcertoAccountApiService
 {
     const SEARCH_BUSINESS_TYPES = "v2/business-types";
 

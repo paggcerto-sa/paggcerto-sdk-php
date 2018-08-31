@@ -11,7 +11,7 @@ namespace Paggcerto\Service;
 
 use stdClass;
 
-class MarketingMediaService extends PaggcertoService
+class MarketingMediaService extends PaggcertoAccountApiService
 {
     const SEARCH_MARKETING_MEDIA = "v2/marketing-medias";
 

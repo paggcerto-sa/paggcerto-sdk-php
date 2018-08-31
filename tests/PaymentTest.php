@@ -14,9 +14,7 @@ class PaymentTest extends TestCase
 {
     public function testShouldGetCardsBrands()
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"),
-            Paggcerto::PAYMENTS_ENDPOINT_SANDBOX);
-        $paggcerto->createNewSession();
+        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
 
         $result = $paggcerto->cardPayment()
             ->getCardsBrands();
