@@ -16,7 +16,7 @@ class RoleTest extends TestCase
 
     public function testShouldCreateRole()
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
         $paggcerto->createNewSession();
 
         $createdRole = $paggcerto->role()
@@ -38,7 +38,7 @@ class RoleTest extends TestCase
     public function testShouldUpdateRole($roleId)
     {
 
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
         $paggcerto->createNewSession();
 
         $updatedRole = $paggcerto->role()
@@ -53,7 +53,7 @@ class RoleTest extends TestCase
 
     public function testShouldRoles()
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
         $paggcerto->createNewSession();
 
         $return = $paggcerto->role()
@@ -73,7 +73,7 @@ class RoleTest extends TestCase
      */
     public function testShouldSearchRole($roleId)
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
         $paggcerto->createNewSession();
 
         $return = $paggcerto->role()
@@ -89,7 +89,7 @@ class RoleTest extends TestCase
      */
     public function testShouldDeactivateRole($roleId)
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
         $paggcerto->createNewSession();
 
         $return = $paggcerto->role()
@@ -104,7 +104,7 @@ class RoleTest extends TestCase
      */
     public function testShouldActivateRole($roleId)
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
         $paggcerto->createNewSession();
 
         $roleReturn = $paggcerto->role()
@@ -119,7 +119,7 @@ class RoleTest extends TestCase
      */
     public function testShouldDeleteRole($roleId)
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
         $paggcerto->createNewSession();
 
         $roleReturn = $paggcerto->role()
@@ -131,7 +131,7 @@ class RoleTest extends TestCase
 
     public function testShouldRoleGrantPerm()
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
         $paggcerto->createNewSession();
 
         $paggcerto->roleConcept()
@@ -144,7 +144,7 @@ class RoleTest extends TestCase
 
     public function testShouldRoleRevokePerm()
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
         $paggcerto->createNewSession();
 
         $paggcerto->roleConcept()

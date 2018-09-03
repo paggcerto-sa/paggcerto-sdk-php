@@ -141,7 +141,7 @@ abstract class PaggcertoService implements JsonSerializable
         } elseif ($code == 401) {
             throw new UnautorizedException();
         } elseif ($code >= 400 && $code <= 499) {
-            $errors = (new Error())->parseErrors($response_body);
+            $errors = (new Error($code))->parseErrors($response_body);
 
             throw new ValidationException($code, $errors);
         }
