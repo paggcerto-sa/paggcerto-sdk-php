@@ -21,6 +21,12 @@
         - [Configurar conta](#configurar-conta)
         - [Obter conta](#obter-conta)
     - [Métodos complementares](#métodos-complementares)
+        - [Consultar tipos de empresa](#consultar-tipos-de-empresa)
+        - [Consultar cidades](#consultar-cidades)
+        - [Consultar bancos](#consultar-bancos)
+        - [Consultar ramo de atividade](#consultar-ramo-de-atividade)
+        - [Consultar medias de marketing](#consultar-medias-de-marketing)
+
 
 ## Requisições
 Para utilizar nosso SDK é necessário ter as seguintes requisições:
@@ -51,7 +57,7 @@ use Paggcerto\Auth\NoAuth;
 
 $endpoint = "prod";
 
-$paggcerto = new Paggcerto(new NAuth, $endpoint);
+$paggcerto = new Paggcerto(new NoAuth, $endpoint);
 ```
 #### Por auth com credenciais
 
@@ -159,4 +165,52 @@ Neste método são exibidas todas as informações do titular da conta.
 $presets = $paggcerto->account()->getSetupHolderAccount();
 
 print_r($presets);
+```
+
+## Métodos complementares
+São métodos de consulta, que apresentam informações complementares para a criação da [conta titular](#criar-conta)
+
+### Consultar tipos de empresa
+Nesta consulta são retornados todos os tipos de empresa.
+
+```php
+$businessTypes = $paggcerto->businessType()->getRequest();
+
+print_r($businessTypes);
+```
+
+### Consultar cidades
+Com a utilização desta consulta são retornadas as informações a respeito das cidades que estão localizadas no estado informado no *endpoint*.
+
+```php
+$cities = $paggcerto->city()->getRequest(["SE"]);
+
+print_r($cities);
+```
+
+ ### Consultar bancos
+ É retornada uma lista com informações a respeito das instituições financeiras.
+
+```php
+$banks = $paggcerto->bank()->getRequest();
+
+print_r($banks);
+```
+
+### Consultar ramo de atividade
+Com a utilização desta consulta são retornadas as informações de todos os ramos de atividades.
+
+```php
+$businessActivities = $paggcerto->businessActivity()->getRequest();
+
+print_r($businessActivities);
+```
+
+### Consultar medias de marketing
+Ao utilizar esta consulta são retornadas as informações a respeito das medias de marketing, que possibilitaram o usuário conhecer a Paggcerto.
+
+```php
+$marketingMedias = $paggcerto->marketingMedia()->getRequest();
+
+print_r($marketingMedias);
 ```
