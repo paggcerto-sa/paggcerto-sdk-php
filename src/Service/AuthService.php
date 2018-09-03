@@ -12,7 +12,7 @@ use Paggcerto\Paggcerto;
 use Requests;
 use stdClass;
 
-class AuthService extends PaggcertoService
+class AuthService extends PaggcertoAccountApiService
 {
     const AUTH_CREDENTIALS = self::ACCOUNT_VERSION . "/%s/signin/";
     const WHOAMI = self::ACCOUNT_VERSION . "/whoami";

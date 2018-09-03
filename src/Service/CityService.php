@@ -10,7 +10,7 @@ namespace Paggcerto\Service;
 
 use stdClass;
 
-class CityService extends PaggcertoService
+class CityService extends PaggcertoAccountApiService
 {
 
     const SEARCH_CITIES = "v2/cities";
