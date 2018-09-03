@@ -35,8 +35,8 @@ class PaymentTest extends TestCase
             ->setPinpad(false)
             ->paySimulate();
 
-        $this->assertEquals(111.11,$result->amountCharged);
-        $this->assertEquals(100,$result->amountReceived);
+        $this->assertEquals(111.11, $result->amountCharged);
+        $this->assertEquals(100, $result->amountReceived);
     }
 
     public function testShouldPay()
