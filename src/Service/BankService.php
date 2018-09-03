@@ -10,7 +10,7 @@ namespace Paggcerto\Service;
 
 use stdClass;
 
-class BankService extends PaggcertoService
+class BankService extends PaggcertoAccountApiService
 {
     const SEARCH_BANKS = "v2/banks";
 

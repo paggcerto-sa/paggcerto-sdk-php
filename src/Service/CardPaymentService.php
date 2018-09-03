@@ -10,7 +10,7 @@ namespace Paggcerto\Service;
 
 use stdClass;
 
-class CardPaymentService extends PaggcertoService
+class CardPaymentService extends PaggcertoPayApiService
 {
     const BINS_URL = self::PAYMENTS_VERSION . "/bins";
     const PAYMENTS_URL = self::PAYMENTS_VERSION . "/pay";

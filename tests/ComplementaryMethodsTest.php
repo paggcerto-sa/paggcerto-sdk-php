@@ -21,7 +21,7 @@ class ComplementaryMethodsTest extends TestCase
     public function testMustGetCities()
     {
         $paggcerto = new Paggcerto(new NoAuth());
-        $paggcerto->createNewSession();
+
         $cities = $paggcerto->city()->getRequest(["SE"]);
 
         $this->assertNotEmpty($cities);
@@ -31,7 +31,7 @@ class ComplementaryMethodsTest extends TestCase
     public function testMustGetBussinesType()
     {
         $paggcerto = new Paggcerto(new NoAuth());
-        $paggcerto->createNewSession();
+
         $businessTypes = $paggcerto->businessType()->getRequest();
 
         $this->assertNotEmpty($businessTypes);
@@ -41,7 +41,7 @@ class ComplementaryMethodsTest extends TestCase
     public function testMustGetBanks()
     {
         $paggcerto = new Paggcerto(new NoAuth());
-        $paggcerto->createNewSession();
+
         $banks = $paggcerto->bank()->getRequest();
 
         $this->assertNotEmpty($banks);
@@ -51,7 +51,7 @@ class ComplementaryMethodsTest extends TestCase
     public function testMustGetBusinessActivities()
     {
         $paggcerto = new Paggcerto(new NoAuth());
-        $paggcerto->createNewSession();
+
         $businessActivities = $paggcerto->businessActivity()->getRequest();
 
         $this->assertNotEmpty($businessActivities);
@@ -61,7 +61,7 @@ class ComplementaryMethodsTest extends TestCase
     public function testMustGetMarketingMedias()
     {
         $paggcerto = new Paggcerto(new NoAuth());
-        $paggcerto->createNewSession();
+
         $marketingMedias = $paggcerto->marketingMedia()->getRequest();
 
         $this->assertNotEmpty($marketingMedias);

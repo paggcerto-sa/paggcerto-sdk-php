@@ -7,21 +7,31 @@
 
 namespace Paggcerto\Auth;
 
-use JsonSerializable;
 use Paggcerto\Contracts\Authentication;
 use Paggcerto\Paggcerto;
 use Requests_Session;
 
-class ToConnect implements JsonSerializable
+class ToConnect
 {
     private $paggcertoAuthentication;
-    protected $endpoint;
+    private $endpointEnvironment;
+    private $endpoint;
     private $session;
 
     public function __construct(Authentication $paggcertoAuth = null,
-                                $endpoint = Paggcerto::ACCOUNT_ENDPOINT_SANDBOX)
+                                $endpointEnvironment = Paggcerto::ENDPOINT_SANDBOX)
     {
         $this->paggcertoAuthentication = $paggcertoAuth;
+        $this->endpointEnvironment = $endpointEnvironment;
+    }
+
+    public function getEndpointEnvironment()
+    {
+        return $this->endpointEnvironment;
+    }
+
+    public function setEndpoint($endpoint)
+    {
         $this->endpoint = $endpoint;
     }
 
@@ -58,10 +68,5 @@ class ToConnect implements JsonSerializable
             $this->endpoint = $endpoint;
         }
         return $endpoint;
-    }
-
-    function jsonSerialize()
-    {
-        // TODO: Implement jsonSerialize() method.
     }
 }

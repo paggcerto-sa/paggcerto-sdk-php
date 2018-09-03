@@ -11,7 +11,7 @@ namespace Paggcerto\Service;
 
 use stdClass;
 
-class BusinessActivityService extends PaggcertoService
+class BusinessActivityService extends PaggcertoAccountApiService
 {
     const SEARCH_BUSINESS_ACTIVITIES = "v2/business-activities";
 

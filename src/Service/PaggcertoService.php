@@ -174,4 +174,6 @@ abstract class PaggcertoService implements JsonSerializable
 
         return $this->path;
     }
+
+    protected abstract function setUpEndpoint();
 }

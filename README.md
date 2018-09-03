@@ -1,4 +1,6 @@
 # Paggcerto SDK PHP v1 
+![Home Image](https://cdn.paggcerto.com.br/img/git/paggcerto-developer.png)
+
 > O modo mais simples e fácil de integrar sua aplicação PHP com a Paggcerto.
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3ff8c94e1b40460e8ad901f4703e1d33)](https://www.codacy.com/app/erickants/paggcerto-sdk-php?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=paggcerto-sa/paggcerto-sdk-php&amp;utm_campaign=Badge_Grade)

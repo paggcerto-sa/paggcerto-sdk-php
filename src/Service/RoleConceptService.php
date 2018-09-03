@@ -11,7 +11,7 @@ namespace Paggcerto\Service;
 use Requests;
 use stdClass;
 
-class RoleConceptService extends PaggcertoService
+class RoleConceptService extends PaggcertoAccountApiService
 {
     const ROLE_CONCEPTS = RoleService::ROLE_URI;
 
