@@ -1,6 +1,4 @@
-<img width="" src="icon.png" align="right" />
-
-# Paggcerto v1 PHP client SDK 
+# Paggcerto SDK PHP v1 
 > O modo mais simples e fácil de integrar sua aplicação PHP com a Paggcerto.
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3ff8c94e1b40460e8ad901f4703e1d33)](https://www.codacy.com/app/erickants/paggcerto-sdk-php?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=paggcerto-sa/paggcerto-sdk-php&amp;utm_campaign=Badge_Grade)
@@ -154,7 +152,7 @@ $presetsHolder = $paggcerto->account()
 $this->assertTrue(true);
 ```
 
-### Obter conta
+### Obter configurações da conta
 Neste método são exibidas todas as informações do titular da conta.
 
 ```php
