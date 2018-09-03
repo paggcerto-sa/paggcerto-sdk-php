@@ -22,7 +22,7 @@ class ComplementaryMethodsTest extends TestCase
     {
         $paggcerto = new Paggcerto(new NoAuth());
 
-        $cities = $paggcerto->city()->getRequest(["SE"]);
+        $cities = $paggcerto->city()->getRequest(["SP"]);
 
         $this->assertNotEmpty($cities);
         $this->assertTrue(count($cities) > 0);

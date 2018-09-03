@@ -36,7 +36,6 @@ class Error
     /**
      * Error constructor.
      *
-     * Represents an error return by the API. Commonly used by {@see \Moip\Exceptions\ValidationException}
      *
      * @param string $code        unique error identifier.
      * @param string $path        represents the field where the error ocurred.
@@ -47,6 +46,13 @@ class Error
         $this->code = $code;
         $this->path = $path;
         $this->description = $description;
+    }
+
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
     }
 
     /**
@@ -82,13 +88,12 @@ class Error
     /**
      * Creates an Error array from a json string.
      *
-     * @param string $json_string string returned by the Moip API
      *
      * @return array
      */
-    public function parseErrors($json_string)
+    public function parseErrors($json)
     {
-        $error_obj = json_decode($json_string);
+        $error_obj = json_decode($json);
         $errors = [];
         if (!empty($error_obj->errors)) {
             foreach ($error_obj->errors as $error) {

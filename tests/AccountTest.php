@@ -180,15 +180,17 @@ class AccountTest extends TestCase
         $this->assertEquals("LIMIT", $presets->account->softDescriptor);
     }
 
+    /**
+     * @expectedExceptionCode 422
+     * @expectedException  \Exception
+     * @expectedExceptionMessage EXPIRED_HASH
+     */
     public function testShouldOAuthExceptionWithHash()
     {
         try {
             $hash = "32YfLcObZAyCNFfbBWp1wYTB6OJx2tFoe1sd4YU2e26TlsBypf29DhXLBiGKjl60bJyKPFbdtvwUZ72Jta1soey48I-2VGy0" .
                 "ple8ba7KSBHXv0fM56G_dBlv2ySyvIqXhN341jjaoQj9omvLt2r1VO-I6KosDAm-PZ6-GWiGGh0seuEp2G_Bjexj588Bmyq-";
-            $paggcerto = new Paggcerto(new AuthHash($hash));
-
-            $this->assertNotNull($paggcerto->getSession()
-                ->options["auth"]->getToken());
+            new Paggcerto(new AuthHash($hash));
         }
         catch (AuthException $e)
         {
