@@ -20,11 +20,11 @@ class AccountTest extends TestCase
 {
     public function testShouldGetWhoAmI()
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
 
         $whoAmI = $paggcerto->authentication()->whoAmI();
 
-        $this->assertEquals("Erick Antunes", $whoAmI->holder->fullName);
+        $this->assertEquals("Paggcerto Sandbox PHP", $whoAmI->holder->fullName);
         $this->assertEquals("Gestão de Mensalidades", $whoAmI->application->name);
         $this->assertEquals(true, $whoAmI->account->approved);
         $this->assertEquals("555.746.290-20", $whoAmI->user->taxDocument);
@@ -32,7 +32,7 @@ class AccountTest extends TestCase
 
     public function testShouldSetupHolderAcc()
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
 
         $paggcerto->account()
             ->setUserPassword("95625845")
@@ -49,11 +49,11 @@ class AccountTest extends TestCase
             ->setBankAccountType("corrente")
             ->setBankAccountIsJuridic(true)
             ->setAddressCityCode("2800308")
-            ->setAddressDistrict("Farolândia")
-            ->setAddressLine1("Rua Silvio do Espírito Santos Seixas")
+            ->setAddressDistrict("Smallville")
+            ->setAddressLine1("Rua do Talon")
             ->setAddressLine2("Ap 001, Cleveland House")
-            ->setAddressStreetNumber("92")
-            ->setAddressZipCode("49030-423")
+            ->setAddressStreetNumber("6000")
+            ->setAddressZipCode("49030-620")
             ->setupHolderAccount();
 
         $this->assertTrue(true);
@@ -78,11 +78,11 @@ class AccountTest extends TestCase
             ->setCompanyTaxDocument($cnpj)
             ->setBusinessTypeId("vL")
             ->setAddressCityCode("2800308")
-            ->setAddressDistrict("Farolândia")
-            ->setAddressLine1("Rua Silvio do Espírito Santos Seixas")
+            ->setAddressDistrict("Smallville")
+            ->setAddressLine1("Rua do Talon")
             ->setAddressLine2("Ap 001, Cleveland House")
-            ->setAddressStreetNumber("92")
-            ->setAddressZipCode("49030-423")
+            ->setAddressStreetNumber("6000")
+            ->setAddressZipCode("49030-620")
             ->setBankAccountBankNumber("001")
             ->setBankAccountNumber("31232156132-12")
             ->setBankAccountBranchNumber("0031")
@@ -110,11 +110,11 @@ class AccountTest extends TestCase
         $this->assertEquals("vL", $account->holder->company->businessType->id);
         $this->assertEquals("Sociedade Empresária Limitada", $account->holder->company->businessType->name);
         $this->assertEquals("vL", $account->businessActivity->id);
-        $this->assertEquals("Farolândia", $account->address->district);
-        $this->assertEquals("Rua Silvio do Espírito Santos Seixas", $account->address->line1);
+        $this->assertEquals("Smallville", $account->address->district);
+        $this->assertEquals("Rua do Talon", $account->address->line1);
         $this->assertEquals("Ap 001, Cleveland House", $account->address->line2);
-        $this->assertEquals("92", $account->address->streetNumber);
-        $this->assertEquals("49030-423", $account->address->zipCode);
+        $this->assertEquals("6000", $account->address->streetNumber);
+        $this->assertEquals("49030-620", $account->address->zipCode);
         $this->assertEquals("Aracaju", $account->address->city->name);
         $this->assertEquals("2800308", $account->address->city->code);
         $this->assertEquals("001", $account->bankAccount->bankNumber);
@@ -145,22 +145,22 @@ class AccountTest extends TestCase
 
     public function testShouldGetSetupHolderAccountSandbox()
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
 
         $presets = $paggcerto->account()->getSetupHolderAccount();
 
         $this->assertNotEmpty($presets);
-        $this->assertEquals("Erick Antunes", $presets->holder->fullName);
+        $this->assertEquals("Paggcerto Sandbox PHP", $presets->holder->fullName);
         $this->assertEquals("M", $presets->holder->gender);
         $this->assertEquals("555.746.290-20", $presets->holder->taxDocument);
         $this->assertEquals("(79) 99999-9999", $presets->holder->mobile);
         $this->assertEquals("Universidade Life", $presets->holder->company->tradeName);
         $this->assertEquals("Nanitec operações limitadas", $presets->holder->company->fullName);
         $this->assertEquals("15.150.963/0001-49", $presets->holder->company->taxDocument);
-        $this->assertEquals("Farolândia", $presets->address->district);
-        $this->assertEquals("Rua Silvio do Espírito Santos Seixas", $presets->address->line1);
-        $this->assertEquals("92", $presets->address->streetNumber);
-        $this->assertEquals("49030-423", $presets->address->zipCode);
+        $this->assertEquals("Smallville", $presets->address->district);
+        $this->assertEquals("Rua do Talon", $presets->address->line1);
+        $this->assertEquals("6000", $presets->address->streetNumber);
+        $this->assertEquals("49030-620", $presets->address->zipCode);
         $this->assertEquals("2800308", $presets->address->city->code);
         $this->assertEquals("Aracaju", $presets->address->city->name);
         $this->assertEquals("SE", $presets->address->city->state);

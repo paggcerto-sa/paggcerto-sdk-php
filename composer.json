@@ -4,8 +4,8 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Erick Antunes",
-            "email": "erick.antunes@paggcerto.com.br"
+            "name": "Paggcerto Sandbox PHP",
+            "email": "sandbox-php@paggcerto.com.br"
         }
     ],
     "require": {

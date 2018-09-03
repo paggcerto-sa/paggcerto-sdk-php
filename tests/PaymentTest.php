@@ -14,7 +14,7 @@ class PaymentTest extends TestCase
 {
     public function testShouldGetCardsBrands()
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
 
         $result = $paggcerto->cardPayment()
             ->getCardsBrands();
@@ -24,7 +24,7 @@ class PaymentTest extends TestCase
 
     public function testShouldSimulatePayment()
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
 
         $result = $paggcerto->cardPayment()
             ->setAmount(100)
@@ -41,7 +41,7 @@ class PaymentTest extends TestCase
 
     public function testShouldPay()
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
 
         $result = $paggcerto->cardPayment()
             ->setAmount(100)
@@ -66,7 +66,7 @@ class PaymentTest extends TestCase
      */
     public function testShouldSendReceipt($payment)
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
 
         $paggcerto->cardPayment()
             ->setNsu($payment->cardTransactions[0]->nsu)
@@ -81,7 +81,7 @@ class PaymentTest extends TestCase
      */
     public function testShouldPayContinue($payment)
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
 
         $result = $paggcerto->cardPayment()
             ->setPaymentId($payment->id)
@@ -102,7 +102,7 @@ class PaymentTest extends TestCase
      */
     public function testShouldCancelTransaction($payment)
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
 
         $result = $paggcerto->cardPayment()
             ->setNsu($payment->cardTransactions[0]->nsu)
@@ -116,7 +116,7 @@ class PaymentTest extends TestCase
      */
     public function testShouldPayCancel($payment)
     {
-        $paggcerto = new Paggcerto(new Auth("erick.antunes@paggcerto.com.br", "95625845"));
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
 
         $result = $paggcerto->cardPayment()
             ->setPaymentId($payment->id)
