@@ -1,4 +1,4 @@
-# Paggcerto v1 PHP client SDK 
+# Paggcerto SDK PHP v1 
 ![Home Image](https://cdn.paggcerto.com.br/img/git/paggcerto-developer.png)
 
 > O modo mais simples e fácil de integrar sua aplicação PHP com a Paggcerto.
@@ -154,7 +154,7 @@ $presetsHolder = $paggcerto->account()
 $this->assertTrue(true);
 ```
 
-### Obter conta
+### Obter configurações da conta
 Neste método são exibidas todas as informações do titular da conta.
 
 ```php
