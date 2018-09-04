@@ -1,29 +1,33 @@
 {
-    "name": "paggcerto/paggcerto-sdk-php",
-    "description": "Cliente PHP para integração server-side com APIs Paggcerto V2",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Paggcerto Sandbox PHP",
-            "email": "sandbox-php@paggcerto.com.br"
-        }
-    ],
-    "require": {
-        "php": ">=5.6",
-        "rmccue/requests": ">=1.0"
+  "name": "paggcerto/paggcerto-sdk-php",
+  "description": "Cliente PHP para integração server-side com APIs Paggcerto V2",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Erick Antunes",
+      "email": "erick.ants@gmail.com"
     },
-    "require-dev": {
-        "phpunit/phpunit": "~4.8.35 || ^5.6 || ^6.4",
-        "codacy/coverage": "dev-master"
-    },
-    "autoload": {
-        "psr-4": {
-            "Paggcerto\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Paggcerto\\Tests\\": "tests/"
-        }
+    {
+      "name": "Marcus Vinicius",
+      "email": "marcus.vinicius.3007@gmail.com"
     }
+  ],
+  "require": {
+    "php": ">=5.6",
+    "rmccue/requests": ">=1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.8.35 || ^5.6 || ^6.4",
+    "codacy/coverage": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Paggcerto\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Paggcerto\\Tests\\": "tests/"
+    }
+  }
 }
