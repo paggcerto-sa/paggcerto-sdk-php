@@ -28,6 +28,16 @@
         - [Consultar bancos](#consultar-bancos)
         - [Consultar ramo de atividade](#consultar-ramo-de-atividade)
         - [Consultar medias de marketing](#consultar-medias-de-marketing)
+    - [Gerenciamento dos perfis de usuários](#gerenciamento-dos-perfis-de-usuários)
+        - [Cadastrar perfil](#cadastrar-perfil)
+        - [Atualizar perfil](#atualizar-perfil)
+        - [Listar perfis](#listar-perfis)
+            - [Sem filtros](#sem-filtros)
+            - [Com filtros](#com-filtros)
+        - [Pesquisar perfil](#pesquisar-perfil)
+        - [Desativar perfil](#desativar-perfil)
+        - [Ativar perfil](#ativar-perfil)
+        - [Remover perfil](#remover-perfil)
 
 
 ## Requisições
@@ -91,7 +101,7 @@ $paggcerto = new Paggcerto(new AuthHash($hash), $endpoint);
 ## Exemplos de utilização
 
 ## Conta do Titular
-### Cria conta
+### Criar conta
 Este método é utilizado para o cadastro da conta do titular. Após a finalização deste cadastro, deve ser realizada a autenticação do titular da conta.
 ```php
 $holder = $paggcerto->account()
@@ -132,7 +142,7 @@ Com a configuração da conta podem ser alteradas as seguintes informações:
 - Conta bancária;
 - A descrição que irá constar na fatura do cliente                    ;
 - Endereço;
-- Escoher o dia para repasse: 2 ou 32 dias;
+- Escolher  o dia para repasse: 2 ou 32 dias;
 
 ```php
 $presetsHolder = $paggcerto->account()
@@ -216,3 +226,94 @@ $marketingMedias = $paggcerto->marketingMedia()->getRequest();
 
 print_r($marketingMedias);
 ```
+
+## Gerenciamento dos perfis de usuários
+O titular da conta pode configurar perfis de usuários para que outras pessoas possam realizar operações na conta do titular. O perfil determina quais funcionalidades os usuários podem ter acesso. Abaixo estão os exemplos para o gerenciamento destes perfis.
+
+### Cadastrar perfil
+
+```php    
+$createdRole = $paggcerto->role()
+    ->setName("Administrador")
+    ->createRole();
+
+print_r($createdRole);
+```
+### Atualizar perfil
+Para atualizar o perfil é necessário informado o identificador  único `roleId` do perfil desejado.
+```php
+$updatedRole = $paggcerto->role()
+    ->setName("Admin Update Test")
+    ->setActive(true)
+    ->setRoleId("a0b1")
+    ->updateRole();
+
+print_r($updatedRole);
+```
+
+### Listar perfis
+
+#### Sem filtros
+
+```php
+$list = $paggcerto->role()
+    ->rolesList();
+
+print_r($list);
+```
+
+#### Com filtros
+
+```php
+$listWithFilters = $paggcerto->role()
+    ->setLength(2)
+    ->setIndex(2)
+    ->rolesList();
+
+print_r($listWithFilters);
+```
+
+### Pesquisar perfil
+Este método é utilizado quando se deseja buscar um perfil específico, para isso o `roleId` do perfil deve ser informado. 
+
+```php
+$search = $paggcerto->role()
+    ->setRoleId("a0b1")
+    ->searchRole();
+
+print_r($search);
+```
+
+### Desativar perfil
+O `roleId` deve ser informado para desativar o perfil. 
+
+```php
+ $deactivate = $paggcerto->role()
+    ->setRoleId("a0b1")
+    ->deactivateRole();
+
+print_r($deactivate);
+```
+
+### Ativar perfil
+Informar o `roleId` para ativar o perfil. 
+```php
+$activate = $paggcerto->role()
+    ->setRoleId("a0b1")
+    ->activateRole();
+
+print_r($activate);
+```
+
+### Remover perfil
+Para remover um perfil deve ser informado o `roleId`.
+
+```php
+$delete = $paggcerto->role()
+    ->setRoleId("a0b1")
+    ->deleteRole();
+
+print_r($delete);
+``` 
+
+
