@@ -325,21 +325,17 @@ Para que o usuário acesse as funcionalidades é necessário que ele esteja vinc
 Para conceder as permissões é necessário informar o `roleId`.
 
 ```php
-$grantPermission = $paggcerto->roleConcept()
+$paggcerto->roleConcept()
     ->setRoleId("a0b1")
     ->setScopes(["account.users.edit", "account.users.readonly"])
     ->roleGrantPermission();
-        
-$this->assertTrue(true);
 ```
 ### Revogar permissão
 O `roleId` deve ser informado para remover a permissão.
 
 ```php
-$revokePermission = $paggcerto->roleConcept()
+$paggcerto->roleConcept()
     ->setRoleId("a0b1")
     ->setScopes(["account.users.edit", "account.users.readonly"])
     ->roleRevokePermission();
-
-$this->assertTrue(true);
 ```
