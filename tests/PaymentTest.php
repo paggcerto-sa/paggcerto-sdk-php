@@ -7,6 +7,8 @@
 
 namespace Paggcerto\Tests;
 
+use DateInterval;
+use DateTime;
 use Paggcerto\Auth\Auth;
 use Paggcerto\Paggcerto;
 
@@ -114,18 +116,137 @@ class PaymentTest extends TestCase
     /**
      * @depends testShouldPay
      */
-    public function testShouldPayCancel($payment)
+    public function testShouldPaymentCancel($payment)
     {
         $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
 
-        $result = $paggcerto->cardPayment()
+        $result = $paggcerto->payment()
             ->setPaymentId($payment->id)
-            ->payCancel();
+            ->paymentCancel();
 
         $this->assertEquals("canceled", $result->status);
         $this->assertEquals(100, $result->amount);
         $this->assertEquals(false, $result->cancelable);
         $this->assertEquals(2, count($result->cardTransactions));
         $this->assertEquals(0, count($result->bankSlips));
+    }
+
+    public function testShouldPayConclusion()
+    {
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
+
+        $result = $paggcerto->cardPayment()
+            ->setAmount(100)
+            ->addCard("João blah", "4929915748910899", 12,
+                2018, 50, "035", 1, true)
+            ->setPaymentDeviceSerialNumber("8000151509001953")
+            ->setPaymentDeviceModel("mp5")
+            ->pay();
+
+        $conclusion = $paggcerto->payment()
+            ->setPaymentId($result->id)
+            ->setAdditionalInformation("Test sdk php")
+            ->payFinalize();
+
+        $this->assertEquals("paid", $conclusion->status);
+    }
+
+    public function testShouldBankSlipPay()
+    {
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
+
+        $dateDue = (new DateTime())->add(new DateInterval("P10D"));
+        $result = $paggcerto->bankSlipPayment()
+            ->setDiscount(2.55)
+            ->setDiscountDays(30)
+            ->setFines(5)
+            ->setInterest(3)
+            ->setAcceptedUntil(15)
+            ->addPayer("Rodrigo Alves", "953.262.300-03")
+            ->addInstallment($dateDue->format("Y-m-d"), 100)
+            ->setInstructions("PHP SDK Test")
+            ->pay();
+
+        $this->assertEquals(100, $result->payments[0]->amount);
+        $this->assertEquals("pending", $result->payments[0]->status);
+        $this->assertEquals( 1, count($result->payments[0]->bankSlips));
+        $this->assertEquals(true, $result->payments[0]->cancelable);
+
+        return $result->payments[0];
+    }
+
+    /**
+     * @depends testShouldBankSlipPay
+     */
+    public function testShouldBankSlipCancel($bankSlip)
+    {
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
+
+        $result = $paggcerto->bankSlipPayment()
+            ->setNumber($bankSlip->bankSlips[0]->number)
+            ->cancel();
+
+        $this->assertEquals("canceled", $result->status);
+        $this->assertEquals(1, count($result->bankSlips));
+    }
+
+    public function testShouldBankSlipReplace()
+    {
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
+
+        $dateDue = (new DateTime())->add(new DateInterval("P10D"));
+        $bankSlipPayResult = $paggcerto->bankSlipPayment()
+            ->setDiscount(2.55)
+            ->setDiscountDays(30)
+            ->setFines(5)
+            ->setInterest(3)
+            ->setAcceptedUntil(15)
+            ->addPayer("Rodrigo Alves", "953.262.300-03")
+            ->addInstallment($dateDue->format("Y-m-d"), 100)
+            ->setInstructions("PHP SDK Test")
+            ->pay();
+
+        $result = $paggcerto->bankSlipPayment()
+            ->setNumber($bankSlipPayResult->payments[0]->bankSlips[0]->number)
+            ->setDiscountDays(30)
+            ->setDiscount(10)
+            ->setFines(5)
+            ->setInterest(3)
+            ->setAcceptedUntil(15)
+            ->setDueDate($dateDue->format("Y/m/d"))
+            ->setInstructions("PHP SDK test new bankslip date")
+            ->bankSlipReplace();
+
+
+        $this->assertEquals(100, $result->amount);
+        $this->assertEquals("pending", $result->status);
+        $this->assertEquals(true, $result->cancelable);
+        $this->assertEquals(2, count($result->bankSlips));
+    }
+
+    /**
+     * @depends testShouldBankSlipPay
+     */
+    public function testShouldBankSlipPDF($bankSlipPayment)
+    {
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
+
+        $result = $paggcerto->bankSlipPayment()
+            ->setPaymentId($bankSlipPayment->id)
+            ->makeBankSlipPDF();
+
+        $this->assertNotNull($result);
+    }
+
+    public function testShouldMultiplesBankSlip()
+    {
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
+
+        $result = $paggcerto->bankSlipPayment()
+            ->addPayment("aP2")
+            ->addPayment("REE")
+            ->makeMultiplesBankSlipPDF();
+
+        $this->assertNotNull($result);
     }
 }
