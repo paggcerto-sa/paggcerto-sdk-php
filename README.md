@@ -38,6 +38,9 @@
         - [Desativar perfil](#desativar-perfil)
         - [Ativar perfil](#ativar-perfil)
         - [Remover perfil](#remover-perfil)
+    - [Permissões dos perfis](#permissões-dos-perfis)
+        - [Conceder permissões](#conceder-permissões)
+        - [Revogar permissões](#revogar-permissões)
 
 
 ## Requisições
@@ -228,7 +231,7 @@ print_r($marketingMedias);
 ```
 
 ## Gerenciamento dos perfis de usuários
-O titular da conta pode configurar perfis de usuários para que outras pessoas possam realizar operações na conta do titular. O perfil determina quais funcionalidades os usuários podem ter acesso. Abaixo estão os exemplos para o gerenciamento destes perfis.
+O titular da conta pode configurar perfis de usuários para que outras pessoas possam realizar operações na conta do titular. O perfil determina quais funcionalidades (métodos ou recursos) os usuários podem ter acesso. Abaixo estão os exemplos para o gerenciamento destes perfis.
 
 ### Cadastrar perfil
 
@@ -315,5 +318,24 @@ $delete = $paggcerto->role()
 
 print_r($delete);
 ``` 
+## Permissões dos perfis
+Para que o usuário acesse as funcionalidades é necessário que ele esteja vinculado à um perfil e que este perfil tenha as devidas permissões. 
 
+### Conceder permissão
+Para conceder as permissões é necessário informar o `roleId`.
 
+```php
+$paggcerto->roleConcept()
+    ->setRoleId("a0b1")
+    ->setScopes(["account.users.edit", "account.users.readonly"])
+    ->roleGrantPermission();
+```
+### Revogar permissão
+O `roleId` deve ser informado para remover a permissão.
+
+```php
+$paggcerto->roleConcept()
+    ->setRoleId("a0b1")
+    ->setScopes(["account.users.edit", "account.users.readonly"])
+    ->roleRevokePermission();
+```
