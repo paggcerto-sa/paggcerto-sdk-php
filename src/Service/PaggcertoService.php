@@ -46,6 +46,11 @@ abstract class PaggcertoService implements JsonSerializable
     }
 
     /**
+     * @return mixed
+     */
+    abstract protected function init();
+
+    /**
      * Specify data which should be serialized to JSON
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
@@ -81,35 +86,6 @@ abstract class PaggcertoService implements JsonSerializable
     }
 
     /**
-     * @return mixed
-     */
-    abstract protected function init();
-
-    /**
-     * @param stdClass $response
-     * @return mixed
-     */
-    abstract protected function fillEntity(stdClass $response);
-
-    /**
-     * @param $key
-     * @param stdClass|null $data
-     * @return mixed
-     */
-    protected function getIfSet($key, stdClass $data = null)
-    {
-        if (empty($data)) {
-            // @codeCoverageIgnoreStart
-            $data = $this->data;
-            // @codeCoverageIgnoreEnd
-        }
-
-        if (isset($data->$key)) {
-            return $data->$key;
-        }
-    }
-
-    /**
      * @param $path
      * @param $method
      * @param null $payload
@@ -137,7 +113,12 @@ abstract class PaggcertoService implements JsonSerializable
         $response_body = $http_response->body;
         // @codeCoverageIgnoreStart
         if ($code >= 200 && $code < 300) {
-            return json_decode($response_body);
+            if (strlen(strstr($http_response->headers->getValues("content-type")[0],
+                    "application/json")) > 0){
+                return json_decode($response_body);
+            }
+
+            return $response_body;
         } elseif ($code == 401) {
             throw new UnautorizedException();
         } elseif ($code >= 400 && $code <= 499) {
@@ -173,6 +154,30 @@ abstract class PaggcertoService implements JsonSerializable
         }
 
         return $this->path;
+    }
+
+    /**
+     * @param stdClass $response
+     * @return mixed
+     */
+    abstract protected function fillEntity(stdClass $response);
+
+    /**
+     * @param $key
+     * @param stdClass|null $data
+     * @return mixed
+     */
+    protected function getIfSet($key, stdClass $data = null)
+    {
+        if (empty($data)) {
+            // @codeCoverageIgnoreStart
+            $data = $this->data;
+            // @codeCoverageIgnoreEnd
+        }
+
+        if (isset($data->$key)) {
+            return $data->$key;
+        }
     }
 
     protected abstract function setUpEndpoint();

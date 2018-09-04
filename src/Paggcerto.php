@@ -8,12 +8,14 @@ use Paggcerto\Auth\ToConnect;
 use Paggcerto\Contracts\Authentication;
 use Paggcerto\Service\AuthService;
 use Paggcerto\Service\BankService;
+use Paggcerto\Service\BankSlipPaymentService;
 use Paggcerto\Service\BusinessActivityService;
 use Paggcerto\Service\BusinessTypeService;
 use Paggcerto\Service\CardPaymentService;
 use Paggcerto\Service\CityService;
 use Paggcerto\Service\HolderAccountService;
 use Paggcerto\Service\MarketingMediaService;
+use Paggcerto\Service\PaymentService;
 use Paggcerto\Service\RoleConceptService;
 use Paggcerto\Service\RoleService;
 
@@ -134,5 +136,21 @@ class Paggcerto extends ToConnect
     public function cardPayment()
     {
         return new CardPaymentService($this);
+    }
+
+    /**
+     * @return BankSlipPaymentService
+     */
+    public function bankSlipPayment()
+    {
+        return new BankSlipPaymentService($this);
+    }
+
+    /**
+     * @return PaymentService
+     */
+    public function payment()
+    {
+        return new PaymentService($this);
     }
 }

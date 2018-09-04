@@ -15,7 +15,6 @@ class CardPaymentService extends PaggcertoPayApiService
 {
     const BINS_URL = self::PAYMENTS_VERSION . "/bins";
     const PAYMENTS_URL = self::PAYMENTS_VERSION . "/pay";
-    const PAYMENTS_CANCEL_URL = self::PAYMENTS_VERSION . "/cancel";
     const PAYMENTS_CARD_TRANSACTION_URL = self::PAYMENTS_VERSION . "/card-transactions";
 
     /**
@@ -278,17 +277,6 @@ class CardPaymentService extends PaggcertoPayApiService
     public function getCardsBrands()
     {
         $response = $this->getRequest([], [], self::BINS_URL);
-
-        return $this->fillEntity($response);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function payCancel()
-    {
-        $urlPath = self::PAYMENTS_CANCEL_URL . "/{$this->data->paymentId}";
-        $response = $this->httpRequest($urlPath, Requests::POST, $this->data);
 
         return $this->fillEntity($response);
     }
