@@ -39,8 +39,8 @@
         - [Ativar perfil](#ativar-perfil)
         - [Remover perfil](#remover-perfil)
     - [Permissões dos perfis](#permissões-dos-perfis)
-        - [Conceder permissões](#conceder-permissões)
-        - [Revogar permissões](#revogar-permissões)
+        - [Conceder permissão](#conceder-permissão)
+        - [Revogar permissão](#revogar-permissão)
 
 
 ## Requisições
@@ -339,3 +339,5 @@ $paggcerto->roleConcept()
     ->setScopes(["account.users.edit", "account.users.readonly"])
     ->roleRevokePermission();
 ```
+
+
