@@ -14,7 +14,6 @@ use Paggcerto\Auth\NoAuth;
 use Paggcerto\Exceptions\AuthException;
 use Paggcerto\Helper\CnpjTool;
 use Paggcerto\Paggcerto;
-use Paggcerto\Tests\Mocks\PaggcertoMock;
 
 class AccountTest extends TestCase
 {

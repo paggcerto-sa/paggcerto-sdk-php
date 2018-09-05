@@ -37,6 +37,8 @@ class AuthService extends PaggcertoAccountApiService
         $acc->data->application = $this->getIfSet("application", $response);
         $acc->data->holder = $this->getIfSet("holder", $response);
         $acc->data->account = $this->getIfSet("account", $response);
+        $acc->data->bankAccount = $this->getIfSet("bankAccount", $response);
+        $acc->data->address = $this->getIfSet("address", $response);
         $acc->data->user = $this->getIfSet("user", $response);
         $acc->data->scope = $this->getIfSet("scope", $response);
         $acc->data->accessGranted = $this->getIfSet("accessGranted", $response);
