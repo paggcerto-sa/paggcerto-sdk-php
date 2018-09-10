@@ -28,6 +28,10 @@
         - [Consultar bancos](#consultar-bancos)
         - [Consultar ramo de atividade](#consultar-ramo-de-atividade)
         - [Consultar medias de marketing](#consultar-medias-de-marketing)
+    - [Autenticação](#autenticação)
+        - [Autenticar com credenciais](#autenticar-com-credenciais)
+        - [Autenticar com hash](#autenticar-com-hash)
+        - [Sem autenticação](#sem-autenticação)
     - [Gerenciamento dos perfis de usuários](#gerenciamento-dos-perfis-de-usuários)
         - [Cadastrar perfil](#cadastrar-perfil)
         - [Atualizar perfil](#atualizar-perfil)
@@ -183,7 +187,7 @@ print_r($presets);
 ```
 
 ## Métodos complementares
-São métodos de consulta, que apresentam informações complementares para a criação da [conta titular](#criar-conta)
+São métodos de consulta, que apresentam informações complementares para a criação da [conta titular](#criar-conta). Para acessar estes métodos não precisam estar [autenticado](#sem-autenticação).
 
 ### Consultar tipos de empresa
 Nesta consulta são retornados todos os tipos de empresa.
@@ -228,6 +232,29 @@ Ao utilizar esta consulta são retornadas as informações a respeito das medias
 $marketingMedias = $paggcerto->marketingMedia()->getRequest();
 
 print_r($marketingMedias);
+```
+
+## Autenticação
+O primeiro passo após a realização do cadastro da conta do titular é realizar sua autenticação. Nesta etapa será gerado o token de acesso para se conectar com nosso SDK e assim realizar as requisições. O token de acesso é confidencial e recomendamos não compartilhá-lo em ambientes públicos ou com terceiros. A seguir estão descritos os métodos que são responsáveis pela autenticação.
+
+### Autenticar com credenciais
+O objetivo da autenticação do usuário é ter como resultado a geração do Token de Acesso. O token gerado para o ambiente sandbox é diferente do token do ambiente de produção.
+
+```php
+$paggcerto = new Paggcerto(new Auth("mariana@email.com", "12345678"));
+```
+### Autenticar com hash
+A finalidade deste método é realizar a autenticação do usuário que foi cadastrado pelo titular da conta através do Hash que foi enviado ao e-mail desse usuário. Como resultado, é gerado o token temporário, que deve ser utilizado para Criar Nova Senha.
+
+```php
+$paggcerto = new Paggcerto(new AuthHash("ZAyCNFfbBWp1wYTB6OJx2e1sd45156d4fewfcdsvcd454"));
+```
+
+### Sem autenticação
+Para acessar os [métodos complementares](#métodos-complementares) não é necessário estar autenticado. Abaixo está o exemplo:
+
+```php
+$paggcerto = new Paggcerto(new NoAuth());
 ```
 
 ## Gerenciamento dos perfis de usuários
