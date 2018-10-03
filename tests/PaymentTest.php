@@ -146,6 +146,7 @@ class PaymentTest extends TestCase
         $conclusion = $paggcerto->payment()
             ->setPaymentId($result->id)
             ->setAdditionalInformation("Test sdk php")
+            ->setNote("teste")
             ->payFinalize();
 
         $this->assertEquals("paid", $conclusion->status);
@@ -165,6 +166,7 @@ class PaymentTest extends TestCase
             ->addPayer("Rodrigo Alves", "953.262.300-03")
             ->addInstallment($dateDue->format("Y-m-d"), 100)
             ->setInstructions("PHP SDK Test")
+            ->setNote("Oi")
             ->pay();
 
         $this->assertEquals(100, $result->payments[0]->amount);
@@ -238,15 +240,15 @@ class PaymentTest extends TestCase
         $this->assertNotNull($result);
     }
 
-    public function testShouldMultiplesBankSlip()
-    {
-        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
-
-        $result = $paggcerto->bankSlipPayment()
-            ->addPayment("aP2")
-            ->addPayment("REE")
-            ->makeMultiplesBankSlipPDF();
-
-        $this->assertNotNull($result);
-    }
+//    public function testShouldMultiplesBankSlip()
+//    {
+//        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
+//
+//        $result = $paggcerto->bankSlipPayment()
+//            ->addPayment("aP2")
+//            ->addPayment("REE")
+//            ->makeMultiplesBankSlipPDF();
+//
+//        $this->assertNotNull($result);
+//    }
 }

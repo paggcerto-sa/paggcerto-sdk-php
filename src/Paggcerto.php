@@ -11,6 +11,7 @@ use Paggcerto\Service\BankService;
 use Paggcerto\Service\BankSlipPaymentService;
 use Paggcerto\Service\BusinessActivityService;
 use Paggcerto\Service\BusinessTypeService;
+use Paggcerto\Service\CardManagementService;
 use Paggcerto\Service\CardPaymentService;
 use Paggcerto\Service\CityService;
 use Paggcerto\Service\HolderAccountService;
@@ -152,5 +153,13 @@ class Paggcerto extends ToConnect
     public function payment()
     {
         return new PaymentService($this);
+    }
+
+    /**
+     * @return CardManagementService
+     */
+    public function cardManagement()
+    {
+        return new CardManagementService($this);
     }
 }

@@ -24,6 +24,7 @@ class CardPaymentService extends PaggcertoPayApiService
     public function setSellingKey($sellingKey)
     {
         $this->data->sellingKey = $sellingKey;
+
         return $this;
     }
 

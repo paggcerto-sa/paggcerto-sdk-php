@@ -103,6 +103,13 @@ class BankSlipPaymentService extends PaggcertoPayApiService
         return $this;
     }
 
+    public function setNote($note)
+    {
+        $this->data->note = $note;
+
+        return $this;
+    }
+
     /**
      * @param $dueDate
      * @param $amount

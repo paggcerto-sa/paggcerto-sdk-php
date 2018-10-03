@@ -156,6 +156,23 @@ abstract class PaggcertoService implements JsonSerializable
         return $this->path;
     }
 
+    protected function mountUrlArray($param)
+    {
+        if (count($this->queryString) > 0) {
+            $count = 0;
+
+            foreach ($this->queryString as $key => $value) {
+                if ($count == 0 && $this->path == null) {
+                    $this->path .= "?{$param}={$value}";
+                    $count++;
+                    continue;
+                }
+                $this->path .= "&{$param}={$value}";
+                $count++;
+            }
+        }
+    }
+
     /**
      * @param stdClass $response
      * @return mixed
