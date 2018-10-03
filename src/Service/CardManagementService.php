@@ -7,7 +7,6 @@
 
 namespace Paggcerto\Service;
 
-
 use Requests;
 use stdClass;
 
