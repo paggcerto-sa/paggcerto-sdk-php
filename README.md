@@ -366,5 +366,3 @@ $paggcerto->roleConcept()
     ->setScopes(["account.users.edit", "account.users.readonly"])
     ->roleRevokePermission();
 ```
-
-
