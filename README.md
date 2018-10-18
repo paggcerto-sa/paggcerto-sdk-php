@@ -395,6 +395,7 @@ Para ter acesso a esse método, é necessário ter a seguinte permissão: **acco
 
 ```php
 $updatedUser = $paggcerto->user()
+    ->setId("d2e2")
     ->setRoleId("a0b1")
     ->setFullName("João Mateus dos Santos")
     ->setEmail("joao@email.com")
