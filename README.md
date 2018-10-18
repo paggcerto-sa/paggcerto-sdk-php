@@ -36,8 +36,6 @@
         - [Cadastrar perfil](#cadastrar-perfil)
         - [Atualizar perfil](#atualizar-perfil)
         - [Listar perfis](#listar-perfis)
-            - [Sem filtros](#sem-filtros)
-            - [Com filtros](#com-filtros)
         - [Pesquisar perfil](#pesquisar-perfil)
         - [Desativar perfil](#desativar-perfil)
         - [Ativar perfil](#ativar-perfil)
@@ -48,6 +46,8 @@
     - [Gerenciamento dos usuário](#gerenciamento-dos-usuários)
         - [Cadastrar usuário](#cadastrar-usuário)
         - [Atualizar usuário](#atualizar-usuário)
+        - [Listar usuários](#listar-usuários)
+        - [Pesquisar usuário](#pesquisar-usuário)
 
 
 ## Requisições
@@ -389,7 +389,7 @@ $createdUser = $paggcerto->user()
 print_r($createdUser);
 ```
 ### Atualizar usuário
-Com a utilização deste método os dados do usuário serão atualizados, para isso é necessário informar o `id` do usuário desejado. 
+Com a utilização deste método os dados do usuário serão atualizados, para isso é necessário informar o `ID` do usuário desejado. 
 
 Para ter acesso a esse método, é necessário ter a seguinte permissão: **account.users.edit**.
 
@@ -403,4 +403,44 @@ $updatedUser = $paggcerto->user()
     ->updateUser();
 
 print_r($updatedUser);
+```
+
+### Listar usuários
+O objetivo deste método é listar todos os usuários cadastrados.
+
+Para ter acesso a esse método, é necessário ter a seguinte permissão: **account.users.readonly**
+
+#### Sem filtros
+
+```php
+$list = $paggcerto->user()
+    ->usersList();
+
+print_r($list);
+```
+
+#### Com filtros
+
+```php
+$listWithFilters = $paggcerto->user()
+    ->setFullName("João Mateus")
+    ->setEmail("joao@email.com")
+    ->setTaxDocument("123.123.123-87")
+    ->setLength(2)
+    ->setIndex(2)
+    ->usersList();
+
+print_r($listWithFilters);
+```
+### Pesquisar usuário
+Esse método deve ser utilizado quando se deseja pesquisar um usuário específico, para isso o `ID` do usuário deve ser informado. 
+
+Para ter acesso a esse método, é necessário ter a seguinte permissão: **account.users.readonly**
+
+```php
+$search = $paggcerto->user()
+    ->setId("d2e2")
+    ->searchUser();
+
+print_r($search);
 ```
