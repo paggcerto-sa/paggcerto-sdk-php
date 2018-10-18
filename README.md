@@ -45,6 +45,8 @@
     - [Permissões dos perfis](#permissões-dos-perfis)
         - [Conceder permissão](#conceder-permissão)
         - [Revogar permissão](#revogar-permissão)
+    - [Gerenciamento dos usuário](#gerenciamento-dos-usuários)
+        - [Cadastrar usuário](#cadastrar-usuário)
 
 
 ## Requisições
@@ -365,4 +367,21 @@ $paggcerto->roleConcept()
     ->setRoleId("a0b1")
     ->setScopes(["account.users.edit", "account.users.readonly"])
     ->roleRevokePermission();
+```
+## Gerenciamento dos usuários
+A seguir serão apresentados todos os métodos com funcionalidades para o gerenciamento dos usuários. Os usuários são pessoas que realizam operações em uma conta com a permissão do titular, é necessário que o usuário esteja associado a um perfil.
+
+### Cadastrar usuário
+Com a utilização deste método um novo usuário é criado. Os usuários recém-criados receberão por e-mail o hash de autenticação, que será utilizado no método [autenticar com Hash](#autenticar-com-hash).
+
+```php    
+$createdUser = $paggcerto->user()
+    ->setRoleId("a0b1")
+    ->setFullName("João Mateus dos Santos")
+    ->setEmail("joao@email.com")
+    ->setTaxDocument("123.123.123-87")
+    ->setAppUrl("http://meuaplicativo.com.br")
+    ->createUser();
+
+print_r($createdUser);
 ```
