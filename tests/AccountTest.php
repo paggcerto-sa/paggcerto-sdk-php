@@ -44,7 +44,6 @@ class AccountTest extends TestCase
             ->setBankAccountBankNumber("001")
             ->setBankAccountNumber("31232156132-12")
             ->setBankAccountBranchNumber("0031")
-            ->setBankAccountVariation("001")
             ->setBankAccountType("corrente")
             ->setBankAccountIsJuridic(true)
             ->setAddressCityCode("2800308")
@@ -85,7 +84,6 @@ class AccountTest extends TestCase
             ->setBankAccountBankNumber("001")
             ->setBankAccountNumber("31232156132-12")
             ->setBankAccountBranchNumber("0031")
-            ->setBankAccountVariation("001")
             ->setBankAccountType("corrente")
             ->setBankAccountIsJuridic(true)
             ->setUserEmail("mariana@email" . rand(0,999999). ".com")
@@ -120,14 +118,13 @@ class AccountTest extends TestCase
         $this->assertEquals("Banco do Brasil S.A.", $account->bankAccount->bankName);
         $this->assertEquals("31232156132-12", $account->bankAccount->accountNumber);
         $this->assertEquals("0031", $account->bankAccount->bankBranchNumber);
-        $this->assertEquals("001", $account->bankAccount->variation);
         $this->assertEquals("Corrente", $account->bankAccount->type);
         $this->assertEquals(32, $account->account->transferPlan->days);
         $this->assertEquals(true, $account->account->transferPlan->anticipated);
         $this->assertEquals(true, $account->bankAccount->isJuristic);
         $this->assertEquals(true, $account->account->active);
         $this->assertEquals(true, $account->account->approved);
-        $this->assertEquals(true, $account->account->freeTrial);
+        $this->assertEquals(false, $account->account->freeTrial);
         $this->assertEquals(false, $account->account->balanceBlocked);
         $this->assertEquals(false, $account->account->oldAnticipationPlan);
         $this->assertEquals(0, $account->account->vanBanese);
@@ -167,12 +164,11 @@ class AccountTest extends TestCase
         $this->assertEquals("Banco do Brasil S.A.", $presets->bankAccount->bankName);
         $this->assertEquals("31232156132-12", $presets->bankAccount->accountNumber);
         $this->assertEquals("0031", $presets->bankAccount->bankBranchNumber);
-        $this->assertEquals("001", $presets->bankAccount->variation);
         $this->assertEquals("corrente", strtolower($presets->bankAccount->type));
         $this->assertEquals(true, $presets->bankAccount->isJuristic);
         $this->assertEquals(true, $presets->account->active);
         $this->assertEquals(true, $presets->account->approved);
-        $this->assertEquals(true, $presets->account->freeTrial);
+        $this->assertEquals(false, $presets->account->freeTrial);
         $this->assertEquals(false, $presets->account->balanceBlocked);
         $this->assertEquals(false, $presets->account->oldAnticipationPlan);
         $this->assertEquals(0, $presets->account->vanBanese);

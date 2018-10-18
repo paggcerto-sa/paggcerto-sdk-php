@@ -19,6 +19,7 @@ use Paggcerto\Service\MarketingMediaService;
 use Paggcerto\Service\PaymentService;
 use Paggcerto\Service\RoleConceptService;
 use Paggcerto\Service\RoleService;
+use Paggcerto\Service\WebhooksService;
 
 class Paggcerto extends ToConnect
 {
@@ -26,8 +27,11 @@ class Paggcerto extends ToConnect
     const ACCOUNT_ENDPOINT_PROD = "https://account.paggcerto.com.br/api/";
     const PAYMENTS_ENDPOINT_SANDBOX = "http://payments.sandbox.paggcerto.com.br/api/";
     const PAYMENTS_ENDPOINT_PROD = "https://payments.paggcerto.com.br/api/";
+    const WEBHOOKS_ENDPOINT_SANDBOX = "http://webhooks.sandbox.paggcerto.com.br/api/";
+    const WEBHOOKS_ENDPOINT_PROD = "https://webhooks.paggcerto.com.br/api/";
+
     const CLIENT = "PaggcertoPhpSdk";
-    const CLIENT_VERSION = "0.0.1-beta";
+    const CLIENT_VERSION = "1.0.0";
     const APPLICATION_ID = "Lk";
     const ENDPOINT_SANDBOX = "sandbox";
     const ENDPOINT_PROD = "prod";
@@ -36,7 +40,7 @@ class Paggcerto extends ToConnect
     /**
      * Paggcerto constructor.
      * @param Authentication $paggcertoAuth
-     * @param string $endpoint
+     * @param string $endpointEnvironment
      */
     public function __construct(Authentication $paggcertoAuth, $endpointEnvironment = self::ENDPOINT_SANDBOX)
     {
@@ -161,5 +165,13 @@ class Paggcerto extends ToConnect
     public function cardManagement()
     {
         return new CardManagementService($this);
+    }
+
+    /**
+     * @return WebhooksService
+     */
+    public function webhooksManagement()
+    {
+        return new WebhooksService($this);
     }
 }

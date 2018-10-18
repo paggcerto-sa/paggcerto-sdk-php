@@ -25,6 +25,7 @@ abstract class PaggcertoService implements JsonSerializable
 {
     const ACCOUNT_VERSION = "v2";
     const PAYMENTS_VERSION = "v2";
+    const WEBHOOKS_VERSION = "v2";
     const ACCEPT_VERSION = "application/json";
 
     protected $paggcerto;
