@@ -37,7 +37,7 @@ class PaymentTest extends TestCase
             ->setPinpad(false)
             ->paySimulate();
 
-        $this->assertEquals(111.11, $result->amountCharged);
+        $this->assertEquals(111.44, $result->amountCharged);
         $this->assertEquals(100, $result->amountReceived);
     }
 
@@ -180,6 +180,32 @@ class PaymentTest extends TestCase
     /**
      * @depends testShouldBankSlipPay
      */
+    public function testShouldBankSlipPDF($bankSlipPayment)
+    {
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
+
+        $result = $paggcerto->bankSlipPayment()
+            ->setPaymentId($bankSlipPayment->id)
+            ->makeBankSlipPDF();
+
+        $this->assertNotNull($result);
+    }
+
+    public function testShouldMultiplesBankSlip()
+    {
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
+
+        $result = $paggcerto->bankSlipPayment()
+            ->addPayment("aP2")
+            ->addPayment("REE")
+            ->makeMultiplesBankSlipPDF();
+
+        $this->assertNotNull($result);
+    }
+
+    /**
+     * @depends testShouldBankSlipPay
+     */
     public function testShouldBankSlipCancel($bankSlip)
     {
         $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
@@ -225,30 +251,4 @@ class PaymentTest extends TestCase
         $this->assertEquals(true, $result->cancelable);
         $this->assertEquals(2, count($result->bankSlips));
     }
-
-    /**
-     * @depends testShouldBankSlipPay
-     */
-    public function testShouldBankSlipPDF($bankSlipPayment)
-    {
-        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
-
-        $result = $paggcerto->bankSlipPayment()
-            ->setPaymentId($bankSlipPayment->id)
-            ->makeBankSlipPDF();
-
-        $this->assertNotNull($result);
-    }
-
-//    public function testShouldMultiplesBankSlip()
-//    {
-//        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
-//
-//        $result = $paggcerto->bankSlipPayment()
-//            ->addPayment("aP2")
-//            ->addPayment("REE")
-//            ->makeMultiplesBankSlipPDF();
-//
-//        $this->assertNotNull($result);
-//    }
 }
