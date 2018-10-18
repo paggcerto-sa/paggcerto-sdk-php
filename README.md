@@ -47,6 +47,7 @@
         - [Revogar permissão](#revogar-permissão)
     - [Gerenciamento dos usuário](#gerenciamento-dos-usuários)
         - [Cadastrar usuário](#cadastrar-usuário)
+        - [Atualizar usuário](#atualizar-usuário)
 
 
 ## Requisições
@@ -272,7 +273,7 @@ $createdRole = $paggcerto->role()
 print_r($createdRole);
 ```
 ### Atualizar perfil
-Para atualizar o perfil é necessário informado o identificador  único `roleId` do perfil desejado.
+Para atualizar o perfil é necessário informar o identificador  único `roleId` do perfil desejado.
 ```php
 $updatedRole = $paggcerto->role()
     ->setName("Admin Update Test")
@@ -374,6 +375,8 @@ A seguir serão apresentados todos os métodos com funcionalidades para o gerenc
 ### Cadastrar usuário
 Com a utilização deste método um novo usuário é criado. Os usuários recém-criados receberão por e-mail o hash de autenticação, que será utilizado no método [autenticar com Hash](#autenticar-com-hash).
 
+Para acessar esse método é necessário ter a seguinte permissão: **account.users.edit**
+
 ```php    
 $createdUser = $paggcerto->user()
     ->setRoleId("a0b1")
@@ -384,4 +387,19 @@ $createdUser = $paggcerto->user()
     ->createUser();
 
 print_r($createdUser);
+```
+### Atualizar usuário
+Com a utilização deste método os dados do usuário serão atualizados, para isso é necessário informar o `id` do usuário desejado. 
+
+Para ter acesso a esse método, é necessário ter a seguinte permissão: **account.users.edit**.
+
+```php
+$updatedUser = $paggcerto->user()
+    ->setRoleId("a0b1")
+    ->setFullName("João Mateus dos Santos")
+    ->setEmail("joao@email.com")
+    ->setTaxDocument("123.123.123-87")
+    ->updateUser();
+
+print_r($updatedUser);
 ```
