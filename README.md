@@ -48,6 +48,8 @@
         - [Atualizar usuário](#atualizar-usuário)
         - [Listar usuários](#listar-usuários)
         - [Pesquisar usuário](#pesquisar-usuário)
+        - [Desativar usuário](#desativar-usuário)
+        - [Ativar usuário](#ativar-usuário)
 
 
 ## Requisições
@@ -443,4 +445,29 @@ $search = $paggcerto->user()
     ->searchUser();
 
 print_r($search);
+```
+
+### Desativar usuário
+O `ID` deve ser informado para desativar o usuário. 
+
+Para ter acesso a esse método, é necessário ter a seguinte permissão: **account.users.edit**
+
+```php
+ $deactivate = $paggcerto->user()
+    ->setId("d2e2")
+    ->deactivateUser();
+
+print_r($deactivate);
+```
+
+### Ativar usuário
+Informar o `ID` para ativar o usuário. 
+
+Para ter acesso a esse método, é necessário ter a seguinte permissão: **account.users.edit**
+```php
+$activate = $paggcerto->user()
+    ->setId("d2e2")
+    ->activateUser();
+
+print_r($activate);
 ```
