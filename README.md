@@ -1,4 +1,4 @@
-# Paggcerto SDK PHP v1 
+# Paggcerto SDK PHP v1.0 
 ![Home Image](https://cdn.paggcerto.com.br/img/git/paggcerto-developer.png)
 
 > O modo mais simples e fácil de integrar sua aplicação PHP com a Paggcerto.
