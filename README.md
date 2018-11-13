@@ -113,6 +113,7 @@ $paggcerto = new Paggcerto(new AuthHash($hash), $endpoint);
 ## Exemplos de utilização
 
 ## Conta do Titular
+
 ### Criar conta
 Este método é utilizado para o cadastro da conta do titular. Após a finalização deste cadastro, deve ser realizada a autenticação do titular da conta.
 ```php
@@ -470,4 +471,45 @@ $activate = $paggcerto->user()
     ->activateUser();
 
 print_r($activate);
+```
+## Pagamentos
+
+## Pagamento com cartão
+Pagamento com cartão pode ser realizado a vista ou parcelado, utilizando múltiplos cartões e com possibilidade de split de pagamento. Cada transação de cartão deve obedecer requisitos pré-determinados: validade, limite financeiro do cartão, nome do titular do cartão e código de segurança. Nesta seção são exibidos os métodos para sua utilização.
+
+A tabela abaixo apresenta alguns cartões para a realização de testes em nosso ambiente sandbox. Neste ambiente o nome do titular, a data de validade e o cvv podem ser fictícios:
+
+ Bandeira| Nº do cartão
+ :--------|:---------
+ AMEX | 349881342411264 
+ DINERSCLUB | 30386724055675
+ ELO | 6363693078504487 
+ HIPERCARD | 6062820640453968
+ MASTERCARD | 5111925270937702
+ VISA | 4929915748910899
+ |
+
+ ### Consultar bandeiras de cartão
+ Esse método retorna uma lista com todas as bandeiras aceitas pela Paggcerto e suas respectivas regras de processamento (expressões regulares).
+
+```php
+$result = $paggcerto->cardPayment()
+   ->getCardsBrands();
+
+print_r($result->bins());
+```
+ ### Simular pagamento
+Ao utilizar este método é calculado o valor que o titular irá receber de acordo com o valor cobrado para um pagamento com cartão.
+
+```php
+$result = $paggcerto->cardPayment()
+    ->setAmount(100)
+    ->setInstallments(2)
+    ->setCardBrand("visa")
+    ->setCredit(true)
+    ->setCustomerPaysFee(true)
+    ->setPinpad(false)
+    ->paySimulate();
+
+print_r($result);
 ```
