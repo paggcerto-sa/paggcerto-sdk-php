@@ -50,6 +50,9 @@
         - [Pesquisar usuário](#pesquisar-usuário)
         - [Desativar usuário](#desativar-usuário)
         - [Ativar usuário](#ativar-usuário)
+    - [Pagamento com cartão](#pagamento-com-cartão)
+        - [Consultar bandeiras](#consultar-bandeiras)
+        - [Simular pagamento](#simular-pagamento)
 
 
 ## Requisições
@@ -487,9 +490,8 @@ A tabela abaixo apresenta alguns cartões para a realização de testes em nosso
  HIPERCARD | 6062820640453968
  MASTERCARD | 5111925270937702
  VISA | 4929915748910899
- |
 
- ### Consultar bandeiras de cartão
+ ### Consultar bandeiras
  Esse método retorna uma lista com todas as bandeiras aceitas pela Paggcerto e suas respectivas regras de processamento (expressões regulares).
 
 ```php
