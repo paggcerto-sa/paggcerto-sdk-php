@@ -54,6 +54,7 @@
         - [Consultar bandeiras](#consultar-bandeiras)
         - [Simular pagamento](#simular-pagamento)
         - [Efetuar pagamento com cartão](#efetuar-pagamento-com-cartão)
+        - [Continuar pagamento](#continuar-pagamento)
 
 
 ## Requisições
@@ -522,7 +523,7 @@ Esse método permite que o usuário realize um pagamento utilizando um ou mais c
 
 Em `addCard` devem ser inseridas as seguintes informações: Nome do titular impreso no cartão, número do cartão, mês da validade, ano da validade, valor cobrado (esse valor não pode ser inferior a R$ 1,00 para venda à vista ou inferior a R$ 5,00 para venda parcelada), CVV, número da parcelas, informar  a modalidade da venda: credito (`true`) ou débito (`false`). 
 
-Para ter acesso a esse método, é necessário ter a seguinte permissão: **payments.create**
+Para ter acesso a esse método, é necessário ter a seguinte permissão: **payments.create**.
 
 ```php
 $result = $paggcerto->cardPayment()
@@ -531,6 +532,20 @@ $result = $paggcerto->cardPayment()
     ->setPaymentDeviceSerialNumber("8000151509001953")
     ->setPaymentDeviceModel("mp5")
     ->pay();
+
+print_r($result);
+```
+
+### Continuar pagamento
+A finalidade desse método é permitir que o usuário continue o pagamento que não foi finalizado (o valor do pagamento não foi atingido).
+
+Para ter acesso a esse método, é necessário ter a seguinte permissão: **payments.create**.
+
+```php
+ $result = $paggcerto->cardPayment()
+    ->setPaymentId($payment->id)
+    ->addCard("Maria Alves", "6363693078504487", 5, 2020, 50, "587", 1, false)
+    ->payContinue();
 
 print_r($result);
 ```
