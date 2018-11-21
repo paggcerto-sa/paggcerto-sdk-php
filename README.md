@@ -558,7 +558,7 @@ Para ter acesso a esse método, é necessário ter a seguinte permissão: **paym
 
 ```php
 $receipt = $paggcerto->cardPayment()
-    ->setNsu($payment->cardTransactions[1]->1005)
+    ->setNsu("1005")
     ->setEmail("alves@email.com")
     ->sendReceipt();
 
