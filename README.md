@@ -55,6 +55,7 @@
         - [Simular pagamento](#simular-pagamento)
         - [Efetuar pagamento com cartão](#efetuar-pagamento-com-cartão)
         - [Continuar pagamento](#continuar-pagamento)
+        - [Enviar comprovante](#enviar-comprovante)
 
 
 ## Requisições
@@ -548,4 +549,17 @@ Para ter acesso a esse método, é necessário ter a seguinte permissão: **paym
     ->payContinue();
 
 print_r($result);
+```
+
+### Enviar Comprovante
+O objetivo deste método é enviar o comprovante da transação para o cliente.
+
+Para ter acesso a esse método, é necessário ter a seguinte permissão: **payments.create**.
+
+```php
+$receipt = $paggcerto->cardPayment()
+    ->setNsu("1005")
+    ->setEmail("alves@email.com")
+    ->sendReceipt();
+
 ```
