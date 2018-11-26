@@ -58,6 +58,7 @@
         - [Enviar comprovante](#enviar-comprovante)
     - [Cancelamento](#cancelamento)
         - [Cancelar pagamento](#cancelar-pagamento)
+        - [Cancelar transação do cartão](#cancelar-transação-do-cartão)
 
 
 ## Requisições
@@ -576,6 +577,19 @@ Para ter acesso a esse método, é necessário ter a seguinte permissão: **paym
 $result = $paggcerto->payment()
     ->setPaymentId("a0b1")
     ->paymentCancel();
+
+print_r($result);
+```
+
+### Cancelar transação do cartão
+O cancelamento da transação do cartão somente será efetuado se for realizado na mesma data do seu processamento.
+
+Para ter acesso a esse método, é necessário ter a seguinte permissão: **payments.create**
+
+```php
+ $result = $paggcerto->cardPayment()
+    ->setNsu("1005")
+    ->cardTransactionCancel();
 
 print_r($result);
 ```
