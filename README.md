@@ -56,6 +56,8 @@
         - [Efetuar pagamento com cartão](#efetuar-pagamento-com-cartão)
         - [Continuar pagamento](#continuar-pagamento)
         - [Enviar comprovante](#enviar-comprovante)
+    - [Cancelamento](#cancelamento)
+        - [Cancelar pagamento](#cancelar-pagamento)
 
 
 ## Requisições
@@ -562,4 +564,18 @@ $receipt = $paggcerto->cardPayment()
     ->setEmail("alves@email.com")
     ->sendReceipt();
 
+```
+## Cancelamento
+
+### Cancelar pagamento
+O cancelamento somente será efetuado se for possível cancelar todas as transações com cartão e todos os boletos. Transações com cartão somente podem ser canceladas se forem realizadas na mesma data do seu processamento. Boletos podem ser cancelados desde que estejam pendentes ou vencidos, desta forma, não é possível cancelar boletos que já foram pagos.
+
+Para ter acesso a esse método, é necessário ter a seguinte permissão: **payments.create**
+
+```php
+$result = $paggcerto->payment()
+    ->setPaymentId("a0b1")
+    ->paymentCancel();
+
+print_r($result);
 ```
