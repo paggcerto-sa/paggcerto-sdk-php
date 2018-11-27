@@ -571,7 +571,7 @@ $receipt = $paggcerto->cardPayment()
 ### Cancelar pagamento
 O cancelamento somente será efetuado se for possível cancelar todas as transações com cartão e todos os boletos. Transações com cartão somente podem ser canceladas se forem realizadas na mesma data do seu processamento. Boletos podem ser cancelados desde que estejam pendentes ou vencidos, desta forma, não é possível cancelar boletos que já foram pagos.
 
-Para ter acesso a esse método, é necessário ter a seguinte permissão: **payments.create**
+Para ter acesso a esse método, é necessário ter a seguinte permissão: **payments.create**.
 
 ```php
 $result = $paggcerto->payment()
@@ -584,12 +584,24 @@ print_r($result);
 ### Cancelar transação do cartão
 O cancelamento da transação do cartão somente será efetuado se for realizado na mesma data do seu processamento.
 
-Para ter acesso a esse método, é necessário ter a seguinte permissão: **payments.create**
+Para ter acesso a esse método, é necessário ter a seguinte permissão: **payments.create**.
 
 ```php
  $result = $paggcerto->cardPayment()
     ->setNsu("1005")
     ->cardTransactionCancel();
 
+print_r($result);
+```
+### Cancelar boleto
+O cancelamento do boleto somente será efetuado se seu pagamento estiver **pendente**.
+
+Para ter acesso a esse método, é necessário ter a seguinte permissão: **payments.create**.
+
+```php
+ $result = $paggcerto->bankSlipPayment()
+    ->setNumber("10000002345")
+    ->cancel();
+    
 print_r($result);
 ```
