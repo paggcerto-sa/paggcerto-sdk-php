@@ -59,6 +59,8 @@
         - [Enviar comprovante](#enviar-comprovante)
     - [Pagamento com boleto](#pagamento-com-boleto)
         - [Efetuar pagamento com boleto](#efetuar-pagamento-com-boleto)
+    - [Conclusão do pagamento](#conclusão-do-pagamento)
+        - [Finalizar pagamento](#finalizar-pagamento)
     - [Cancelamento](#cancelamento)
         - [Cancelar pagamento](#cancelar-pagamento)
         - [Cancelar transação do cartão](#cancelar-transação-do-cartão)
@@ -583,6 +585,28 @@ Notificação | Regras | Comunicação
 
  ### Efetuar pagamento com boleto
 Em breve.
+
+## Conclusão do pagamento
+
+### Finalizar pagamento
+Um pagamento é automaticamente finalizado quando a soma dos valores pagos atinge o valor esperado para o pagamento. Porém, também é possível finalizar um pagamento sem que a soma de todas as transações ou boletos pagos atingam o valor esperado para esse pagamento devido a:
+
+    Pagamentos podem ser concluídos utilizando outra forma de pagamento (dinheiro, cheque, entre outros);
+
+    A contratação do serviço pode ser cancelada, dessa forma os boletos futuros podem ser cancelados, porém, mantendo o que já foi pago.
+
+Para ter acesso a esse método, é necessário ter a seguinte permissão: **payments.create**.
+
+```php
+$conclusion = $paggcerto->payment()
+    ->setPaymentId("a0b1")
+    ->setNote("O valor de R$ 50,00 foi pago em dinheiro.")
+    ->payFinalize();
+
+print_r($conclusion);
+```
+
+
 
 ## Cancelamento
 
