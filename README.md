@@ -50,12 +50,15 @@
         - [Pesquisar usuário](#pesquisar-usuário)
         - [Desativar usuário](#desativar-usuário)
         - [Ativar usuário](#ativar-usuário)
+    - [Pagamentos](#pagamentos)
     - [Pagamento com cartão](#pagamento-com-cartão)
         - [Consultar bandeiras](#consultar-bandeiras)
         - [Simular pagamento](#simular-pagamento)
         - [Efetuar pagamento com cartão](#efetuar-pagamento-com-cartão)
         - [Continuar pagamento](#continuar-pagamento)
         - [Enviar comprovante](#enviar-comprovante)
+    - [Pagamento com boleto](#pagamento-com-boleto)
+        - [Efetuar pagamento com boleto](#efetuar-pagamento-com-boleto)
     - [Cancelamento](#cancelamento)
         - [Cancelar pagamento](#cancelar-pagamento)
         - [Cancelar transação do cartão](#cancelar-transação-do-cartão)
@@ -564,8 +567,23 @@ $receipt = $paggcerto->cardPayment()
     ->setNsu("1005")
     ->setEmail("alves@email.com")
     ->sendReceipt();
-
 ```
+## Pagamento com boleto
+Boleto é um título de cobrança que pode ser pago em qualquer instituição ou estabelecimento conveniado. Além de indicar a data de vencimento, podem conter informações sobre desconto e/ou acréscimo de multa e juros e outras instruções. Após a emissão do boleto e se o e-mail e/ou telefone celular do pagador for informado ele poderá receber notificações, essas notificações são enviadas a partir das 11 horas de acordo com o horário de Brasília.
+
+A tabela a seguir apresenta as regras para o envio das notificações:
+
+Notificação | Regras | Comunicação 
+ |--------|---------|----------
+ Boleto à vencer | A notificação é enviada 3 dias antes do dia do vencimento ou no mesmo dia da emissão, caso o boleto seja emitido em até 3 dias antes do vencimento | Do titular para o pagador
+ Boleto vencido | A notificação é enviada 1, 5 e 10 dias após vencimento | Do titular para o pagador
+ Boleto pago | A notificação é enviada no mesmo dia da liquidação do boleto (após o processamento do arquivo de retorno enviado pelo banco) | Do titular para o pagador
+ Boleto cancelado | A notificação é enviada no mesmo dia do cancelamento do boleto | Do titular para o pagador
+ Boleto expirado | A notificação é enviada na data do cancelamento (baixa automática) programada junto ao banco no momento do registro | Do titular para o pagador 
+
+ ### Efetuar pagamento com boleto
+Em breve.
+
 ## Cancelamento
 
 ### Cancelar pagamento
@@ -602,6 +620,6 @@ Para ter acesso a esse método, é necessário ter a seguinte permissão: **paym
  $result = $paggcerto->bankSlipPayment()
     ->setNumber("10000002345")
     ->cancel();
-    
+
 print_r($result);
 ```
