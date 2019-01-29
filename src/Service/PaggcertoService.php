@@ -99,9 +99,9 @@ abstract class PaggcertoService implements JsonSerializable
         $body = null;
         if ($payload !== null) {
             $body = json_encode($payload, JSON_UNESCAPED_SLASHES);
-            if ($body) {
+
+            if ($body)
                 $headers['Content-Type'] = 'application/json';
-            }
         }
 
         try {
@@ -117,6 +117,12 @@ abstract class PaggcertoService implements JsonSerializable
             if (strlen(strstr($http_response->headers->getValues("content-type")[0],
                     "application/json")) > 0){
                 return json_decode($response_body);
+            }
+
+            if (strlen(strstr($http_response->headers->getValues("content-type")[0],
+                    "application/pdf")) > 0){
+                $parser = new \Smalot\PdfParser\Parser();
+                return $parser->parseContent($response_body);
             }
 
             return $response_body;

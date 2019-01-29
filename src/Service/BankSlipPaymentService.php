@@ -222,7 +222,7 @@ class BankSlipPaymentService extends PaggcertoPayApiService
     public function makeBankSlipPDF()
     {
         $urlPath = self::BANKSLIPS_URL . "/pdf/{$this->data->paymentId}";
-        return $this->httpRequest($urlPath, Requests::GET, $this->data);
+        return $this->httpRequest($urlPath, Requests::GET);
     }
 
     /**
@@ -254,7 +254,7 @@ class BankSlipPaymentService extends PaggcertoPayApiService
             $urlPath .= "&payments={$payment}";
         }
 
-        return $this->httpRequest($urlPath, Requests::GET, $this->data);
+        return $this->httpRequest($urlPath, Requests::GET);
     }
 
     /**

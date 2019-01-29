@@ -21,14 +21,14 @@ class CardManagmentTest extends TestCase
             ->setHolderName("Maria das Graças")
             ->setNumber("4929915748910899")
             ->setExpirationMonth(12)
-            ->setExpirationYear(2018)
+            ->setExpirationYear(2023)
             ->setSecurityCode("998")
             ->cardRegister();
 
         $this->assertEquals("492991******0899", $card->number);
         $this->assertEquals("Maria das Graças", $card->holderName);
         $this->assertEquals(12, $card->expirationMonth);
-        $this->assertEquals(2018, $card->expirationYear);
+        $this->assertEquals(2023, $card->expirationYear);
 
         return $card;
     }
@@ -59,7 +59,7 @@ class CardManagmentTest extends TestCase
         $this->assertEquals("492991******0899", $card->number);
         $this->assertEquals("Maria das Graças", $card->holderName);
         $this->assertEquals(12, $card->expirationMonth);
-        $this->assertEquals(2018, $card->expirationYear);
+        $this->assertEquals(2023, $card->expirationYear);
     }
 
     /**
@@ -76,6 +76,6 @@ class CardManagmentTest extends TestCase
         $this->assertEquals("492991******0899", $card->number);
         $this->assertEquals("Maria das Graças", $card->holderName);
         $this->assertEquals(12, $card->expirationMonth);
-        $this->assertEquals(2018, $card->expirationYear);
+        $this->assertEquals(2023, $card->expirationYear);
     }
 }
