@@ -17,6 +17,7 @@ use Paggcerto\Service\CityService;
 use Paggcerto\Service\HolderAccountService;
 use Paggcerto\Service\MarketingMediaService;
 use Paggcerto\Service\PaymentService;
+use Paggcerto\Service\ReportsService;
 use Paggcerto\Service\RoleConceptService;
 use Paggcerto\Service\RoleService;
 use Paggcerto\Service\WebhooksService;
@@ -173,5 +174,13 @@ class Paggcerto extends ToConnect
     public function webhooksManagement()
     {
         return new WebhooksService($this);
+    }
+
+    /**
+     * @return ReportsService
+     */
+    public function reportsManagement()
+    {
+        return new ReportsService($this);
     }
 }

@@ -1,20 +1,18 @@
 <?php
 /**
  * User: erick.antunes
- * Date: 04/09/2018
- * Time: 15:00
+ * Date: 13/03/2019
+ * Time: 11:44
  */
 
 namespace Paggcerto\Service;
 
-
 use Requests;
 use stdClass;
 
-class PaymentService extends PaggcertoPayApiService
+class ReportsService extends PaggcertoPayApiService
 {
-    const PAYMENTS_CONCLUSION_URL = self::PAYMENTS_VERSION . "/finalize";
-    const PAYMENT_CANCEL_URL = self::PAYMENTS_VERSION . "/cancel";
+    const PAYMENTS_DETAILS_URL = self::PAYMENTS_VERSION . "/find";
 
     /**
      * @param $paymentId
@@ -27,58 +25,20 @@ class PaymentService extends PaggcertoPayApiService
         return $this;
     }
 
-    public function setNote($note)
-    {
-        $this->data->note = $note;
-
-        return $this;
-    }
-
     /**
-     * @param $addInformation
-     * @return $this
+     * @return mixed|stdClass
      */
-    public function setAdditionalInformation($addInformation)
+    public function getPaymentDetails()
     {
-        $this->data->additionalInformation = $addInformation;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed|void
-     */
-    public function paymentCancel()
-    {
-        $urlPath = self::PAYMENT_CANCEL_URL . "/{$this->data->paymentId}";
-        $response = $this->httpRequest($urlPath, Requests::POST, $this->data);
+        $urlPath = self::PAYMENTS_DETAILS_URL . "/{$this->data->paymentId}";
+        $response = $this->httpRequest($urlPath, Requests::GET);
 
         return $this->fillEntity($response);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function payFinalize()
-    {
-        $urlPath = self::PAYMENTS_CONCLUSION_URL . "/{$this->data->paymentId}";
-        $response = $this->httpRequest($urlPath, Requests::POST, $this->data);
-
-        return $this->fillEntity($response);
-    }
-
-    /**
-     * @return mixed|void
-     */
-    protected function init()
-    {
-        $this->data = new stdClass();
     }
 
     /**
      * @param stdClass $response
-     * @return mixed
-     *
+     * @return mixed|stdClass
      */
     protected function fillEntity(stdClass $response)
     {
@@ -99,5 +59,13 @@ class PaymentService extends PaggcertoPayApiService
         $result->data->splitters = $this->getIfSet("splitters", $response);
 
         return $result->data;
+    }
+
+    /**
+     * @return mixed|void
+     */
+    protected function init()
+    {
+        $this->data = new stdClass();
     }
 }
