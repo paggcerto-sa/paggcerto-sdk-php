@@ -16,6 +16,7 @@ class CardPaymentService extends PaggcertoPayApiService
     const BINS_URL = self::PAYMENTS_VERSION . "/bins";
     const PAYMENTS_URL = self::PAYMENTS_VERSION . "/pay";
     const PAYMENTS_CARD_TRANSACTION_URL = self::PAYMENTS_VERSION . "/card-transactions";
+    const PAYMENTS_CAPTURE_URL = self::PAYMENTS_VERSION . "/pay/cards/capture";
 
     /**
      * @param $sellingKey
@@ -354,6 +355,17 @@ class CardPaymentService extends PaggcertoPayApiService
     {
         $urlPath = self::PAYMENTS_CARD_TRANSACTION_URL . "/send-receipt/{$this->data->nsu}";
         $this->httpRequest($urlPath, Requests::POST, $this->data);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function paymentCapture()
+    {
+        $urlPath = self::PAYMENTS_CAPTURE_URL . "/{$this->data->paymentId}";
+        $response = $this->httpRequest($urlPath, Requests::PUT, $this->data);
+
+        return $this->fillEntity($response);
     }
 
     /**
