@@ -119,6 +119,27 @@ class CardPaymentService extends PaggcertoPayApiService
     }
 
     /**
+     * @return $this
+     */
+    public function isAuthorizedSale()
+    {
+        $this->data->cards[0]->authorization = true;
+
+        return $this;
+    }
+
+    /**
+     * @param $days
+     * @return $this
+     */
+    public function setDaysLimitAuthorization($days)
+    {
+        $this->data->cards[0]->daysLimitAuthorization = $days;
+
+        return $this;
+    }
+
+    /**
      * @param $appVersion
      * @return $this
      */
@@ -342,7 +363,6 @@ class CardPaymentService extends PaggcertoPayApiService
     {
         $this->data = new stdClass();
         $this->data->cards = [];
-        $this->data->splitters = [];
     }
 
     /**

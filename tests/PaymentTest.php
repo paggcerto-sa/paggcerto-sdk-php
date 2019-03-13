@@ -48,7 +48,7 @@ class PaymentTest extends TestCase
         $result = $paggcerto->cardPayment()
             ->setAmount(100)
             ->addCard("João blah", "4929915748910899", 12,
-                2018, 50, "035", 1, true)
+                2020, 50, "035", 1, true)
             ->setPaymentDeviceSerialNumber("8000151509001953")
             ->setPaymentDeviceModel("mp5")
             ->pay();
@@ -61,6 +61,30 @@ class PaymentTest extends TestCase
             $this->assertEquals(0, count($result->bankSlips));
 
             return $result;
+    }
+
+    public function testShouldPayAuthorized()
+    {
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
+
+        $result = $paggcerto->cardPayment()
+            ->setAmount(100)
+            ->addCard("João blah", "4929915748910899", 12,
+                2020, 50, "035", 1, true)
+            ->setPaymentDeviceSerialNumber("8000151509001953")
+            ->setPaymentDeviceModel("mp5")
+            ->isAuthorizedSale()
+            ->setDaysLimitAuthorization(28)
+            ->pay();
+
+        $this->assertEquals("pending", $result->status);
+        $this->assertEquals(100, $result->amount);
+        $this->assertEquals(50, $result->amountPaid);
+        $this->assertEquals(true, $result->cancelable);
+        $this->assertEquals(1, count($result->cardTransactions));
+        $this->assertEquals(0, count($result->bankSlips));
+
+        return $result;
     }
 
     /**
@@ -138,7 +162,7 @@ class PaymentTest extends TestCase
         $result = $paggcerto->cardPayment()
             ->setAmount(100)
             ->addCard("João blah", "4929915748910899", 12,
-                2018, 50, "035", 1, true)
+                2020, 50, "035", 1, true)
             ->setPaymentDeviceSerialNumber("8000151509001953")
             ->setPaymentDeviceModel("mp5")
             ->pay();
