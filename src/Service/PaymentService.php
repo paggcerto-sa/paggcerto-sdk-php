@@ -46,7 +46,7 @@ class PaymentService extends PaggcertoPayApiService
     }
 
     /**
-     * @return mixed|void
+     * @return mixed
      */
     public function paymentCancel()
     {

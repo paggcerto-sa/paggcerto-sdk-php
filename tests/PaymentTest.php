@@ -88,6 +88,28 @@ class PaymentTest extends TestCase
     }
 
     /**
+     * @depends testShouldPayAuthorized
+     */
+    public function testShouldPaymentCapture($payment)
+    {
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
+
+        $result = $paggcerto->cardPayment()
+            ->setPaymentId($payment->id)
+            ->setAmount(30)
+            ->paymentCapture();
+
+        $this->assertEquals("paid", $result->status);
+        $this->assertEquals(30, $result->amount);
+        $this->assertEquals(30, $result->amountPaid);
+        $this->assertEquals(true, $result->cancelable);
+        $this->assertEquals(1, count($result->cardTransactions));
+        $this->assertEquals(0, count($result->bankSlips));
+
+        return $result;
+    }
+
+    /**
      * @depends testShouldPay
      */
     public function testShouldSendReceipt($payment)
