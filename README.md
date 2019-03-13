@@ -55,7 +55,9 @@
         - [Consultar bandeiras](#consultar-bandeiras)
         - [Simular pagamento](#simular-pagamento)
         - [Efetuar pagamento com cartão](#efetuar-pagamento-com-cartão)
+        - [Pagamento com pré-captura](#pagamento-com-pré-captura)
         - [Continuar pagamento](#continuar-pagamento)
+        - [Capturar pagamento](#capturar-pagamento)
         - [Enviar comprovante](#enviar-comprovante)
     - [Pagamento com boleto](#pagamento-com-boleto)
         - [Efetuar pagamento com boleto](#efetuar-pagamento-com-boleto)
@@ -64,6 +66,8 @@
     - [Cancelamento](#cancelamento)
         - [Cancelar pagamento](#cancelar-pagamento)
         - [Cancelar transação do cartão](#cancelar-transação-do-cartão)
+    - [Relatórios](#relatórios)
+        - [Detalhes do pagamento](#detalhes-do-pagamento)
 
 
 ## Requisições
@@ -545,6 +549,24 @@ $result = $paggcerto->cardPayment()
 print_r($result);
 ```
 
+### Pagamento com pré-captura
+Com a utilização desse método o usuário poderá realizar um pagamento pré-autorizado, ou seja, a autorização do pagamento será realizada de forma manual através do método [Capturar Pagamento](#capturar-pagamento). Sendo assim, o valor informado será temporariamente bloqueado no cartão até que seja finalizada a autorização do pagamento. Para esse tipo de pagamento, o campo **isAuthorizedSale** estar com o valor **true** e deve ser informado a quantidade de dias limite para a captura do pagamento no campo **setDaysLimitAuthorization**. Se este campo não for informado e o *isAuthorizedSale* for *true*, será considerado a quantidade de 29 dias.
+
+Para ter acesso a esse método, é necessário ter a seguinte permissão: **payments.create**.
+
+```php
+$result = $paggcerto->cardPayment()
+    ->setAmount(158.35)
+    ->addCard("Rodrigo Alves", "5111925270937702", 12, 2018, 158.35, "035", 1, true)
+    ->setPaymentDeviceSerialNumber("8000151509001953")
+    ->setPaymentDeviceModel("mp5")
+    ->isAuthorizedSale(true)
+    ->setDaysLimitAuthorization(28)
+    ->pay();
+
+print_r($result);
+```
+
 ### Continuar pagamento
 A finalidade desse método é permitir que o usuário continue o pagamento que não foi finalizado (o valor do pagamento não foi atingido).
 
@@ -555,6 +577,24 @@ Para ter acesso a esse método, é necessário ter a seguinte permissão: **paym
     ->setPaymentId($payment->id)
     ->addCard("Maria Alves", "6363693078504487", 5, 2020, 50, "587", 1, false)
     ->payContinue();
+
+print_r($result);
+```
+
+### Capturar pagamento 
+
+O objetivo desse método é permitir a captura manual de um pagamento em duas etapas:
+
+- O campo **isAuthorizedSale** do método [Pagamento com pré-captura](#pagamento-com-pré-captura) deve ser igual a **true**.
+- Utilizar esse método para a captura efetiva do pagamento.
+
+**Somente o titular possui acesso a esse método.**
+
+```php
+$result = $paggcerto->cardPayment()
+    ->setPaymentId($payment->id)
+    ->setAmount(158.35)
+    ->paymentCapture();
 
 print_r($result);
 ```
@@ -606,8 +646,6 @@ $conclusion = $paggcerto->payment()
 print_r($conclusion);
 ```
 
-
-
 ## Cancelamento
 
 ### Cancelar pagamento
@@ -644,6 +682,21 @@ Para ter acesso a esse método, é necessário ter a seguinte permissão: **paym
  $result = $paggcerto->bankSlipPayment()
     ->setNumber("10000002345")
     ->cancel();
+
+print_r($result);
+```
+
+## Relatórios
+
+### Detalhes do pagamento
+Este método deve ser utilizado para exibir todas as informações a respeito do pagamento desejado.
+
+Para ter acesso a esse método, é necessário ter a seguinte permissão: **payments.readonly**
+
+```php
+ $result = $paggcerto->reportsManagement()
+    ->setPaymentId($payment->id)
+    ->getPaymentDetails();
 
 print_r($result);
 ```
