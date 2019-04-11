@@ -140,24 +140,13 @@ abstract class PaggcertoService implements JsonSerializable
 
     protected function mountUrl()
     {
+        
         if (count($this->routeParams) > 0) {
-            foreach ($this->routeParams as $param) {
-                $this->path .= "/{$param}";
-            }
+            $this->path .= implode("/",$this->routeParams);
         }
 
         if (count($this->queryString) > 0) {
-            $count = 0;
-
-            foreach ($this->queryString as $key => $value) {
-                if ($count == 0) {
-                    $this->path .= "?{$key}={$value}";
-                    $count++;
-                    continue;
-                }
-                $this->path .= "&{$key}={$value}";
-                $count++;
-            }
+            $this->path .= "?" . http_build_query($this->queryString);
         }
 
         return $this->path;
