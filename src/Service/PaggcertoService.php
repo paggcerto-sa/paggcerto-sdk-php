@@ -42,7 +42,7 @@ abstract class PaggcertoService implements JsonSerializable
     public function __construct(Paggcerto $paggcerto)
     {
         $this->paggcerto = $paggcerto;
-        $this->data = new stdClass();
+        $this->data      = new stdClass();
         $this->init();
     }
 
@@ -73,7 +73,7 @@ abstract class PaggcertoService implements JsonSerializable
     {
         $this->routeParams = $routeParams;
         $this->queryString = $queryString;
-        $this->path = $path;
+        $this->path        = $path;
 
         $response = $this->httpRequest($this->mountUrl(), Requests::GET);
 
@@ -96,12 +96,13 @@ abstract class PaggcertoService implements JsonSerializable
     protected function httpRequest($path, $method, $payload = null, $headers = [])
     {
         $http_sess = $this->paggcerto->getSession();
-        $body = null;
+        $body      = null;
         if ($payload !== null) {
             $body = json_encode($payload, JSON_UNESCAPED_SLASHES);
 
-            if ($body)
+            if ($body) {
                 $headers['Content-Type'] = 'application/json';
+            }
         }
 
         try {
@@ -110,17 +111,17 @@ abstract class PaggcertoService implements JsonSerializable
             throw new UnexpectedException($e);
         }
 
-        $code = $http_response->status_code;
+        $code          = $http_response->status_code;
         $response_body = $http_response->body;
         // @codeCoverageIgnoreStart
         if ($code >= 200 && $code < 300) {
             if (strlen(strstr($http_response->headers->getValues("content-type")[0],
-                    "application/json")) > 0){
+                    "application/json")) > 0) {
                 return json_decode($response_body);
             }
 
             if (strlen(strstr($http_response->headers->getValues("content-type")[0],
-                    "application/pdf")) > 0){
+                    "application/pdf")) > 0) {
                 $parser = new \Smalot\PdfParser\Parser();
                 return $parser->parseContent($response_body);
             }
@@ -140,9 +141,9 @@ abstract class PaggcertoService implements JsonSerializable
 
     protected function mountUrl()
     {
-        
+
         if (count($this->routeParams) > 0) {
-            $this->path .= implode("/",$this->routeParams);
+            $this->path .= implode("/", $this->routeParams);
         }
 
         if (count($this->queryString) > 0) {
@@ -194,4 +195,18 @@ abstract class PaggcertoService implements JsonSerializable
     }
 
     protected abstract function setUpEndpoint();
+
+    /**
+     * @param stdClass $object
+     * @param array $keys
+     * @param stdClass $response
+     */
+    protected function hydratorObject(stdClass $object, $keys = [], stdClass $response)
+    {
+        if (count($keys) > 0) {
+            array_walk($keys, function ($key) use ($object, $response) {
+                $object->$key = $this->getIfSet($key, $response);
+            });
+        }
+    }
 }

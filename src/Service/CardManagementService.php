@@ -107,14 +107,9 @@ class CardManagementService extends PaggcertoPayApiService
     {
         $result = clone $this;
         $result->data = new stdClass();
-        $result->data->id = $this->getIfSet("id", $response);
-        $result->data->holderName = $this->getIfSet("holderName", $response);
-        $result->data->number = $this->getIfSet("number", $response);
-        $result->data->brand = $this->getIfSet("brand", $response);
-        $result->data->expirationMonth = $this->getIfSet("expirationMonth", $response);
-        $result->data->expirationYear = $this->getIfSet("expirationYear", $response);
-        $result->data->cards = $this->getIfSet("cards", $response);
-        $result->data->count = $this->getIfSet("count", $response);
+
+        $listKeys = ["id", "holderName", "number", "brand", "expirationMonth", "expirationYear", "cards", "count"];
+        $this->hydratorObject($result->data,$listKeys,$response);
 
         return $result->data;
     }

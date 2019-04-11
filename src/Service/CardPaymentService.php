@@ -385,23 +385,13 @@ class CardPaymentService extends PaggcertoPayApiService
     {
         $result = clone $this;
         $result->data = new stdClass();
-        $result->data->bins = $this->getIfSet("bins", $response);
-        $result->data->count = $this->getIfSet("count", $response);
-        $result->data->amountCharged = $this->getIfSet("amountCharged", $response);
-        $result->data->amountReceived = $this->getIfSet("amountReceived", $response);
-        $result->data->id = $this->getIfSet("id", $response);
-        $result->data->sellingKey = $this->getIfSet("sellingKey", $response);
-        $result->data->status = $this->getIfSet("status", $response);
-        $result->data->createdAt = $this->getIfSet("createdAt", $response);
-        $result->data->canceledAt = $this->getIfSet("canceledAt", $response);
-        $result->data->completedAt = $this->getIfSet("completedAt", $response);
-        $result->data->amount = $this->getIfSet("amount", $response);
-        $result->data->amountPaid = $this->getIfSet("amountPaid", $response);
-        $result->data->cancelable = $this->getIfSet("cancelable", $response);
-        $result->data->additionalInformation = $this->getIfSet("additionalInformation", $response);
-        $result->data->cardTransactions = $this->getIfSet("cardTransactions", $response);
-        $result->data->splitters = $this->getIfSet("splitters", $response);
-        $result->data->bankSlips = $this->getIfSet("bankSlips", $response);
+
+        $listKeys = [
+            "bins", "count", "amountCharged", "amountReceived", "id", "sellingKey", "status", "createdAt",
+            "canceledAt", "completedAt", "amount", "amountPaid", "cancelable", "additionalInformation",
+            "cardTransactions", "splitters", "bankSlips"
+        ];
+        $this->hydratorObject($result->data,$listKeys,$response);
 
         return $result->data;
     }

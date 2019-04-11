@@ -98,12 +98,8 @@ class WebhooksService extends PaggcertoWebhookApiService
     {
         $result = clone $this;
         $result->data = new stdClass();
-        $result->data->id = $this->getIfSet("id", $response);
-        $result->data->url = $this->getIfSet("url", $response);
-        $result->data->events = $this->getIfSet("events", $response);
-        $result->data->links = $this->getIfSet("links", $response);
-        $result->data->webHooks = $this->getIfSet("webHooks", $response);
-        $result->data->count = $this->getIfSet("count", $response);
+        $listKeys = ["id", "url", "events", "links", "webHooks", "count"];
+        $this->hydratorObject($result->data,$listKeys,$response);
 
         return $result->data;
     }

@@ -32,16 +32,8 @@ class AuthService extends PaggcertoAccountApiService
     {
         $acc = clone $this;
         $acc->data = new stdClass();
-        $acc->data->token = $this->getIfSet("token", $response);
-        $acc->data->application = $this->getIfSet("application", $response);
-        $acc->data->holder = $this->getIfSet("holder", $response);
-        $acc->data->account = $this->getIfSet("account", $response);
-        $acc->data->bankAccount = $this->getIfSet("bankAccount", $response);
-        $acc->data->address = $this->getIfSet("address", $response);
-        $acc->data->user = $this->getIfSet("user", $response);
-        $acc->data->scope = $this->getIfSet("scope", $response);
-        $acc->data->accessGranted = $this->getIfSet("accessGranted", $response);
-        $acc->data->accessedByHolder = $this->getIfSet("accessedByHolder", $response);
+        $listKeys = ["token", "application", "holder", "account", "bankAccount", "address", "user", "scope", "accessGranted", "accessedByHolder"];
+        $this->hydratorObject($acc->data,$listKeys,$response);
 
         return $acc->data;
     }

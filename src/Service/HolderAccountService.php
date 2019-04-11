@@ -426,12 +426,8 @@ class HolderAccountService extends PaggcertoAccountApiService
     {
         $holderAccount = clone $this;
         $holderAccount->data = new stdClass();
-        $holderAccount->data->holder = $this->getIfSet("holder", $response);
-        $holderAccount->data->address = $this->getIfSet("address", $response);
-        $holderAccount->data->bankAccount = $this->getIfSet("bankAccount", $response);
-        $holderAccount->data->account = $this->getIfSet("account", $response);
-        $holderAccount->data->registrationOrigin = $this->getIfSet("registrationOrigin", $response);
-        $holderAccount->data->businessActivity = $this->getIfSet("businessActivity", $response);
+        $listKeys = ["holder", "address", "bankAccount", "account", "registrationOrigin", "businessActivity"];
+        $this->hydratorObject($holderAccount->data,$listKeys,$response);
 
         return $holderAccount->data;
     }

@@ -186,14 +186,9 @@ class RoleService extends PaggcertoAccountApiService
     {
         $roleReturn = clone $this;
         $roleReturn->data = new stdClass();
-        $roleReturn->data->id = $this->getIfSet("id", $response);
-        $roleReturn->data->name = $this->getIfSet("name", $response);
-        $roleReturn->data->active = $this->getIfSet("active", $response);
-        $roleReturn->data->createdAt = $this->getIfSet("createdAt", $response);
-        $roleReturn->data->totalUsers = $this->getIfSet("totalUsers", $response);
-        $roleReturn->data->scopes = $this->getIfSet("scopes", $response);
-        $roleReturn->data->roles = $this->getIfSet("roles", $response);
-        $roleReturn->data->count = $this->getIfSet("count", $response);
+
+        $listKeys = ["id", "name", "active", "createdAt", "totalUsers", "scopes", "roles", "count"];
+        $this->hydratorObject($roleReturn->data,$listKeys,$response);
 
         return $roleReturn->data;
     }
