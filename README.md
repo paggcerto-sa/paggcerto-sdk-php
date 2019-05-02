@@ -1,4 +1,4 @@
-# Paggcerto SDK PHP v1.0.4
+# Paggcerto SDK PHP v1.1.0
 ![Home Image](https://cdn.paggcerto.com.br/img/git/paggcerto-developer.png)
 
 > O modo mais simples e fácil de integrar sua aplicação PHP com a Paggcerto.
@@ -68,6 +68,11 @@
         - [Cancelar transação do cartão](#cancelar-transação-do-cartão)
     - [Relatórios](#relatórios)
         - [Detalhes do pagamento](#detalhes-do-pagamento)
+    - [Gerenciamento dos recebedores](#gerenciamento-dos-recebedores)
+        - [Cadastrar recebedor](#cadastrar-recebedor)
+        - [Atualizar recebedor](#atualizar-recebedor)
+        - [Listar recebedores](#listar-recebedores)
+        - [Pesquisar recebedor](#pesquisar-recebedor)
 
 
 ## Requisições
@@ -699,4 +704,79 @@ Para ter acesso a esse método, é necessário ter a seguinte permissão: **paym
     ->getPaymentDetails();
 
 print_r($result);
+```
+
+## Gerenciar os recebedores
+
+### Cadastrar recebedor
+A finalidade deste método é cadastrar os recebedores para split de pagamento. Somente o titular da conta pode cadastrar recebedores.
+
+```php
+    $createSplit = $paggcerto->split()
+        ->setName("Administrador")
+        ->setHolderName("Mariana Fulano de Tal")
+        ->setTaxDocument("578.585.110-50")
+        ->setAddressCityCode("2800308")
+        ->setAddressDistrict("Smallville")
+        ->setAddressLine1("Rua do Talon")
+        ->setAddressLine2("Ap 001, Cleveland House")
+        ->setAddressStreetNumber("6000")
+        ->setAddressZipCode("49030-620")
+        ->setBankAccountBankNumber("001")
+        ->setBankAccountNumber("31232156132-12")
+        ->setBankAccountBranchNumber("0031")
+        ->setBankAccountType("corrente")
+        ->setTransferDays(32)
+        ->setAnticipatedTransfer(true)
+        ->createSplitter();
+
+    print_r($createSplit);
+```
+
+### Atualizar recebedor
+O objetivo deste método é atualizar as informações do recebedor especificado no endpoint. Somente o titular da conta pode atualizar recebedores.
+
+```php
+    $updateSplit = $paggcerto->split()
+        ->setSplitterId($id)
+        ->setName("Administrado")
+        ->setHolderName("Mariana Fulano de Tal")
+        ->setTaxDocument("029.378.350-07")
+        ->setAddressCityCode("2800308")
+        ->setAddressDistrict("Smallville")
+        ->setAddressLine1("Rua do Talon")
+        ->setAddressLine2("Ap 001, Cleveland House")
+        ->setAddressStreetNumber("6000")
+        ->setAddressZipCode("49030-620")
+        ->setBankAccountBankNumber("001")
+        ->setBankAccountNumber("31232156132-12")
+        ->setBankAccountBranchNumber("0031")
+        ->setBankAccountType("corrente")
+        ->setTransferDays(32)
+        ->setAnticipatedTransfer(false)
+        ->updateSplitter();
+
+    print_r($updateSplit);
+```
+
+### Pesquisar  recebedor
+Esse método deve ser utilizado quando se deseja pesquisar um recebedor específico. Somente o titular da conta pode pesquisar recebedor.
+
+```php
+    $split = $paggcerto->split()
+        ->setSplitterId($id)
+        ->searchSplitter();
+
+    print_r($split);
+```
+
+### Listar  recebedores
+O objetivo deste método é listar todos os recebedores cadastrados. Somente o titular da conta pode listar recebedores.
+
+```php
+    $split = $paggcerto->split()
+        ->setName("Fulano")
+        ->splittersList();
+
+    print_r($split);
 ```
