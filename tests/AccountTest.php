@@ -89,9 +89,9 @@ class AccountTest extends TestCase
             ->setUserEmail("mariana@email" . rand(0,999999). ".com")
             ->setUserPassword("12345678")
             ->setBusinessActivityId("vL")
-            ->setMarketingMediaId("b9")
-            ->setTransferPlanDays(32)
-            ->setTransferPlanAnticipated(true)
+			->setMarketingMediaId("b9")
+			->setTransferPlanDays(32)
+			->setTransferPlanAnticipated(true)
             ->createHolderAccount();
 
         $this->assertNotEmpty($account);

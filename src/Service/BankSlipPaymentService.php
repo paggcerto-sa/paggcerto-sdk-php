@@ -188,6 +188,10 @@ class BankSlipPaymentService extends PaggcertoPayApiService
      */
     public function addSplitter($id, $paysFee, $salesCommission, $amount)
     {
+		if ($this->data->splitters == null) {
+			$this->data->splitters = [];
+		}
+
         $splitter = new Splitter($id, $paysFee, $salesCommission, $amount);
         array_push($this->createSplitters()->data->splitters, $splitter);
 
