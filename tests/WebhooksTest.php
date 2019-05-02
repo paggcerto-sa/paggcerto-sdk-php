@@ -78,11 +78,11 @@ class WebhooksTest extends TestCase
         $webhookResult = $paggcerto->webhooksManagement()
             ->setId($webhook->id)
             ->setUrl("http://www.google.com")
+			->setEvents(["PAYMENTS.CANCELLED"])
             ->update();
 
         $this->assertEquals("http://www.google.com", $webhookResult->url);
-        $this->assertEquals($webhook->events[0], $webhookResult->events[0]);
-        $this->assertEquals($webhook->events[1], $webhookResult->events[1]);
+        $this->assertEquals($webhook->events[1], $webhookResult->events[0]);
         $this->assertNotNull($webhookResult->links);
     }
 
@@ -99,8 +99,7 @@ class WebhooksTest extends TestCase
             ->delete();
 
         $this->assertEquals("http://www.google.com", $webhookResult->url);
-        $this->assertEquals($webhook->events[0], $webhookResult->events[0]);
-        $this->assertEquals($webhook->events[1], $webhookResult->events[1]);
+        $this->assertEquals($webhook->events[1], $webhookResult->events[0]);
         $this->assertNotNull($webhookResult->links);
     }
 }

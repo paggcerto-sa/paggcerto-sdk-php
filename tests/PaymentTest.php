@@ -297,4 +297,46 @@ class PaymentTest extends TestCase
         $this->assertEquals(true, $result->cancelable);
         $this->assertEquals(2, count($result->bankSlips));
     }
+
+	public function testShouldPayWithSplitter()
+	{
+		$paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
+
+		$split = $paggcerto->split()
+				->setName("Administrador")
+				->setHolderName("Mariana Fulano de Tal")
+				->setTaxDocument("513.257.580-35")
+				->setAddressCityCode("2800308")
+				->setAddressDistrict("Smallville")
+				->setAddressLine1("Rua do Talon")
+				->setAddressLine2("Ap 001, Cleveland House")
+				->setAddressStreetNumber("6000")
+				->setAddressZipCode("49030-620")
+				->setBankAccountBankNumber("001")
+				->setBankAccountNumber("31232156132-12")
+				->setBankAccountBranchNumber("0031")
+				->setBankAccountType("corrente")
+				->setTransferDays(32)
+				->setAnticipatedTransfer(true)
+				->createSplitter();
+
+		$result = $paggcerto->cardPayment()
+			->setAmount(100)
+			->addCard("João blah", "4929915748910899", 12,
+				2020, 50, "035", 1, true)
+			->setPaymentDeviceSerialNumber("8000151509001953")
+			->setPaymentDeviceModel("mp5")
+			->addSplitters($split->id,false, 10, 100)
+			->pay();
+
+		$this->assertEquals("pending", $result->status);
+		$this->assertEquals(100, $result->amount);
+		$this->assertEquals(50, $result->amountPaid);
+		$this->assertEquals(true, $result->cancelable);
+		$this->assertEquals(1, count($result->cardTransactions));
+		$this->assertEquals(0, count($result->bankSlips));
+		$this->assertEquals(1, count($result->splitters));
+
+		return $result;
+	}
 }

@@ -20,6 +20,7 @@ use Paggcerto\Service\PaymentService;
 use Paggcerto\Service\ReportsService;
 use Paggcerto\Service\RoleConceptService;
 use Paggcerto\Service\RoleService;
+use Paggcerto\Service\SplitService;
 use Paggcerto\Service\WebhooksService;
 
 class Paggcerto extends ToConnect
@@ -183,4 +184,12 @@ class Paggcerto extends ToConnect
     {
         return new ReportsService($this);
     }
+
+	/**
+	 * @return SplitService
+	 */
+	public function split()
+	{
+		return new SplitService($this);
+	}
 }
