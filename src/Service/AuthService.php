@@ -46,9 +46,9 @@ class AuthService extends PaggcertoAccountApiService
         return $acc->data;
     }
 
-    public function authCredentials($email, $password)
+    public function authCredentials($email, $password, $appId = null)
     {
-        $path = sprintf(self::AUTH_CREDENTIALS, Paggcerto::APPLICATION_ID);
+        $path = sprintf(self::AUTH_CREDENTIALS, $appId == null ? Paggcerto::APPLICATION_ID : $appId);
         $credentials = new stdClass();
         $credentials->login = $email;
         $credentials->password = $password;
@@ -57,9 +57,9 @@ class AuthService extends PaggcertoAccountApiService
         return $this->fillEntity($response);
     }
 
-    public function authHash($hash)
+    public function authHash($hash, $appId = null)
     {
-        $path = sprintf(self::AUTH_CREDENTIALS, Paggcerto::APPLICATION_ID);
+        $path = sprintf(self::AUTH_CREDENTIALS, $appId == null ? Paggcerto::APPLICATION_ID : $appId);
         $path .= $hash;
         $response = $this->httpRequest($path, Requests::POST);
 

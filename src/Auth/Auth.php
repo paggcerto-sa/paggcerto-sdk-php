@@ -28,12 +28,18 @@ class Auth implements Authentication
     /**
      * @var string
      */
+    private $appId;
+
+    /**
+     * @var string
+     */
     private $token;
 
-    public function __construct($email = null, $password = null)
+    public function __construct($email = null, $password = null, $appId = null)
     {
         $this->email = $email;
         $this->password = $password;
+        $this->appId = $appId;
     }
 
     /**
@@ -81,6 +87,14 @@ class Auth implements Authentication
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAppId()
+    {
+        return $this->appId;
     }
 
     /**

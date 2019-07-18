@@ -25,14 +25,20 @@ class AuthHash implements Authentication
      * @var string
      */
     private $token;
+    
+    /**
+     * @var string
+     */
+    private $appId;
 
-    public function __construct($hash)
+    public function __construct($hash, $appId = null)
     {
         if ($hash == null || gettype($hash) != "string") {
             throw new AuthException("Necessary pass a hash to authenticate.", 400);
         }
 
         $this->hash = $hash;
+        $this->appId = $appId;
     }
 
     /**
@@ -79,6 +85,14 @@ class AuthHash implements Authentication
     public function getHash()
     {
         return $this->hash;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAppId()
+    {
+        return $this->appId;
     }
 
     /**
