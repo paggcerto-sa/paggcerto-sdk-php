@@ -117,8 +117,9 @@ use Paggcerto\Auth\Auth;
 $endpoint = "prod";
 $user = "example@email.com";
 $password = "12345678";
+$appId = "LkD";
 
-$paggcerto = new Paggcerto(new Auth($user, $password), $endpoint);
+$paggcerto = new Paggcerto(new Auth($user, $password, $appId), $endpoint);
 ```
 #### Por auth com hash
 
@@ -130,8 +131,9 @@ use Paggcerto\Auth\Auth;
 
 $endpoint = "prod";
 $hash = "Ehjikkja585569779efwrf.ihuheyvvc872622791ndbdehv";
+$appId = "LkD";
 
-$paggcerto = new Paggcerto(new AuthHash($hash), $endpoint);
+$paggcerto = new Paggcerto(new AuthHash($hash, $appId), $endpoint);
 ```
 ## Exemplos de utilização
 
