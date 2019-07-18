@@ -50,14 +50,14 @@ class Paggcerto extends ToConnect
 
         if ($paggcertoAuth instanceof Auth) {
             $token = $this->authentication()
-                ->authCredentials($paggcertoAuth->getEmail(), $paggcertoAuth->getPassword())
+                ->authCredentials($paggcertoAuth->getEmail(), $paggcertoAuth->getPassword(), $paggcertoAuth->getAppId())
                 ->token;
             $paggcertoAuth->setToken($token);
         }
 
         if ($paggcertoAuth instanceof AuthHash) {
             $token = $this->authentication()
-                ->authHash($paggcertoAuth->getHash())
+                ->authHash($paggcertoAuth->getHash(), $paggcertoAuth->getAppId())
                 ->token;
             $paggcertoAuth->setToken($token);
         }
