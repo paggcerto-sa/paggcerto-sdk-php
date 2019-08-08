@@ -631,7 +631,26 @@ Notificação | Regras | Comunicação
  Boleto expirado | A notificação é enviada na data do cancelamento (baixa automática) programada junto ao banco no momento do registro | Do titular para o pagador 
 
  ### Efetuar pagamento com boleto
-Em breve.
+O ojetivo deste método é realizado o pagamento com boletos. Por meio dele pode ser gerado apenas um ou mais boletos (carnê).
+
+Para ter acesso a esse método, é necessário ter a seguinte permissão: payments.create
+
+```php
+$dateDue = (new DateTime())->add(new DateInterval("P10D"));
+$result = $paggcerto->bankSlipPayment()
+    ->setDiscount(2.55)
+    ->setDiscountDays(30)
+    ->setFines(5)
+    ->setInterest(3)
+    ->setAcceptedUntil(15)
+    ->addPayer("Rodrigo Alves", "953.262.300-03")
+    ->addInstallment($dateDue->format("Y-m-d"), 100)
+    ->setInstructions("PHP SDK")
+    ->setNote("Descrição")
+    ->pay();
+
+print_r($result);
+```
 
 ## Conclusão do pagamento
 
