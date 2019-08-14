@@ -338,5 +338,32 @@ class PaymentTest extends TestCase
 		$this->assertEquals(1, count($result->splitters));
 
 		return $result;
-	}
+    }
+
+    public function testShouldPayWithId()
+    {
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
+
+        $card = $paggcerto->cardManagement()
+            ->setHolderName("Maria das Graças")
+            ->setNumber("4929915748910899")
+            ->setExpirationMonth(12)
+            ->setExpirationYear(2023)
+            ->setSecurityCode("998")
+            ->cardRegister();
+
+        $result = $paggcerto->cardPayment()
+            ->setAmount(100)
+            ->addCardWithId($card->id, 100)
+            ->pay();
+
+        $this->assertEquals("paid", $result->status);
+        $this->assertEquals(100, $result->amount);
+        $this->assertEquals(50, $result->amountPaid);
+        $this->assertEquals(true, $result->cancelable);
+        $this->assertEquals(1, count($result->cardTransactions));
+        $this->assertEquals(0, count($result->bankSlips));
+
+        return $result;
+    }
 }
