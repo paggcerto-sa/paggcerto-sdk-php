@@ -52,6 +52,21 @@ class CardPaymentService extends PaggcertoPayApiService
 
     /**
      * @param $id
+     * @param $amount
+     * @param $installments
+     * @param $credit
+     * @return $this
+     */
+    public function addCardWithId($id, $amount, $installments = 1, $credit = true) {
+        $card = new Card(null,null,null,null,$amount,null, $installments, $credit, $id);
+        array_push($this->data->cards, $card);
+
+        return $this;
+    }
+
+
+    /**
+     * @param $id
      * @param $paysFee
      * @param $salesCommission
      * @param $amount
@@ -478,6 +493,10 @@ class Card
      * @var
      */
     public $securityCode;
+    /**
+     * @var
+     */
+    public $id;
 
     /**
      * Card constructor.
@@ -489,10 +508,12 @@ class Card
      * @param $securityCode
      * @param int $installments
      * @param bool $credit
+     * @param $id
      */
-    public function __construct($holderName, $number, $expirationMonth,
-                                $expirationYear, $amountPaid, $securityCode, $installments = 1, $credit = true)
+    public function __construct($holderName = null, $number = null, $expirationMonth = null,
+                                $expirationYear = null, $amountPaid = null, $securityCode = null, $installments = 1, $credit = true , $id = null)
     {
+        $this->id = $id;
         $this->holderName = $holderName;
         $this->number = $number;
         $this->expirationMonth = $expirationMonth;
