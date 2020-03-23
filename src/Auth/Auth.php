@@ -8,6 +8,7 @@
 namespace Paggcerto\Auth;
 
 use Paggcerto\Contracts\Authentication;
+use Paggcerto\Paggcerto;
 use Requests_Hooks;
 
 class Auth implements Authentication
@@ -39,7 +40,7 @@ class Auth implements Authentication
     {
         $this->email = $email;
         $this->password = $password;
-        $this->appId = $appId;
+        $this->appId = $appId == null ? Paggcerto::APPLICATION_ID : $appId;
     }
 
     /**

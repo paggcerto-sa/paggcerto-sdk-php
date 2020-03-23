@@ -38,6 +38,7 @@ class Paggcerto extends ToConnect
     const ENDPOINT_SANDBOX = "sandbox";
     const ENDPOINT_PROD = "prod";
     const ENDPOINT_MOCK = "mock";
+    private $appId = self::APPLICATION_ID;
 
     /**
      * Paggcerto constructor.
@@ -53,13 +54,17 @@ class Paggcerto extends ToConnect
                 ->authCredentials($paggcertoAuth->getEmail(), $paggcertoAuth->getPassword(), $paggcertoAuth->getAppId())
                 ->token;
             $paggcertoAuth->setToken($token);
+
+            $this->appId = $paggcertoAuth->getAppId() != null ? $paggcertoAuth->getAppId() : self::APPLICATION_ID;
         }
 
         if ($paggcertoAuth instanceof AuthHash) {
             $token = $this->authentication()
-                ->authHash($paggcertoAuth->getHash(), $paggcertoAuth->getAppId())
+                ->authHash($paggcertoAuth->getHash(), $this->appId, $paggcertoAuth->getAppId())
                 ->token;
             $paggcertoAuth->setToken($token);
+
+            $this->appId = $paggcertoAuth->getAppId() != null ? $paggcertoAuth->getAppId() : self::APPLICATION_ID;
         }
 
         parent::__construct($paggcertoAuth, $endpointEnvironment);
@@ -78,7 +83,7 @@ class Paggcerto extends ToConnect
      */
     public function account()
     {
-        return new HolderAccountService($this);
+        return new HolderAccountService($this, $this->appId);
     }
 
     /**

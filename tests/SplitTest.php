@@ -9,6 +9,7 @@ namespace Paggcerto\Tests;
 
 
 use Paggcerto\Auth\Auth;
+use Paggcerto\Helper\CpfTool;
 use Paggcerto\Paggcerto;
 
 class SplitTest extends TestCase
@@ -19,10 +20,12 @@ class SplitTest extends TestCase
         $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
         $paggcerto->createNewSession();
 
+        $cpf = (new CpfTool())->create(true);
+
         $createSplit = $paggcerto->split()
             ->setName("Administrador")
 			->setHolderName("Mariana Fulano de Tal")
-			->setTaxDocument("578.585.110-50")
+			->setTaxDocument($cpf)
 			->setAddressCityCode("2800308")
 			->setAddressDistrict("Smallville")
 			->setAddressLine1("Rua do Talon")
@@ -39,7 +42,7 @@ class SplitTest extends TestCase
 
         $this->assertNotEmpty($createSplit->id);
         $this->assertEquals("Administrador", $createSplit->name);
-		$this->assertEquals("578.585.110-50", $createSplit->bankAccount->taxDocument);
+		$this->assertEquals($cpf, $createSplit->bankAccount->taxDocument);
 		$this->assertEquals("Smallville", $createSplit->address->district);
 		$this->assertEquals("Rua do Talon", $createSplit->address->line1);
 		$this->assertEquals("Ap 001, Cleveland House", $createSplit->address->line2);
@@ -65,12 +68,13 @@ class SplitTest extends TestCase
 
         $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
         $paggcerto->createNewSession();
+        $cpf = (new CpfTool())->create(true);
 
 		$updateSplit = $paggcerto->split()
 			->setSplitterId($id)
 			->setName("Administrado")
 			->setHolderName("Mariana Fulano de Tal")
-			->setTaxDocument("029.378.350-07")
+			->setTaxDocument($cpf)
 			->setAddressCityCode("2800308")
 			->setAddressDistrict("Smallville")
 			->setAddressLine1("Rua do Talon")
@@ -87,7 +91,7 @@ class SplitTest extends TestCase
 
 		$this->assertNotEmpty($updateSplit->id);
 		$this->assertEquals("Administrado", $updateSplit->name);
-		$this->assertEquals("029.378.350-07", $updateSplit->bankAccount->taxDocument);
+		$this->assertEquals($cpf, $updateSplit->bankAccount->taxDocument);
 		$this->assertEquals("Smallville", $updateSplit->address->district);
 		$this->assertEquals("Rua do Talon", $updateSplit->address->line1);
 		$this->assertEquals("Ap 001, Cleveland House", $updateSplit->address->line2);

@@ -74,7 +74,7 @@ class CardPaymentService extends PaggcertoPayApiService
      */
     public function addSplitters($id, $paysFee, $salesCommission, $amount)
     {
-		if ($this->data->splitters == null) {
+		if (!isset($this->data->splitters) || $this->data->splitters == null) {
 			$this->data->splitters = [];
 		}
 
