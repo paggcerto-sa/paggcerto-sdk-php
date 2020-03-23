@@ -67,8 +67,6 @@ class Paggcerto extends ToConnect
             $this->appId = $paggcertoAuth->getAppId() != null ? $paggcertoAuth->getAppId() : self::APPLICATION_ID;
         }
 
-
-
         parent::__construct($paggcertoAuth, $endpointEnvironment);
     }
 

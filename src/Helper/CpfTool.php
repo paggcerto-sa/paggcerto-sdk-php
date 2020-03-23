@@ -35,11 +35,6 @@ class CpfTool
         return $retorno;
     }
 
-    /**
-     * @param type $dividendo
-     * @param type $divisor
-     * @return type
-     */
     private static function mod($dividendo, $divisor) {
         return round($dividendo - (floor($dividendo / $divisor) * $divisor));
     }
