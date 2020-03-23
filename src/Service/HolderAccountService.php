@@ -13,11 +13,14 @@ use stdClass;
 
 class HolderAccountService extends PaggcertoAccountApiService
 {
-    const SIGNUP_SELLER = self::ACCOUNT_VERSION . "/" . Paggcerto::APPLICATION_ID . "/signup/seller";
     const SETUP_HOLDER_ACCOUNT = self::ACCOUNT_VERSION . "/presets";
+    private $appId;
+    private $signup_seller;
 
-    public function __construct(Paggcerto $paggcerto)
+    public function __construct(Paggcerto $paggcerto, $appId = null)
     {
+        $this->appId = $appId == null ? Paggcerto::APPLICATION_ID : $appId;
+        $this->signup_seller = self::ACCOUNT_VERSION . "/" . $this->appId . "/signup/seller";
         parent::__construct($paggcerto);
     }
 
@@ -399,7 +402,7 @@ class HolderAccountService extends PaggcertoAccountApiService
      */
     public function createHolderAccount()
     {
-        return $this->httpRequest(self::SIGNUP_SELLER, Requests::POST, $this->data);
+        return $this->httpRequest($this->signup_seller, Requests::POST, $this->data);
     }
 
     /**

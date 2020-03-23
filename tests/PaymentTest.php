@@ -10,6 +10,7 @@ namespace Paggcerto\Tests;
 use DateInterval;
 use DateTime;
 use Paggcerto\Auth\Auth;
+use Paggcerto\Helper\CpfTool;
 use Paggcerto\Paggcerto;
 
 class PaymentTest extends TestCase
@@ -37,7 +38,7 @@ class PaymentTest extends TestCase
             ->setPinpad(false)
             ->paySimulate();
 
-        $this->assertEquals(111.44, $result->amountCharged);
+        $this->assertEquals(111, $result->amountCharged);
         $this->assertEquals(100, $result->amountReceived);
     }
 
@@ -301,11 +302,12 @@ class PaymentTest extends TestCase
 	public function testShouldPayWithSplitter()
 	{
 		$paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845"));
+		$cpf = (new CpfTool())->create(true);
 
 		$split = $paggcerto->split()
 				->setName("Administrador")
 				->setHolderName("Mariana Fulano de Tal")
-				->setTaxDocument("513.257.580-35")
+				->setTaxDocument($cpf)
 				->setAddressCityCode("2800308")
 				->setAddressDistrict("Smallville")
 				->setAddressLine1("Rua do Talon")
@@ -359,7 +361,7 @@ class PaymentTest extends TestCase
 
         $this->assertEquals("paid", $result->status);
         $this->assertEquals(100, $result->amount);
-        $this->assertEquals(50, $result->amountPaid);
+        $this->assertEquals(100, $result->amountPaid);
         $this->assertEquals(true, $result->cancelable);
         $this->assertEquals(1, count($result->cardTransactions));
         $this->assertEquals(0, count($result->bankSlips));

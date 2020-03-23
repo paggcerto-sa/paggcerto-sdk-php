@@ -19,8 +19,8 @@ class ReportsTest extends TestCase
 
         $result = $paggcerto->cardPayment()
             ->setAmount(100)
-            ->addCard("João blah", "4929915748910899", 12,
-                2020, 50, "035", 1, true)
+            ->addCard("João blah", "5111925270937702", 12,
+                2023, 50, "035", 1, true)
             ->setPaymentDeviceSerialNumber("8000151509001953")
             ->setPaymentDeviceModel("mp5")
             ->isAuthorizedSale()
