@@ -298,4 +298,79 @@ class AccountTest extends TestCase
             $this->assertEquals("b9", $account->registrationOrigin->marketingMedia->id);
             $this->assertEquals("Anúncio no Google", $account->registrationOrigin->marketingMedia->name);
     }
+
+    public function testShouldCreateAccountWithoutCompany()
+    {
+        $paggcerto = new Paggcerto(new Auth("sandbox-php@paggcerto.com.br", "95625845", '8bD'));
+
+        $cpf = (new CpfTool())->create(true);
+
+        $account = $paggcerto
+            ->account()
+            ->setHolderFullName("Mariana Fulano de Tal")
+            ->setHolderBirthDate("1995-01-18")
+            ->setHolderGender("F")
+            ->setHolderTaxDocument($cpf)
+            ->setHolderPhone("(79) 2946-7954")
+            ->setHolderMobile("(79) 99999-9999")
+            ->setAddressCityCode("2800308")
+            ->setAddressDistrict("Smallville")
+            ->setAddressLine1("Rua do Talon")
+            ->setAddressLine2("Ap 001, Cleveland House")
+            ->setAddressStreetNumber("6000")
+            ->setAddressZipCode("49030-620")
+            ->setBankAccountBankNumber("001")
+            ->setBankAccountNumber("31232156132-12")
+            ->setBankAccountBranchNumber("0031")
+            ->setBankAccountType("corrente")
+            ->setBankAccountIsJuridic(false)
+            ->setUserEmail("mariana@email" . rand(0,999999). ".com")
+            ->setUserPassword("12345678")
+            ->setBusinessActivityId("vL")
+            ->setMarketingMediaId("b9")
+            ->setTransferPlanDays(32)
+            ->setTransferPlanAnticipated(true)
+            ->setComercialName("Bla bla")
+            ->withoutCompany()
+            ->createHolderAccount();
+
+        $this->assertNotEmpty($account);
+        $this->assertEquals("Mariana Fulano de Tal", $account->holder->fullName);
+        $this->assertEquals("F", $account->holder->gender);
+        $this->assertEquals($cpf, $account->holder->taxDocument);
+        $this->assertEquals("(79) 2946-7954", $account->holder->phone);
+        $this->assertEquals("(79) 99999-9999", $account->holder->mobile);
+        $this->assertEquals(false, $account->holder->blacklist);
+        $this->assertNull($account->holder->company);
+        $this->assertEquals("vL", $account->businessActivity->id);
+        $this->assertEquals("Smallville", $account->address->district);
+        $this->assertEquals("Rua do Talon", $account->address->line1);
+        $this->assertEquals("Ap 001, Cleveland House", $account->address->line2);
+        $this->assertEquals("6000", $account->address->streetNumber);
+        $this->assertEquals("49030-620", $account->address->zipCode);
+        $this->assertEquals("Aracaju", $account->address->city->name);
+        $this->assertEquals("2800308", $account->address->city->code);
+        $this->assertEquals("001", $account->bankAccount->bankNumber);
+        $this->assertEquals("Banco do Brasil S.A.", $account->bankAccount->bankName);
+        $this->assertEquals("31232156132-12", $account->bankAccount->accountNumber);
+        $this->assertEquals("0031", $account->bankAccount->bankBranchNumber);
+        $this->assertEquals("Corrente", $account->bankAccount->type);
+        $this->assertEquals(32, $account->account->transferPlan->days);
+        $this->assertEquals(true, $account->account->transferPlan->anticipated);
+        $this->assertEquals(false, $account->bankAccount->isJuristic);
+        $this->assertEquals(true, $account->account->active);
+        $this->assertEquals(true, $account->account->approved);
+        $this->assertEquals(false, $account->account->freeTrial);
+        $this->assertEquals(false, $account->account->balanceBlocked);
+        $this->assertEquals(false, $account->account->oldAnticipationPlan);
+        $this->assertEquals(0, $account->account->vanBanese);
+        $this->assertEquals("BLABLA", $account->account->softDescriptor);
+        $this->assertEquals(null, $account->registrationOrigin->timeOnScreen);
+        $this->assertEquals("Desktop", $account->registrationOrigin->device);
+        $this->assertEquals("Generic", $account->registrationOrigin->browser);
+        $this->assertEquals(null, $account->registrationOrigin->platform);
+        $this->assertEquals(null, $account->registrationOrigin->engine);
+        $this->assertEquals("b9", $account->registrationOrigin->marketingMedia->id);
+        $this->assertEquals("Anúncio no Google", $account->registrationOrigin->marketingMedia->name);
+    }
 }
