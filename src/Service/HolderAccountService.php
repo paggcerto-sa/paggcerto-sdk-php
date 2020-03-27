@@ -398,6 +398,16 @@ class HolderAccountService extends PaggcertoAccountApiService
 
 
     /**
+     * @return $this
+     */
+    public function withoutCompany()
+    {
+        $this->data->holder->company = null;
+
+        return $this;
+    }
+
+    /**
      * @return mixed
      */
     public function createHolderAccount()
