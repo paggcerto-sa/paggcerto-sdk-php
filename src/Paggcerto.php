@@ -25,15 +25,15 @@ use Paggcerto\Service\WebhooksService;
 
 class Paggcerto extends ToConnect
 {
-    const ACCOUNT_ENDPOINT_SANDBOX = "http://account.sandbox.paggcerto.com.br/api/";
-    const ACCOUNT_ENDPOINT_PROD = "https://account.paggcerto.com.br/api/";
-    const PAYMENTS_ENDPOINT_SANDBOX = "http://payments.sandbox.paggcerto.com.br/api/";
-    const PAYMENTS_ENDPOINT_PROD = "https://payments.paggcerto.com.br/api/";
-    const WEBHOOKS_ENDPOINT_SANDBOX = "http://webhooks.sandbox.paggcerto.com.br/api/";
-    const WEBHOOKS_ENDPOINT_PROD = "https://webhooks.paggcerto.com.br/api/";
+    const ACCOUNT_ENDPOINT_SANDBOX = "https://account.sandbox.pagcerto.com.br/api/";
+    const ACCOUNT_ENDPOINT_PROD = "https://account.pagcerto.com.br/api/";
+    const PAYMENTS_ENDPOINT_SANDBOX = "https://payments.sandbox.pagcerto.com.br/api/";
+    const PAYMENTS_ENDPOINT_PROD = "https://payments.pagcerto.com.br/api/";
+    const WEBHOOKS_ENDPOINT_SANDBOX = "https://webhooks.sandbox.pagcerto.com.br/api/";
+    const WEBHOOKS_ENDPOINT_PROD = "https://webhooks.pagcerto.com.br/api/";
 
-    const CLIENT = "PaggcertoPhpSdk";
-    const CLIENT_VERSION = "1.0.0";
+    const CLIENT = "PagcertoPhpSdk";
+    const CLIENT_VERSION = "1.1.5";
     const APPLICATION_ID = "Lk";
     const ENDPOINT_SANDBOX = "sandbox";
     const ENDPOINT_PROD = "prod";
