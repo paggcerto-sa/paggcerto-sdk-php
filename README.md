@@ -1,4 +1,4 @@
-# Paggcerto SDK PHP v1.1.5
+# Paggcerto SDK PHP v1.1.6
 ![Home Image](https://cdn.paggcerto.com.br/img/git/paggcerto-developer.png)
 
 > O modo mais simples e fácil de integrar sua aplicação PHP com a Paggcerto.
@@ -171,6 +171,7 @@ $holder = $paggcerto->account()
     ->setMarketingMediaId("k5")
     ->setTransferPlanDays(32)
     ->setTransferPlanAnticipated(true)
+    ->setMothersName("Mothers Name")
     ->createHolderAccount();
 
 print_r($holder);
@@ -203,6 +204,7 @@ $presetsHolder = $paggcerto->account()
     ->setAddressLine2("Ap 001, Cleveland House")
     ->setAddressStreetNumber("92")
     ->setAddressZipCode("49030-423")
+    ->setMothersName("Mothers Name")
     ->setupHolderAccount();
         
 $this->assertTrue(true);

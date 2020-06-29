@@ -103,7 +103,7 @@ class SplitTest extends TestCase
 		$this->assertEquals("0031", $updateSplit->bankAccount->bankBranchNumber);
 		$this->assertEquals("Corrente", $updateSplit->bankAccount->type);
 		$this->assertEquals(32, $updateSplit->transferDays);
-		$this->assertEquals(false, $updateSplit->anticipatedTransfer);
+		$this->assertEquals(true, $updateSplit->anticipatedTransfer);
     }
 
 	/**

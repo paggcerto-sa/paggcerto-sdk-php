@@ -135,7 +135,7 @@ class PaymentTest extends TestCase
         $result = $paggcerto->cardPayment()
             ->setPaymentId($payment->id)
             ->addCard("Maria blah", "5111925270937702", 5,
-                2020, 50, "587", 1, true)
+                2030, 50, "587", 1, true)
             ->payContinue();
 
         $this->assertEquals("paid", $result->status);
