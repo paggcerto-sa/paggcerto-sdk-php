@@ -54,6 +54,8 @@ class AccountTest extends TestCase
             ->setAddressLine2("Ap 001, Cleveland House")
             ->setAddressStreetNumber("6000")
             ->setAddressZipCode("49030-620")
+            ->setUserEmail("sandbox-php@paggcerto.com.br")
+            ->setMothersName("MothersName test")
             ->setupHolderAccount();
 
         $this->assertTrue(true);
@@ -95,6 +97,7 @@ class AccountTest extends TestCase
 			->setMarketingMediaId("b9")
 			->setTransferPlanDays(32)
 			->setTransferPlanAnticipated(true)
+            ->setMothersName("MothersName test")
             ->createHolderAccount();
 
         $this->assertNotEmpty($account);
@@ -140,6 +143,7 @@ class AccountTest extends TestCase
         $this->assertEquals(null, $account->registrationOrigin->engine);
         $this->assertEquals("b9", $account->registrationOrigin->marketingMedia->id);
         $this->assertEquals("Anúncio no Google", $account->registrationOrigin->marketingMedia->name);
+        $this->assertEquals("MothersName test", $account->holder->mothersName);
     }
 
     public function testShouldGetSetupHolderAccountSandbox()

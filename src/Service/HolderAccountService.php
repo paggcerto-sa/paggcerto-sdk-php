@@ -408,6 +408,17 @@ class HolderAccountService extends PaggcertoAccountApiService
     }
 
     /**
+     * @param $mothersName
+     * @return $this
+     */
+    public function setMothersName($mothersName)
+    {
+        $this->data->holder->mothersName = $mothersName;
+
+        return $this;
+    }
+
+    /**
      * @return mixed
      */
     public function createHolderAccount()
