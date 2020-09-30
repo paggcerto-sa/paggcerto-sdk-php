@@ -275,16 +275,20 @@ O primeiro passo após a realização do cadastro da conta do titular é realiza
 O objetivo da autenticação do usuário é ter como resultado a geração do Token de Acesso. O token gerado para o ambiente sandbox é diferente do token do ambiente de produção.
 
 ```php
-$paggcerto = new Paggcerto(new Auth("mariana@email.com", "12345678"));
+$paggcerto = new Paggcerto(new Auth("mariana@email.com", "12345678", "applicationId"));
 ```
 ### Autenticar com hash
 A finalidade deste método é realizar a autenticação do usuário que foi cadastrado pelo titular da conta através do Hash que foi enviado ao e-mail desse usuário. Como resultado, é gerado o token temporário, que deve ser utilizado para Criar Nova Senha.
+
+```php
+$paggcerto = new Paggcerto(new AuthHash("ZAyCNFfbBWp1wYTB6OJx2e1sd45156d4fewfcdsvcd454"));
+```
 
 ### Autenticar com id do lojista a partir do parceiro
 Através deste método, o parceiro gera o token para o lojista sem a necessidade de conhecer a sua senha, passando apenas o id do lojista que se deseja gerar o token.
 
 ```php
-$paggcerto = new Paggcerto(new AuthHash("ZAyCNFfbBWp1wYTB6OJx2e1sd45156d4fewfcdsvcd454"));
+$paggcerto = new Paggcerto(new Auth("holderId"));
 ```
 
 ### Sem autenticação
