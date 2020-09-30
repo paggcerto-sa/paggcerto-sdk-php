@@ -32,6 +32,7 @@
         - [Autenticar com credenciais](#autenticar-com-credenciais)
         - [Autenticar com hash](#autenticar-com-hash)
         - [Sem autenticação](#sem-autenticação)
+        - [Autenticar com id do lojista a partir do parceiro](#autenticar-com-id-do-lojista-a-partir-do-parceiro)
     - [Gerenciamento dos perfis de usuários](#gerenciamento-dos-perfis-de-usuários)
         - [Cadastrar perfil](#cadastrar-perfil)
         - [Atualizar perfil](#atualizar-perfil)
@@ -278,6 +279,9 @@ $paggcerto = new Paggcerto(new Auth("mariana@email.com", "12345678"));
 ```
 ### Autenticar com hash
 A finalidade deste método é realizar a autenticação do usuário que foi cadastrado pelo titular da conta através do Hash que foi enviado ao e-mail desse usuário. Como resultado, é gerado o token temporário, que deve ser utilizado para Criar Nova Senha.
+
+### Autenticar com id do lojista a partir do parceiro
+Através deste método, o parceiro gera o token para o lojista sem a necessidade de conhecer a sua senha, passando apenas o id do lojista que se deseja gerar o token.
 
 ```php
 $paggcerto = new Paggcerto(new AuthHash("ZAyCNFfbBWp1wYTB6OJx2e1sd45156d4fewfcdsvcd454"));

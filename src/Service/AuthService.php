@@ -1,8 +1,11 @@
 <?php
 /**
- * User: erick.antunes
+ * Author: erick.antunes
  * Date: 28/08/2018
  * Time: 11:28
+ * Last Update: astolfo
+ * Date: 30/09/2020
+ * Time: 12:00 
  */
 
 namespace Paggcerto\Service;
@@ -14,6 +17,7 @@ use stdClass;
 class AuthService extends PaggcertoAccountApiService
 {
     const AUTH_CREDENTIALS = self::ACCOUNT_VERSION . "/%s/signin/";
+    const AUTH_HASH = self::ACCOUNT_VERSION . "/sellers/signin/%s";
     const WHOAMI = self::ACCOUNT_VERSION . "/whoami";
 
 
@@ -42,6 +46,7 @@ class AuthService extends PaggcertoAccountApiService
         $acc->data->scope = $this->getIfSet("scope", $response);
         $acc->data->accessGranted = $this->getIfSet("accessGranted", $response);
         $acc->data->accessedByHolder = $this->getIfSet("accessedByHolder", $response);
+        $acc->data->expiresIn = $this->getIfSet("expiresIn", $response);
 
         return $acc->data;
     }
@@ -61,6 +66,14 @@ class AuthService extends PaggcertoAccountApiService
     {
         $path = sprintf(self::AUTH_CREDENTIALS, $appId == null ? Paggcerto::APPLICATION_ID : $appId);
         $path .= $hash;
+        $response = $this->httpRequest($path, Requests::POST);
+
+        return $this->fillEntity($response);
+    }
+
+    public function authHashByPartner($holderId)
+    {
+        $path = sprintf(self::AUTH_HASH, $holderId);
         $response = $this->httpRequest($path, Requests::POST);
 
         return $this->fillEntity($response);

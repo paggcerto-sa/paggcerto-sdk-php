@@ -33,7 +33,7 @@ class Paggcerto extends ToConnect
     const WEBHOOKS_ENDPOINT_PROD = "https://webhooks.pagcerto.com.br/api/";
 
     const CLIENT = "PagcertoPhpSdk";
-    const CLIENT_VERSION = "1.1.6";
+    const CLIENT_VERSION = "1.1.7";
     const APPLICATION_ID = "Lk";
     const ENDPOINT_SANDBOX = "sandbox";
     const ENDPOINT_PROD = "prod";
