@@ -288,7 +288,7 @@ $paggcerto = new Paggcerto(new AuthHash("ZAyCNFfbBWp1wYTB6OJx2e1sd45156d4fewfcds
 Através deste método, o parceiro gera o token para o lojista sem a necessidade de conhecer a sua senha, passando apenas o id do lojista que se deseja gerar o token.
 
 ```php
-$paggcerto = new Paggcerto(new Auth("holderId"));
+$paggcerto = new Paggcerto(new AuthHashByPartner("holderId"));
 ```
 
 ### Sem autenticação
